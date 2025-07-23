@@ -1,0 +1,38 @@
+/* Modern forced-colors media query to replace deprecated -ms-high-contrast */
+@media (forced-colors: active) {
+  /* Add any high-contrast specific styles here */
+  :root {
+    /* Ensure text remains visible in high contrast mode */
+    --foreground: CanvasText;
+    --background: Canvas;
+    --primary: Highlight;
+    --primary-foreground: HighlightText;
+    --secondary: ButtonText;
+    --secondary-foreground: ButtonFace;
+    --muted: GrayText;
+    --muted-foreground: GrayText;
+    --accent: Highlight;
+    --accent-foreground: HighlightText;
+    --destructive: Mark;
+    --destructive-foreground: MarkText;
+    --border: ButtonText;
+    --input: ButtonText;
+    --ring: Highlight;
+  }
+  
+  /* Ensure buttons and interactive elements are clearly visible */
+  button, 
+  [role="button"],
+  a {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Ensure form controls are clearly visible */
+  input, 
+  select, 
+  textarea {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+} 
