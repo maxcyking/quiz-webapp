@@ -50,6 +50,7 @@ export function ModeToggle() {
           {/* Menu Content */}
           <div className="absolute right-0 top-full mt-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2">
             <button
+              type="button"
               className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
               onClick={() => {
                 setTheme("light");
@@ -59,6 +60,7 @@ export function ModeToggle() {
               Light
             </button>
             <button
+              type="button"
               className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
               onClick={() => {
                 setTheme("dark");
@@ -68,6 +70,7 @@ export function ModeToggle() {
               Dark
             </button>
             <button
+              type="button"
               className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
               onClick={() => {
                 setTheme("system");

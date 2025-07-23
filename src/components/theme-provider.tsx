@@ -29,7 +29,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  storageKey = "theme",
   attribute = "class",
   enableSystem = true,
   disableTransitionOnChange = false,
@@ -65,8 +65,10 @@ export function ThemeProvider({
     if (theme === "system" && enableSystem) {
       const systemTheme = mediaQuery.matches ? "dark" : "light";
       root.classList.add(systemTheme);
+      console.log(`Applied system theme: ${systemTheme}`);
     } else {
       root.classList.add(theme);
+      console.log(`Applied theme: ${theme}`);
     }
 
     // Handle transitions
@@ -83,6 +85,7 @@ export function ThemeProvider({
         const systemTheme = mediaQuery.matches ? "dark" : "light";
         root.classList.remove("light", "dark");
         root.classList.add(systemTheme);
+        console.log(`System theme changed to: ${systemTheme}`);
       }
     };
 
@@ -95,13 +98,14 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
+    setTheme: (newTheme: Theme) => {
       try {
-        localStorage.setItem(storageKey, theme);
+        localStorage.setItem(storageKey, newTheme);
+        console.log(`Theme set to: ${newTheme}`);
       } catch (error) {
         console.warn("Could not save theme to localStorage");
       }
-      setTheme(theme);
+      setTheme(newTheme);
     },
   };
 
@@ -109,7 +113,7 @@ export function ThemeProvider({
   if (!mounted) {
     return (
       <ThemeProviderContext.Provider value={initialState}>
-        <div style={{ visibility: 'hidden' }}>{children}</div>
+        <div className="invisible">{children}</div>
       </ThemeProviderContext.Provider>
     );
   }

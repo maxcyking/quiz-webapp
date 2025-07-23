@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeTest } from "@/components/theme-test";
 import { LogOut, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useExam } from "@/context/exam-context";
@@ -62,6 +63,8 @@ export function Header() {
         {/* Right side - User menu and theme toggle */}
         <div className="flex items-center gap-2">
           <ModeToggle />
+          {/* Temporary theme test component */}
+          {process.env.NODE_ENV === 'development' && <ThemeTest />}
           
           {user ? (
             <DropdownMenu>
