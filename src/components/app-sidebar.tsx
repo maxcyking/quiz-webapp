@@ -107,12 +107,14 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-lg">
-            <Rocket className="h-4 w-4 text-white" />
+          <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 rounded-xl shadow-lg">
+            <Rocket className="h-5 w-5 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-sm">PrepForAll</span>
-            <span className="text-xs text-muted-foreground">Quiz Platform</span>
+            <span className="font-bold text-base bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              PrepForAll
+            </span>
+            <span className="text-xs text-muted-foreground font-medium">Quiz Platform</span>
           </div>
         </div>
       </SidebarHeader>
@@ -120,16 +122,16 @@ export function AppSidebar() {
       <SidebarContent>
         {/* User Profile Section */}
         {user && (
-          <div className="px-4 py-3 border-b">
+          <div className="px-4 py-4 border-b bg-gradient-to-r from-accent/30 to-background dark:from-accent/10 dark:to-background/80">
             <div className="flex items-center gap-3">
-              <Avatar className="h-8 w-8">
+              <Avatar className="h-10 w-10 ring-2 ring-primary/20 dark:ring-primary/30 ring-offset-2 ring-offset-background">
                 <AvatarImage src={user.photoURL || ""} />
-                <AvatarFallback>
+                <AvatarFallback className="bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/30 dark:to-secondary/30 text-primary font-semibold">
                   {user.name?.charAt(0).toUpperCase() || "U"}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col flex-1 min-w-0">
-                <span className="font-medium text-sm truncate">
+                <span className="font-semibold text-sm truncate text-foreground">
                   {user.name || "User"}
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
@@ -144,7 +146,8 @@ export function AppSidebar() {
         <SidebarNav>
           <div className="space-y-1">
             <div className="px-3 py-2">
-              <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
                 Main
               </h2>
             </div>
@@ -169,7 +172,8 @@ export function AppSidebar() {
           {user && (
             <div className="space-y-1 mt-6">
               <div className="px-3 py-2">
-                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
                   Account
                 </h2>
               </div>
@@ -193,7 +197,8 @@ export function AppSidebar() {
           {user?.isAdmin && (
             <div className="space-y-1 mt-6">
               <div className="px-3 py-2">
-                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full"></div>
                   Admin
                 </h2>
               </div>
@@ -212,13 +217,13 @@ export function AppSidebar() {
         </SidebarNav>
 
         {/* Auth Actions */}
-        <div className="mt-auto p-4 border-t">
+        <div className="mt-auto p-4 border-t border-border/10 dark:border-border/20">
           {user ? (
             <Button
               variant="ghost"
               size="sm"
               onClick={handleLogout}
-              className="w-full justify-start gap-3 text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="w-full justify-start gap-3 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 dark:hover:text-red-400"
             >
               <LogOut className="h-4 w-4" />
               Sign Out
@@ -241,4 +246,4 @@ export function AppSidebar() {
       </SidebarContent>
     </Sidebar>
   );
-} 
+}

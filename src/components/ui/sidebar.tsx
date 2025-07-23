@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -68,24 +68,33 @@ export function SidebarTrigger({ className, ...props }: React.ComponentProps<typ
   );
 }
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-}
-
 export function Sidebar({ children, className, ...props }: SidebarProps) {
   const { isOpen, setIsOpen, isMobile } = useSidebar();
 
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side="left" className="w-64 p-0">
+        <SheetContent 
+          side="left" 
+          className={cn(
+            "w-72 p-0 border-r",
+            "bg-background/95 backdrop-blur-md",
+            "dark:bg-background/90 dark:border-border/30",
+            "shadow-lg"
+          )}
+        >
           <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold">Menu</h2>
+            <div className={cn(
+              "flex items-center justify-between p-4 border-b",
+              "bg-gradient-to-r from-background to-muted/30",
+              "dark:from-background/80 dark:to-muted/10"
+            )}>
+              <h2 className="text-lg font-semibold text-foreground">Menu</h2>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
+                className="hover:bg-accent/50"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -100,7 +109,11 @@ export function Sidebar({ children, className, ...props }: SidebarProps) {
   return (
     <div
       className={cn(
-        "hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-white border-r",
+        "hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0",
+        "bg-background/95 backdrop-blur-md border-r",
+        "dark:bg-background/90 dark:border-border/30",
+        "transition-all duration-300 ease-in-out",
+        "shadow-sm dark:shadow-lg",
         className
       )}
       {...props}
@@ -120,7 +133,12 @@ export function SidebarContent({ children, className, ...props }: SidebarProps) 
 
 export function SidebarHeader({ children, className, ...props }: SidebarProps) {
   return (
-    <div className={cn("p-4 border-b", className)} {...props}>
+    <div className={cn(
+      "p-4 border-b",
+      "bg-gradient-to-r from-background to-muted/30",
+      "dark:from-background/80 dark:to-muted/10",
+      className
+    )} {...props}>
       {children}
     </div>
   );
@@ -153,8 +171,18 @@ export function SidebarNavItem({
         asChild
         variant={isActive ? "secondary" : "ghost"}
         className={cn(
-          "w-full justify-start gap-3 h-10 px-3",
-          isActive && "bg-blue-50 text-blue-700 hover:bg-blue-100",
+          "w-full justify-start gap-3 h-11 px-3 rounded-lg transition-all duration-200",
+          "hover:bg-accent hover:text-accent-foreground",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          isActive && [
+            "bg-gradient-to-r from-primary/10 to-background",
+            "dark:from-primary/20 dark:to-background/80",
+            "text-primary font-medium",
+            "hover:from-primary/15 hover:to-background/90",
+            "dark:hover:from-primary/25 dark:hover:to-background/70",
+            "border-l-4 border-l-primary border-y-0 border-r-0",
+            "shadow-sm"
+          ],
           className
         )}
         {...props}
@@ -168,8 +196,18 @@ export function SidebarNavItem({
     <Button
       variant={isActive ? "secondary" : "ghost"}
       className={cn(
-        "w-full justify-start gap-3 h-10 px-3",
-        isActive && "bg-blue-50 text-blue-700 hover:bg-blue-100",
+        "w-full justify-start gap-3 h-11 px-3 rounded-lg transition-all duration-200",
+        "hover:bg-accent hover:text-accent-foreground",
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        isActive && [
+          "bg-gradient-to-r from-primary/10 to-background",
+          "dark:from-primary/20 dark:to-background/80",
+          "text-primary font-medium",
+          "hover:from-primary/15 hover:to-background/90",
+          "dark:hover:from-primary/25 dark:hover:to-background/70",
+          "border-l-4 border-l-primary border-y-0 border-r-0",
+          "shadow-sm"
+        ],
         className
       )}
       {...props}
