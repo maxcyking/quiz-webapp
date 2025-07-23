@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -23,14 +23,13 @@ import {
   Calendar,
   Award
 } from "lucide-react";
-import type { Category } from "@/types/category";
 
-export default function CategoriesPage() {
+function CategoriesContent() {
   const { categories, exams } = useExam();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
+  const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
 
   useEffect(() => {
     // Filter categories based on search query
@@ -301,5 +300,20 @@ export default function CategoriesPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function CategoriesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4 animate-pulse" />
+          <p className="text-gray-600">Loading categories...</p>
+        </div>
+      </div>
+    }>
+      <CategoriesContent />
+    </Suspense>
   );
 } 

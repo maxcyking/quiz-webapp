@@ -12,8 +12,8 @@ export interface Category {
   thumbnailUrl?: string;
   // New fields for subcategories and enhanced features
   parentCategoryId?: string; // For subcategories
-  type: 'main' | 'sub'; // Category type
-  slug: string; // URL-friendly version
+  type?: 'main' | 'sub'; // Category type
+  slug?: string; // URL-friendly version
   metadata?: {
     totalExams: number;
     activeExams: number;

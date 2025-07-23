@@ -131,8 +131,8 @@ export default function AdminCategoriesPage() {
       icon: category.icon,
       color: category.color,
       parentCategoryId: category.parentCategoryId || "",
-      type: category.type,
-      slug: category.slug,
+      type: category.type || "main",
+      slug: category.slug || "",
       thumbnailUrl: category.thumbnailUrl || "",
       isActive: category.isActive,
       pypConfig: category.pypConfig || {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -26,7 +26,6 @@ import {
   Download,
   Eye
 } from "lucide-react";
-import type { Category } from "@/types/category";
 
 // Mock PYP data - replace with actual Firebase data
 const mockPYPCategories = [
@@ -73,7 +72,7 @@ const mockPYPExams = [
   { id: "rrb-ntpc-2023", title: "RRB NTPC 2023", category: "railway", papers: 180, year: 2023 },
 ];
 
-export default function PreviousYearPapersPage() {
+function PreviousYearPapersContent() {
   const { categories } = useExam();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
@@ -357,5 +356,20 @@ export default function PreviousYearPapersPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function PreviousYearPapersPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4 animate-pulse" />
+          <p className="text-gray-600">Loading previous year papers...</p>
+        </div>
+      </div>
+    }>
+      <PreviousYearPapersContent />
+    </Suspense>
   );
 } 

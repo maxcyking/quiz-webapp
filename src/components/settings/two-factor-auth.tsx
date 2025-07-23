@@ -44,8 +44,8 @@ export function TwoFactorAuthDialog() {
       setError("");
       
       // In a real app, this would return a QR code to scan
-      const secretCode = await enable2FA();
-      setQrCode(secretCode ?? "MOCK_SECRET_CODE_123456");
+      await enable2FA();
+      setQrCode("MOCK_SECRET_CODE_123456");
       setStep("verifyCode");
     } catch (error: any) {
       setError(error.message || "Failed to enable 2FA");
