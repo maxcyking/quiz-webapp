@@ -34,7 +34,7 @@ export function SidebarProvider({ children, className, ...props }: SidebarProps)
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -74,8 +74,8 @@ export function Sidebar({ children, className, ...props }: SidebarProps) {
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent 
-          side="left" 
+        <SheetContent
+          side="left"
           className={cn(
             "w-72 p-0 border-r",
             "bg-background/95 backdrop-blur-md",
@@ -157,13 +157,13 @@ interface SidebarNavItemProps extends React.ComponentProps<typeof Button> {
   isActive?: boolean;
 }
 
-export function SidebarNavItem({ 
-  children, 
-  icon, 
-  isActive, 
-  className, 
+export function SidebarNavItem({
+  children,
+  icon,
+  isActive,
+  className,
   asChild,
-  ...props 
+  ...props
 }: SidebarNavItemProps) {
   if (asChild) {
     return (

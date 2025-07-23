@@ -40,6 +40,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { 
   collection, 
   doc, 
@@ -160,7 +161,8 @@ export default function AdminExamsPage() {
     thumbnailUrl: "",
     isAnytime: false,
     categoryId: "",
-    subcategoryId: ""
+    subcategoryId: "",
+    examType: "test-series" // Default to test-series
   });
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
@@ -902,7 +904,8 @@ export default function AdminExamsPage() {
         thumbnailUrl: "",
         isAnytime: false,
         categoryId: "",
-        subcategoryId: ""
+        subcategoryId: "",
+        examType: "test-series"
       });
       
       // Then set the actual form data with a slight delay to ensure state update
@@ -917,7 +920,8 @@ export default function AdminExamsPage() {
           thumbnailUrl: exam.thumbnailUrl || "",
           isAnytime: exam.isAnytime || false,
           categoryId: exam.categoryId || "",
-          subcategoryId: exam.subcategoryId || ""
+          subcategoryId: exam.subcategoryId || "",
+          examType: exam.examType || "test-series"
         });
         
         console.log("Form data updated with subjects:", subjects);
@@ -1036,6 +1040,7 @@ export default function AdminExamsPage() {
         title: string;
         description: string;
         duration: number;
+        examType: string;
         isAnytime: boolean;
         startDate: Date | null;
         endDate: Date | null;
@@ -1047,6 +1052,7 @@ export default function AdminExamsPage() {
         title: formData.title,
         description: formData.description,
         duration: formData.duration,
+        examType: formData.examType,
         isAnytime: formData.isAnytime,
         startDate: formData.isAnytime ? null : (formData.startDate ? new Date(formData.startDate) : null),
         endDate: formData.isAnytime ? null : (formData.endDate ? new Date(formData.endDate) : null),
@@ -1457,6 +1463,7 @@ export default function AdminExamsPage() {
         title: formData.title,
         description: formData.description,
         duration: formData.duration,
+        examType: formData.examType,
         isAnytime: formData.isAnytime,
         startDate: formData.isAnytime ? null : (formData.startDate ? new Date(formData.startDate) : null),
         endDate: formData.isAnytime ? null : (formData.endDate ? new Date(formData.endDate) : null),
@@ -1524,7 +1531,8 @@ export default function AdminExamsPage() {
         thumbnailUrl: "",
         isAnytime: false,
         categoryId: "",
-        subcategoryId: ""
+        subcategoryId: "",
+        examType: "test-series"
       });
       setThumbnailFile(null);
 
@@ -1559,7 +1567,8 @@ export default function AdminExamsPage() {
           thumbnailUrl: "",
           isAnytime: false,
           categoryId: "",
-          subcategoryId: ""
+          subcategoryId: "",
+          examType: "test-series"
         });
       }, 100);
     }
@@ -1887,6 +1896,26 @@ export default function AdminExamsPage() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
+              
+              {/* Exam Type Selection */}
+              <div className="space-y-2">
+                <Label>Exam Type</Label>
+                <RadioGroup
+                  value={formData.examType}
+                  onValueChange={(value) => setFormData({ ...formData, examType: value })}
+                  className="flex flex-row space-x-6"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="test-series" id="edit-test-series" />
+                    <Label htmlFor="edit-test-series">Test Series</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="pyp" id="edit-pyp" />
+                    <Label htmlFor="edit-pyp">PYP (Previous Year Paper)</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="edit-duration">Duration (minutes)</Label>
                 <Input
@@ -2110,6 +2139,26 @@ export default function AdminExamsPage() {
                   placeholder="Enter exam description"
                 />
               </div>
+              
+              {/* Exam Type Selection */}
+              <div className="space-y-2">
+                <Label>Exam Type</Label>
+                <RadioGroup
+                  value={formData.examType}
+                  onValueChange={(value) => setFormData({ ...formData, examType: value })}
+                  className="flex flex-row space-x-6"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="test-series" id="create-test-series" />
+                    <Label htmlFor="create-test-series">Test Series</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="pyp" id="create-pyp" />
+                    <Label htmlFor="create-pyp">PYP (Previous Year Paper)</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="create-duration">Duration (minutes)</Label>
                 <Input
