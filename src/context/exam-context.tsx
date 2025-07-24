@@ -3,7 +3,8 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "@/lib/firebase/config";
-import { 
+import type { Category } from "@/types/category";
+import {
   collection,
   query,
   where,
@@ -19,7 +20,7 @@ import {
   deleteDoc,
   deleteField
 } from "firebase/firestore";
-import { 
+import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -53,20 +54,6 @@ type Subject = {
   totalQuestions: number
   totalMarks: number
   language: "english" | "hindi" | "both"
-}
-
-type Category = {
-  id: string
-  name: string
-  description: string
-  icon: string
-  color: string
-  isActive: boolean
-  order: number
-  createdAt: Date
-  updatedAt?: Date
-  examCount?: number
-  thumbnailUrl?: string
 }
 
 type Exam = {
@@ -214,13 +201,13 @@ const RECAPTCHA_COOLDOWN = 30000; // 30 seconds cooldown
 const setupRecaptcha = async (phoneNumber: string) => {
   try {
     const now = Date.now();
-    
+
     // Check if we've hit the rate limit recently
     if (recaptchaAttempts >= MAX_RECAPTCHA_ATTEMPTS && (now - lastRecaptchaAttempt) < RECAPTCHA_COOLDOWN) {
       const remainingTime = Math.ceil((RECAPTCHA_COOLDOWN - (now - lastRecaptchaAttempt)) / 1000);
       throw new Error(`Too many verification attempts. Please try again in ${remainingTime} seconds.`);
     }
-    
+
     // Reset attempts if cooldown has passed
     if ((now - lastRecaptchaAttempt) > RECAPTCHA_COOLDOWN) {
       recaptchaAttempts = 0;
@@ -235,33 +222,33 @@ const setupRecaptcha = async (phoneNumber: string) => {
       }
       delete window.recaptchaVerifier;
     }
-    
+
     // Clean any existing reCAPTCHA iframes
     const iframes = document.querySelectorAll('iframe[src*="recaptcha"]');
     iframes.forEach(iframe => iframe.remove());
-    
+
     // Get the reCAPTCHA container
     const container = document.getElementById('recaptcha-container');
     if (!container) {
       throw new Error("reCAPTCHA container not found. Please refresh the page.");
     }
-    
+
     // Clear container
     container.innerHTML = '';
-    
+
     // Create new reCAPTCHA verifier
     const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
       size: 'invisible',
-      callback: () => {},
-      'expired-callback': () => {}
+      callback: () => { },
+      'expired-callback': () => { }
     });
-    
+
     await recaptchaVerifier.render();
     window.recaptchaVerifier = recaptchaVerifier;
-    
+
     // Add a small delay to ensure reCAPTCHA is properly initialized
     await delay(1000);
-    
+
     try {
       const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
       window.confirmationResult = confirmationResult;
@@ -306,14 +293,14 @@ declare global {
 // Add a timeout wrapper for Firestore operations
 const withTimeout = async <T,>(promise: Promise<T>, timeoutMs: number = 10000, fallback?: T): Promise<T> => {
   let timeoutId: NodeJS.Timeout;
-  
+
   try {
     const timeoutPromise = new Promise<never>((_, reject) => {
       timeoutId = setTimeout(() => {
         reject(new Error(`Operation timed out after ${timeoutMs}ms`));
       }, timeoutMs);
     });
-    
+
     const result = await Promise.race([promise, timeoutPromise]);
     clearTimeout(timeoutId!);
     return result;
@@ -328,28 +315,28 @@ const withTimeout = async <T,>(promise: Promise<T>, timeoutMs: number = 10000, f
 
 // Retry operation with exponential backoff
 const retryOperation = async <T,>(
-  operation: () => Promise<T>, 
-  maxRetries: number = 3, 
-  initialDelay: number = 1000, 
+  operation: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelay: number = 1000,
   timeoutMs: number = 10000
 ): Promise<T> => {
   let lastError: any;
   let currentDelay = initialDelay;
-  
+
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await withTimeout(operation(), timeoutMs);
     } catch (error) {
       console.warn(`Operation attempt ${attempt + 1}/${maxRetries} failed:`, error);
       lastError = error;
-      
+
       if (attempt < maxRetries - 1) {
         await delay(currentDelay);
         currentDelay *= 1.5; // Exponential backoff
       }
     }
   }
-  
+
   throw lastError || new Error(`Operation failed after ${maxRetries} attempts`);
 };
 
@@ -375,7 +362,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
   const isExamCompletedByUser = useCallback(async (examId: string, userId: string) => {
     if (!userId) return false;
-    
+
     try {
       const attemptsQuery = query(
         collection(db, "examAttempts"),
@@ -383,7 +370,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         where("userId", "==", userId),
         where("isSubmitted", "==", true)
       );
-      
+
       const attemptsSnapshot = await getDocs(attemptsQuery);
       return !attemptsSnapshot.empty;
     } catch (error) {
@@ -397,7 +384,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       if (!firebaseUser) {
         firestoreListenersRef.current.forEach(unsubscribe => unsubscribe());
         firestoreListenersRef.current = [];
-        
+
         setUser(null);
         setExams([]);
         setCategories([]);
@@ -405,7 +392,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         setCurrentExam(null);
         setCurrentQuestions([]);
         setCurrentAttempt(null);
-        
+
         examCache.clear();
         localStorage.removeItem(USER_CACHE_KEY);
         localStorage.removeItem(EXAMS_CACHE_KEY);
@@ -426,7 +413,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
         const userDocRef = doc(db, "users", firebaseUser.uid);
         const userDoc = await getDoc(userDocRef);
-        
+
         if (userDoc.exists()) {
           const userData = userDoc.data();
           const user = {
@@ -439,7 +426,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             isAdmin: userData.isAdmin || false
           };
           setUser(user);
-          
+
           localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
         }
       }
@@ -501,7 +488,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             slug: data.slug || data.name?.toLowerCase().replace(/\s+/g, '-') || doc.id
           } as Category;
         });
-        
+
         setCategories(categoriesData.sort((a, b) => a.order - b.order));
       },
       (error) => {
@@ -516,7 +503,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
     );
 
     const unsubscribeExams = onSnapshot(
-      collection(db, "exams"), 
+      collection(db, "exams"),
       { includeMetadataChanges: true },
       async (snapshot) => {
         if (snapshot.metadata.hasPendingWrites) return;
@@ -530,7 +517,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             endDate: convertTimestamp(data.endDate)
           };
         }) as Exam[];
-        
+
         if (user && user.id) {
           const updatedExams = await Promise.all(
             examsData.map(async (exam) => {
@@ -539,7 +526,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             })
           );
           setExams(updatedExams);
-          
+
           localStorage.setItem(EXAMS_CACHE_KEY, JSON.stringify(updatedExams));
         } else {
           setExams(examsData);
@@ -579,56 +566,56 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       if (!user || !user.id) {
         throw new Error("User not authenticated");
       }
-      
+
       const isCompleted = await isExamCompletedByUser(examId, user.id);
       if (isCompleted) {
         router.push(`/results/${examId}`);
         return;
       }
-      
+
       // Get the exam document first to validate time constraints
       const examDoc = await getDoc(doc(db, "exams", examId));
-      
+
       if (!examDoc.exists()) {
         throw new Error("Exam not found");
       }
-      
+
       const examData = examDoc.data();
       const examStartDate = convertTimestamp(examData.startDate);
       const examEndDate = convertTimestamp(examData.endDate);
-      
+
       if (!examStartDate || !examEndDate) {
         throw new Error("Invalid exam dates");
       }
-      
+
       const now = new Date();
-      
+
       // Check if the exam has started
       if (now < examStartDate) {
         throw new Error("Exam has not started yet");
       }
-      
+
       // Check if the exam has ended
       if (now > examEndDate) {
         throw new Error("Exam has already ended");
       }
-      
+
       // Calculate grace period end time (3 minutes after exam starts)
       const gracePeriodEnd = new Date(examStartDate);
       gracePeriodEnd.setMinutes(gracePeriodEnd.getMinutes() + 3);
-      
+
       // Server-side validation: Check if we're past the grace period
       if (now > gracePeriodEnd) {
         throw new Error("The grace period for starting this exam has expired");
       }
-      
+
       const cached = examCache.get(examId);
       const nowTimestamp = Date.now();
-      
+
       if (cached && (nowTimestamp - cached.timestamp) < CACHE_TIMEOUT) {
         setCurrentExam(cached.exam);
         setCurrentQuestions(cached.questions);
-        
+
         const newAttempt: ExamAttempt = {
           id: `attempt-${nowTimestamp}`,
           examId,
@@ -640,7 +627,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
         setCurrentAttempt(newAttempt);
         setIsAttemptingExam(true);
-        
+
         await setDoc(doc(db, "examAttempts", newAttempt.id), {
           ...newAttempt,
           startTime: Timestamp.fromDate(newAttempt.startTime)
@@ -683,7 +670,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
         setCurrentAttempt(newAttempt);
         setIsAttemptingExam(true);
-        
+
         await setDoc(doc(db, "examAttempts", newAttempt.id), {
           ...newAttempt,
           startTime: Timestamp.fromDate(newAttempt.startTime)
@@ -712,21 +699,21 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       if (!question) return;
 
       const result = calculateMarks(question, answer);
-      
+
       const updatedAnswers = [...currentAttempt.answers];
       const existingAnswerIndex = updatedAnswers.findIndex(a => a.questionId === questionId);
 
       if (existingAnswerIndex >= 0) {
-        updatedAnswers[existingAnswerIndex] = { 
-          questionId, 
-          answer, 
-          marksEarned: result.marks 
+        updatedAnswers[existingAnswerIndex] = {
+          questionId,
+          answer,
+          marksEarned: result.marks
         };
       } else {
-        updatedAnswers.push({ 
-          questionId, 
-          answer, 
-          marksEarned: result.marks 
+        updatedAnswers.push({
+          questionId,
+          answer,
+          marksEarned: result.marks
         });
       }
 
@@ -742,7 +729,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       // Update Firestore with retry and timeout
       await retryOperation(
         () => updateDoc(doc(db, "examAttempts", currentAttempt.id), {
-        answers: updatedAnswers
+          answers: updatedAnswers
         }),
         3,  // max retries
         1000, // initial delay
@@ -761,11 +748,11 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
     try {
       setLoading(true);
-      
+
       const totalPossibleMarks = currentQuestions.reduce((total, q) => total + q.marks, 0);
-      
+
       const totalEarnedMarks = currentAttempt.answers.reduce((total, answer) => total + answer.marksEarned, 0);
-      
+
       const score = (totalEarnedMarks / totalPossibleMarks) * 100;
 
       const endTime = new Date();
@@ -773,48 +760,48 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       // Get question status from localStorage
       const visitedKey = `PrepForAll-visited-${currentAttempt.id}`;
       const reviewKey = `PrepForAll-review-${currentAttempt.id}`;
-      
+
       let visitedQuestions: string[] = [];
       let reviewQuestions: string[] = [];
-      
+
       try {
         const visitedData = localStorage.getItem(visitedKey);
         const reviewData = localStorage.getItem(reviewKey);
-        
+
         if (visitedData) {
           visitedQuestions = JSON.parse(visitedData);
         }
-        
+
         if (reviewData) {
           reviewQuestions = JSON.parse(reviewData);
         }
       } catch (err) {
         console.error('Error retrieving question status:', err);
       }
-      
+
       // Enhanced answers with status
       const enhancedAnswers = currentAttempt.answers.map(answer => {
         // Default status is 'answered' for any question with an answer
         let status = 'answered';
-        
+
         // Override with 'marked-review' if question is in review set
         if (reviewQuestions.includes(answer.questionId)) {
           status = 'marked-review';
         }
-        
+
         return {
           ...answer,
           status
         };
       });
-      
+
       // Add visited but not answered questions to the answers array with status
       visitedQuestions.forEach(qId => {
         // Skip if this question already has an answer
         if (enhancedAnswers.some(a => a.questionId === qId)) {
           return;
         }
-        
+
         // Add a visited-only entry
         enhancedAnswers.push({
           questionId: qId,
@@ -823,14 +810,14 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           status: reviewQuestions.includes(qId) ? 'marked-review' : 'visited'
         });
       });
-      
+
       // Add not-visited questions
       currentQuestions.forEach(q => {
         // Skip if this question already has an entry in enhancedAnswers
         if (enhancedAnswers.some(a => a.questionId === q.id)) {
           return;
         }
-        
+
         // Add a not-attempted entry
         enhancedAnswers.push({
           questionId: q.id,
@@ -852,8 +839,8 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       // Try harder for the final submission
       await retryOperation(
         () => updateDoc(doc(db, "examAttempts", currentAttempt.id), {
-        ...completedAttempt,
-        endTime: Timestamp.fromDate(endTime)
+          ...completedAttempt,
+          endTime: Timestamp.fromDate(endTime)
         }),
         5, // More retries for final submission
         1000,
@@ -919,9 +906,9 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         where("phoneNumber", "==", phoneNumber),
         limit(1)
       );
-      
+
       const querySnapshot = await getDocs(usersQuery);
-      
+
       // Return true if at least one user found, false otherwise
       return !querySnapshot.empty;
     } catch (error) {
@@ -934,13 +921,13 @@ export function ExamProvider({ children }: { children: ReactNode }) {
     try {
       // First, check if a user with this phone number exists
       const userExists = await checkUserExistsByPhone(phoneNumber);
-      
+
       if (!userExists) {
         throw new Error("No account found with this phone number. Please register first.");
       }
-      
+
       // User exists, proceed with OTP verification
-      localStorage.removeItem('pending_phone_user_name'); 
+      localStorage.removeItem('pending_phone_user_name');
       localStorage.setItem('is_phone_registration', 'false');
       localStorage.setItem('attempted_phone_number', phoneNumber);
       return await setupRecaptcha(phoneNumber);
@@ -984,13 +971,13 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
       // Check if user document exists
       const userDocRef = doc(db, "users", firebaseUser.uid);
-      
+
       // Try to get user document with retry logic
       let userData;
       await retryOperation(async () => {
         try {
           const userDoc = await getDoc(userDocRef);
-          
+
           if (!userDoc.exists()) {
             // If this is a login attempt but no user document exists
             if (!isRegistration) {
@@ -1001,13 +988,13 @@ export function ExamProvider({ children }: { children: ReactNode }) {
                 throw new Error("User account not found. Please register first.");
               }
             }
-            
+
             // For registration, create the user document
             await setDoc(userDocRef, {
               name: pendingName,
               phoneNumber: firebaseUser.phoneNumber,
               createdAt: serverTimestamp(),
-          lastLogin: serverTimestamp(),
+              lastLogin: serverTimestamp(),
               isAdmin: false,
               provider: "phone"
             });
@@ -1036,7 +1023,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
       // Create user object
       const user = {
-          id: firebaseUser.uid,
+        id: firebaseUser.uid,
         name: userData?.name || pendingName,
         phoneNumber: userData?.phoneNumber || firebaseUser.phoneNumber || "",
         email: userData?.email,
@@ -1047,7 +1034,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
 
       setUser(user);
       localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
-      
+
       // Clean up
       if (window.recaptchaVerifier) {
         try {
@@ -1077,7 +1064,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         const remainingTime = Math.ceil((RECAPTCHA_COOLDOWN - (now - lastRecaptchaAttempt)) / 1000);
         throw new Error(`Please wait ${remainingTime} seconds before requesting another OTP.`);
       }
-      
+
       // Clear existing reCAPTCHA
       if (window.recaptchaVerifier) {
         try {
@@ -1087,7 +1074,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         }
         delete window.recaptchaVerifier;
       }
-      
+
       return await setupRecaptcha(phoneNumber);
     } catch (error: any) {
       console.error("Error resending OTP:", error);
@@ -1111,7 +1098,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
-      
+
       // Clear existing state
       firestoreListenersRef.current.forEach(unsubscribe => unsubscribe());
       firestoreListenersRef.current = [];
@@ -1121,7 +1108,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       setCurrentQuestions([]);
       setCurrentAttempt(null);
       examCache.clear();
-      
+
       // Attempt to sign in with Firebase Auth
       let userCredential;
       try {
@@ -1143,32 +1130,32 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           throw new Error(authError.message || "Failed to sign in. Please try again.");
         }
       }
-      
+
       const firebaseUser = userCredential.user;
-      
+
       // Now check if the user document exists in Firestore
       const userDocRef = doc(db, "users", firebaseUser.uid);
       const userDoc = await getDoc(userDocRef);
-      
+
       if (!userDoc.exists()) {
         // If user authenticated with Firebase but has no document in Firestore
         // This is an unusual case - we should log the user out
         await signOut(auth);
         throw new Error("Account exists but is not properly set up. Please register or contact support.");
       }
-      
+
       // User exists, proceed with login
       const userData = userDoc.data();
-        setUser({
-          id: firebaseUser.uid,
-          name: userData.name,
-          email: userData.email,
-          phoneNumber: userData.phoneNumber,
-          photoURL: userData.photoURL,
-          createdAt: convertTimestamp(userData.createdAt) || new Date(),
-          isAdmin: userData.isAdmin || false
+      setUser({
+        id: firebaseUser.uid,
+        name: userData.name,
+        email: userData.email,
+        phoneNumber: userData.phoneNumber,
+        photoURL: userData.photoURL,
+        createdAt: convertTimestamp(userData.createdAt) || new Date(),
+        isAdmin: userData.isAdmin || false
       });
-      
+
       // Update last login time
       await updateDoc(userDocRef, {
         lastLogin: serverTimestamp()
@@ -1191,7 +1178,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   const loginWithGoogle = async () => {
     try {
       setLoading(true);
-      
+
       // Clear existing state
       firestoreListenersRef.current.forEach(unsubscribe => unsubscribe());
       firestoreListenersRef.current = [];
@@ -1201,24 +1188,24 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       setCurrentQuestions([]);
       setCurrentAttempt(null);
       examCache.clear();
-      
+
       const provider = new GoogleAuthProvider();
       provider.addScope('profile');
       provider.addScope('email');
       provider.setCustomParameters({
         prompt: 'select_account'
       });
-      
+
       const userCredential = await signInWithPopup(auth, provider);
       const firebaseUser = userCredential.user;
-      
+
       if (!firebaseUser.email) {
         throw new Error("No email provided from Google account");
       }
-      
+
       const userDocRef = doc(db, "users", firebaseUser.uid);
       const userDoc = await getDoc(userDocRef);
-      
+
       if (userDoc.exists()) {
         // User exists, proceed with login
         const userData = userDoc.data();
@@ -1227,7 +1214,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           photoURL: firebaseUser.photoURL || userData.photoURL,
           name: firebaseUser.displayName || userData.name
         });
-        
+
         setUser({
           id: firebaseUser.uid,
           name: userData.name || firebaseUser.displayName || "",
@@ -1248,9 +1235,9 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           isAdmin: false,
           provider: "google"
         };
-        
+
         await setDoc(userDocRef, newUser);
-        
+
         setUser({
           id: firebaseUser.uid,
           name: firebaseUser.displayName || "",
@@ -1285,18 +1272,18 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     try {
       setLoading(true);
-      
+
       firestoreListenersRef.current.forEach(unsubscribe => unsubscribe());
       firestoreListenersRef.current = [];
-      
+
       setExams([]);
       setRankings([]);
       setCurrentExam(null);
       setCurrentQuestions([]);
       setCurrentAttempt(null);
-      
+
       examCache.clear();
-      
+
       await signOut(auth);
       setUser(null);
       router.push("/login");
@@ -1343,12 +1330,12 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       try {
         setLoading(true);
         setAuthInitialized(true);
-        
+
         if (authUser) {
           // Fetch user data
           const userRef = doc(db, "users", authUser.uid);
           const docSnap = await getDoc(userRef);
-          
+
           if (docSnap.exists()) {
             setUser({ id: authUser.uid, ...docSnap.data() } as User);
           } else {
@@ -1360,7 +1347,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
               isAdmin: false,
               createdAt: new Date(),
             };
-            
+
             await setDoc(doc(db, "users", authUser.uid), newUser);
             setUser(newUser);
           }
@@ -1373,7 +1360,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         setLoading(false);
       }
     });
-    
+
     return () => unsubscribe();
   }, []);
 
@@ -1385,7 +1372,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       if (sharedExamId) {
         // Clear the shared exam ID
         localStorage.removeItem('shared_exam_id');
-        
+
         // Brief delay to ensure everything is loaded
         setTimeout(() => {
           window.location.href = `/exams/${sharedExamId}`;
@@ -1397,24 +1384,24 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   // Change password function
   const changePassword = async (currentPassword: string, newPassword: string) => {
     if (!user || !auth.currentUser?.email) throw new Error("User not authenticated");
-    
+
     try {
       setLoading(true);
-      
+
       // Re-authenticate user with current password
       const credentials = await signInWithEmailAndPassword(
-        auth, 
-        auth.currentUser.email, 
+        auth,
+        auth.currentUser.email,
         currentPassword
       );
-      
+
       // Update password
       await updatePassword(auth.currentUser, newPassword);
-      
+
       return { success: true, message: "Password updated successfully" };
     } catch (error: any) {
       console.error("Error changing password:", error);
-      
+
       if (error.code === 'auth/wrong-password') {
         throw new Error("Current password is incorrect");
       } else {
@@ -1430,11 +1417,11 @@ export function ExamProvider({ children }: { children: ReactNode }) {
     try {
       setLoading(true);
       await sendPasswordResetEmail(auth, email);
-      
+
       return { success: true, message: "Reset email sent. Check your inbox." };
     } catch (error: any) {
       console.error("Password reset error:", error);
-      
+
       if (error.code === 'auth/user-not-found') {
         throw new Error("No account found with this email");
       } else {
@@ -1446,9 +1433,9 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   };
 
   // Add generateTwoFASecret and verifyTwoFACode functions
-  const generateTwoFASecret = async (userId: string): Promise<{ 
-    success: boolean; 
-    secret?: string; 
+  const generateTwoFASecret = async (userId: string): Promise<{
+    success: boolean;
+    secret?: string;
     qrCodeUrl?: string;
     error?: string;
   }> => {
@@ -1476,7 +1463,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
     try {
       // In a real implementation, this would validate the OTP code
       const isValid = code.length === 6 && /^\d+$/.test(code);
-      
+
       return {
         success: isValid,
         error: isValid ? undefined : "Invalid verification code"
@@ -1492,11 +1479,11 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   // Enable 2FA
   const enable2FA = async () => {
     if (!auth.currentUser) return;
-    
+
     try {
       // Generate QR code secret
       const response = await generateTwoFASecret(auth.currentUser.uid);
-      
+
       if (response.success && response.secret) {
         setQrCodeUrl(response.qrCodeUrl || "");
         setSecret(response.secret);
@@ -1519,10 +1506,10 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   // Verify 2FA code
   const verify2FA = async (code: string) => {
     if (!auth.currentUser || !secret) return false;
-    
+
     try {
       const response = await verifyTwoFACode(auth.currentUser.uid, secret, code);
-      
+
       if (response.success) {
         // Update Firestore
         try {
@@ -1532,17 +1519,17 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             twoFactorSecret: secret,
             updatedAt: serverTimestamp()
           }, { merge: true });
-          
+
           setIs2FAEnabled(true);
           setTwoFAStep("enabled");
-          
+
           toast({
             title: "2FA Enabled",
             description: "Two-factor authentication has been successfully enabled.",
             variant: "default",
             duration: 5000,
           });
-          
+
           return true;
         } catch (firestoreError) {
           console.error("Error updating 2FA status in Firestore:", firestoreError);
@@ -1553,14 +1540,14 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       }
     } catch (error: any) {
       console.error("Error verifying 2FA code:", error);
-      
+
       toast({
         title: "Verification Failed",
         description: error.message || "Invalid verification code. Please try again.",
         variant: "destructive",
         duration: 5000,
       });
-      
+
       return false;
     }
   };
@@ -1568,21 +1555,21 @@ export function ExamProvider({ children }: { children: ReactNode }) {
   // Disable 2FA
   const disable2FA = async () => {
     if (!auth.currentUser) return;
-    
+
     try {
       const userSettingsRef = doc(db, "userSettings", auth.currentUser.uid);
-      
+
       await setDoc(userSettingsRef, {
         twoFactorEnabled: false,
         twoFactorSecret: deleteField(),
         updatedAt: serverTimestamp()
       }, { merge: true });
-      
+
       setIs2FAEnabled(false);
       setTwoFAStep("disabled");
       setSecret("");
       setQrCodeUrl("");
-      
+
       toast({
         title: "2FA Disabled",
         description: "Two-factor authentication has been disabled.",
@@ -1591,7 +1578,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       });
     } catch (error) {
       console.error("Error disabling 2FA:", error);
-      
+
       toast({
         title: "Error Disabling 2FA",
         description: "There was an error disabling two-factor authentication. Please try again later.",
@@ -1600,18 +1587,18 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       });
     }
   };
-  
+
   // Get connected devices
   const getConnectedDevices = async (): Promise<any[]> => {
     if (!user || !auth.currentUser) throw new Error("User not authenticated");
-    
+
     try {
       setLoading(true);
-      
+
       // Get devices reference
       const devicesRef = collection(db, "users", auth.currentUser.uid, "devices");
       const snapshot = await getDocs(devicesRef);
-      
+
       return snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -1623,17 +1610,17 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }
   };
-  
+
   // Remove connected device
   const removeConnectedDevice = async (deviceId: string): Promise<void> => {
     if (!user || !auth.currentUser) throw new Error("User not authenticated");
-    
+
     try {
       setLoading(true);
-      
+
       // Get device reference
       const deviceRef = doc(db, "users", auth.currentUser.uid, "devices", deviceId);
-      
+
       // Delete device
       await deleteDoc(deviceRef);
     } catch (error) {
@@ -1650,10 +1637,10 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       const fetchTwoFAStatus = async () => {
         try {
           const twoFARef = doc(db, "userSettings", auth.currentUser!.uid);
-          
+
           try {
             const twoFADoc = await getDoc(twoFARef);
-            
+
             if (twoFADoc.exists()) {
               setIs2FAEnabled(twoFADoc.data()?.twoFactorEnabled || false);
             } else {
@@ -1671,12 +1658,12 @@ export function ExamProvider({ children }: { children: ReactNode }) {
             }
           } catch (firestoreError: any) {
             console.error("Error fetching 2FA status:", firestoreError);
-            
+
             // Check if this is a permissions error
             if (firestoreError.code === 'permission-denied') {
               console.warn("Permission denied for 2FA settings, using default state");
             }
-            
+
             // Default to disabled if we can't access the settings
             setIs2FAEnabled(false);
           }
@@ -1685,7 +1672,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           setIs2FAEnabled(false);
         }
       };
-      
+
       fetchTwoFAStatus();
     }
   }, [user]);

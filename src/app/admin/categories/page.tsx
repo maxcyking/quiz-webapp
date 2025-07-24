@@ -49,6 +49,8 @@ export default function AdminCategoriesPage() {
     slug: "",
     thumbnailUrl: "",
     isActive: true,
+    isPopular: false,
+    isFeatured: false,
     pypConfig: {
       hasYearlyPapers: false,
       availableYears: [] as number[],
@@ -67,13 +69,16 @@ export default function AdminCategoriesPage() {
   // Update categories list when context categories change
   useEffect(() => {
     // Map context categories to ensure they have required fields
-    const mappedCategories = categories.map(cat => ({
-      ...cat,
-      type: (cat as any).type || 'main',
-      slug: (cat as any).slug || cat.name?.toLowerCase().replace(/\s+/g, '-') || cat.id,
-      parentCategoryId: (cat as any).parentCategoryId,
-      pypConfig: (cat as any).pypConfig
-    })) as Category[];
+    const mappedCategories = categories.map(cat => {
+      console.log("Category from context:", cat.name, "thumbnailUrl:", cat.thumbnailUrl);
+      return {
+        ...cat,
+        type: (cat as any).type || 'main',
+        slug: (cat as any).slug || cat.name?.toLowerCase().replace(/\s+/g, '-') || cat.id,
+        parentCategoryId: (cat as any).parentCategoryId,
+        pypConfig: (cat as any).pypConfig
+      };
+    }) as Category[];
     setCategoriesList(mappedCategories);
     setLoading(false);
   }, [categories]);
@@ -114,6 +119,8 @@ export default function AdminCategoriesPage() {
       slug: "",
       thumbnailUrl: "",
       isActive: true,
+      isPopular: false,
+      isFeatured: false,
       pypConfig: {
         hasYearlyPapers: false,
         availableYears: [],
@@ -135,6 +142,8 @@ export default function AdminCategoriesPage() {
       slug: category.slug || "",
       thumbnailUrl: category.thumbnailUrl || "",
       isActive: category.isActive,
+      isPopular: (category as any).isPopular || false,
+      isFeatured: (category as any).isFeatured || false,
       pypConfig: category.pypConfig || {
         hasYearlyPapers: false,
         availableYears: [],
@@ -168,21 +177,29 @@ export default function AdminCategoriesPage() {
         slug: slug,
         thumbnailUrl: formData.thumbnailUrl,
         isActive: formData.isActive,
+        isPopular: formData.isPopular,
+        isFeatured: formData.isFeatured,
         order: categoriesList.length + 1,
         ...(formData.type === 'sub' && formData.parentCategoryId && { parentCategoryId: formData.parentCategoryId }),
         ...(formData.pypConfig && { pypConfig: formData.pypConfig }),
         updatedAt: serverTimestamp()
       };
 
+      // Debug log to check if thumbnailUrl is being saved
+      console.log("Saving category with data:", categoryData);
+      console.log("Thumbnail URL:", formData.thumbnailUrl);
+
       if (editingCategory) {
         // Update existing category
         await updateDoc(doc(db, "categories", editingCategory.id), categoryData);
+        console.log("Category updated successfully");
       } else {
         // Create new category
-        await addDoc(collection(db, "categories"), {
+        const docRef = await addDoc(collection(db, "categories"), {
           ...categoryData,
           createdAt: serverTimestamp()
         });
+        console.log("Category created successfully with ID:", docRef.id);
       }
 
       toast({
@@ -283,8 +300,18 @@ export default function AdminCategoriesPage() {
               <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${category.color} flex items-center justify-center text-2xl`}>
-                      {category.icon}
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-r from-gray-200 to-gray-300 flex items-center justify-center">
+                      {category.thumbnailUrl ? (
+                        <img 
+                          src={category.thumbnailUrl} 
+                          alt={category.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className={`w-full h-full bg-gradient-to-r ${category.color} flex items-center justify-center text-2xl`}>
+                          {category.icon}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <CardTitle className="text-xl">{category.name}</CardTitle>
@@ -295,6 +322,16 @@ export default function AdminCategoriesPage() {
                     <Badge variant={category.isActive ? "default" : "secondary"}>
                       {category.isActive ? "Active" : "Inactive"}
                     </Badge>
+                    {(category as any).isPopular && (
+                      <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                        Popular
+                      </Badge>
+                    )}
+                    {(category as any).isFeatured && (
+                      <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
+                        Featured
+                      </Badge>
+                    )}
                     <Button
                       variant="outline"
                       size="sm"
@@ -328,7 +365,17 @@ export default function AdminCategoriesPage() {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <span className="text-lg">{subcat.icon}</span>
+                            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gradient-to-r from-gray-200 to-gray-300 flex items-center justify-center">
+                              {subcat.thumbnailUrl ? (
+                                <img 
+                                  src={subcat.thumbnailUrl} 
+                                  alt={subcat.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <span className="text-sm">{subcat.icon}</span>
+                              )}
+                            </div>
                             <div>
                               <h4 className="font-medium">{subcat.name}</h4>
                               <p className="text-sm text-gray-600">{subcat.description}</p>
@@ -492,13 +539,33 @@ export default function AdminCategoriesPage() {
             </div>
 
             {/* Settings */}
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="isActive"
-                checked={formData.isActive}
-                onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
-              />
-              <Label htmlFor="isActive">Active</Label>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="isActive"
+                  checked={formData.isActive}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
+                />
+                <Label htmlFor="isActive">Active</Label>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="isPopular"
+                  checked={formData.isPopular}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isPopular: checked }))}
+                />
+                <Label htmlFor="isPopular">Popular Category</Label>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="isFeatured"
+                  checked={formData.isFeatured}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isFeatured: checked }))}
+                />
+                <Label htmlFor="isFeatured">Featured Category</Label>
+              </div>
             </div>
 
             {/* PYP Configuration */}
