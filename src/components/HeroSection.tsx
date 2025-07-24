@@ -62,12 +62,12 @@ export default function HeroSection({ user, upcomingExams, stats }: HeroSectionP
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-canva-gradient">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 dark:from-blue-500/10 dark:to-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-400/20 to-pink-400/20 dark:from-indigo-500/10 dark:to-pink-500/10 rounded-full blur-3xl animate-pulse animation-delay-200" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 dark:from-cyan-500/5 dark:to-blue-500/5 rounded-full blur-2xl animate-pulse animation-delay-400" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-canva-purple-400/30 to-canva-blue-400/30 dark:from-canva-purple-500/20 dark:to-canva-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-canva-pink-400/30 to-canva-orange-400/30 dark:from-canva-pink-500/20 dark:to-canva-orange-500/20 rounded-full blur-3xl animate-pulse animation-delay-200" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-canva-green-400/20 to-canva-blue-400/20 dark:from-canva-green-500/15 dark:to-canva-blue-500/15 rounded-full blur-2xl animate-pulse animation-delay-400" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 py-12 md:py-20">
@@ -80,7 +80,7 @@ export default function HeroSection({ user, upcomingExams, stats }: HeroSectionP
           {/* Left Content */}
           <div className="space-y-6 md:space-y-8">
             <motion.div variants={itemVariants}>
-              <Badge className="mb-4 md:mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 text-white border-0" variant="outline">
+              <Badge className="mb-4 md:mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-canva-purple-500 to-canva-blue-500 dark:from-canva-purple-600 dark:to-canva-blue-600 text-white border-0" variant="outline">
                 <Sparkles className="h-3 w-3 md:h-4 md:w-4 mr-1.5 md:mr-2" />
                 <span className="font-medium text-xs md:text-sm">Transform Your Future</span>
               </Badge>
@@ -89,7 +89,7 @@ export default function HeroSection({ user, upcomingExams, stats }: HeroSectionP
             <motion.div variants={itemVariants} className="space-y-4 md:space-y-6">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                 Master Your Exams with{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-500 dark:via-purple-500 dark:to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-canva-purple-600 via-canva-blue-600 to-canva-pink-600 dark:from-canva-purple-500 dark:via-canva-blue-500 dark:to-canva-pink-500 bg-clip-text text-transparent">
                   Confidence
                 </span>
               </h1>
@@ -123,7 +123,7 @@ export default function HeroSection({ user, upcomingExams, stats }: HeroSectionP
             <motion.div variants={itemVariants} className="flex flex-wrap gap-3 md:gap-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 dark:from-blue-700 dark:to-purple-700 dark:hover:from-blue-800 dark:hover:to-purple-800 text-white border-0 px-6 py-5 md:px-8 md:py-6 text-base md:text-lg" 
+                className="bg-gradient-to-r from-canva-purple-600 to-canva-blue-600 hover:from-canva-purple-700 hover:to-canva-blue-700 dark:from-canva-purple-700 dark:to-canva-blue-700 dark:hover:from-canva-purple-800 dark:hover:to-canva-blue-800 text-white border-0 px-6 py-5 md:px-8 md:py-6 text-base md:text-lg shadow-canva" 
                 asChild
               >
                 <Link href={user ? "/dashboard" : "/register"}>
