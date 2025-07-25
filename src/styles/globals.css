@@ -18,63 +18,67 @@
 
 @layer base {
   :root {
-    /* New light theme - White, Light Blue, Light Purple focus */
+    /* Enhanced Student-friendly theme - White, Light Blue, Light Pink, Purple */
     --background: 0 0% 100%;
-    --foreground: 240 10% 15%;
+    --foreground: 220 15% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 15%;
+    --card-foreground: 220 15% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 15%;
-    --primary: 250 80% 70%;
+    --popover-foreground: 220 15% 15%;
+    /* Primary: Enhanced Light Blue for buttons and main actions */
+    --primary: 210 85% 65%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 80% 95%;
-    --secondary-foreground: 240 10% 25%;
-    --muted: 220 40% 96%;
-    --muted-foreground: 240 10% 50%;
-    --accent: 300 80% 85%;
-    --accent-foreground: 240 10% 15%;
+    /* Secondary: Light Pink/Purple mix */
+    --secondary: 320 100% 96%;
+    --secondary-foreground: 220 15% 25%;
+    --muted: 210 100% 97%;
+    --muted-foreground: 220 10% 55%;
+    /* Accent: Enhanced Light Purple for highlights */
+    --accent: 270 85% 92%;
+    --accent-foreground: 220 15% 15%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 30% 90%;
-    --input: 220 30% 94%;
-    --ring: 250 80% 70%;
+    --border: 210 50% 90%;
+    --input: 210 60% 95%;
+    --ring: 210 85% 65%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.75rem;
+    /* Reduced border radius for classical design */
+    --radius: 2px;
   }
 
   .dark {
-    /* Dark theme - Dark equivalents */
-    --background: 240 15% 8%;
+    /* Enhanced Dark theme - Student-friendly dark equivalents */
+    --background: 220 15% 9%;
     --foreground: 220 20% 95%;
 
-    --card: 240 15% 12%;
+    --card: 220 15% 12%;
     --card-foreground: 220 20% 95%;
 
-    --popover: 240 15% 12%;
+    --popover: 220 15% 12%;
     --popover-foreground: 220 20% 95%;
 
-    --primary: 250 70% 65%;
-    --primary-foreground: 240 15% 8%;
+    --primary: 210 80% 70%;
+    --primary-foreground: 220 15% 9%;
 
-    --secondary: 240 15% 18%;
+    --secondary: 320 30% 20%;
     --secondary-foreground: 220 20% 85%;
 
-    --muted: 240 15% 18%;
-    --muted-foreground: 240 10% 60%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 300 60% 40%;
+    --accent: 270 40% 25%;
     --accent-foreground: 220 20% 95%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 220 20% 95%;
 
-    --border: 240 15% 20%;
-    --input: 240 15% 20%;
-    --ring: 250 70% 65%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 210 80% 70%;
   }
 }
 
@@ -84,11 +88,15 @@
   }
 
   body {
+    /* Enhanced gradient with more pink and purple */
     background: linear-gradient(135deg,
         hsl(0 0% 100%) 0%,
-        hsl(210 100% 98%) 25%,
-        hsl(250 100% 98%) 50%,
-        hsl(300 100% 98%) 75%,
+        hsl(210 100% 98%) 15%,
+        hsl(320 100% 97%) 30%,
+        hsl(270 100% 97%) 45%,
+        hsl(210 100% 98%) 60%,
+        hsl(320 100% 98%) 75%,
+        hsl(270 100% 98%) 90%,
         hsl(0 0% 100%) 100%);
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -97,11 +105,115 @@
 
   .dark body {
     background: linear-gradient(135deg,
-        hsl(240 15% 8%) 0%,
-        hsl(245 15% 10%) 25%,
-        hsl(250 15% 12%) 50%,
-        hsl(255 15% 10%) 75%,
-        hsl(240 15% 8%) 100%);
+        hsl(220 15% 9%) 0%,
+        hsl(215 20% 11%) 15%,
+        hsl(270 25% 12%) 30%,
+        hsl(320 25% 12%) 45%,
+        hsl(215 20% 11%) 60%,
+        hsl(270 25% 12%) 75%,
+        hsl(320 25% 12%) 90%,
+        hsl(220 15% 9%) 100%);
+  }
+}
+
+/* Enhanced gradient utilities with more pink and purple */
+@layer utilities {
+  .bg-canva-gradient {
+    background: linear-gradient(135deg,
+        hsl(0 0% 100%) 0%,
+        hsl(210 100% 98%) 12%,
+        hsl(320 100% 97%) 25%,
+        hsl(270 100% 96%) 37%,
+        hsl(210 100% 97%) 50%,
+        hsl(320 100% 97%) 62%,
+        hsl(270 100% 97%) 75%,
+        hsl(210 100% 98%) 87%,
+        hsl(0 0% 100%) 100%);
+  }
+
+  .dark .bg-canva-gradient {
+    background: linear-gradient(135deg,
+        hsl(220 15% 9%) 0%,
+        hsl(215 20% 11%) 12%,
+        hsl(270 25% 12%) 25%,
+        hsl(320 25% 12%) 37%,
+        hsl(215 20% 11%) 50%,
+        hsl(270 25% 12%) 62%,
+        hsl(320 25% 12%) 75%,
+        hsl(215 20% 11%) 87%,
+        hsl(220 15% 9%) 100%);
+  }
+
+  .bg-glass {
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(210, 230, 255, 0.6);
+  }
+
+  .dark .bg-glass {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .bg-card-gradient {
+    background: linear-gradient(135deg,
+        hsl(0 0% 100%) 0%,
+        hsl(210 100% 99%) 30%,
+        hsl(320 100% 98%) 70%,
+        hsl(270 100% 99%) 100%);
+    border: 1px solid hsl(210 50% 90%);
+  }
+
+  .dark .bg-card-gradient {
+    background: linear-gradient(135deg,
+        hsl(220 15% 12%) 0%,
+        hsl(210 20% 15%) 30%,
+        hsl(270 20% 15%) 70%,
+        hsl(320 20% 15%) 100%);
+    border: 1px solid hsl(220 15% 20%);
+  }
+
+  .bg-button-blue {
+    background: linear-gradient(135deg,
+        hsl(210 85% 65%) 0%,
+        hsl(210 90% 70%) 100%);
+  }
+
+  .bg-button-blue:hover {
+    background: linear-gradient(135deg,
+        hsl(210 90% 60%) 0%,
+        hsl(210 95% 65%) 100%);
+  }
+
+  .bg-button-pink {
+    background: linear-gradient(135deg,
+        hsl(320 80% 75%) 0%,
+        hsl(320 85% 80%) 100%);
+  }
+
+  .bg-button-purple {
+    background: linear-gradient(135deg,
+        hsl(270 80% 75%) 0%,
+        hsl(270 85% 80%) 100%);
+  }
+
+  .shadow-canva {
+    box-shadow: 0 2px 12px rgba(135, 180, 255, 0.12), 0 1px 3px rgba(135, 180, 255, 0.08);
+  }
+
+  .shadow-canva-pink {
+    box-shadow: 0 2px 12px rgba(255, 150, 220, 0.12), 0 1px 3px rgba(255, 150, 220, 0.08);
+  }
+
+  .shadow-canva-purple {
+    box-shadow: 0 2px 12px rgba(180, 150, 255, 0.12), 0 1px 3px rgba(180, 150, 255, 0.08);
+  }
+
+  .shadow-canva-hover {
+    box-shadow: 0 4px 20px rgba(135, 180, 255, 0.2), 0 2px 8px rgba(135, 180, 255, 0.15);
   }
 }
 
@@ -140,75 +252,36 @@
   }
 }
 
-/* New gradient utilities - White, Light Blue, Light Purple */
-@layer utilities {
-  .bg-canva-gradient {
-    background: linear-gradient(135deg,
-        hsl(0 0% 100%) 0%,
-        hsl(210 100% 98%) 25%,
-        hsl(250 100% 98%) 50%,
-        hsl(300 100% 98%) 75%,
-        hsl(0 0% 100%) 100%);
-  }
-
-  .dark .bg-canva-gradient {
-    background: linear-gradient(135deg,
-        hsl(240 15% 8%) 0%,
-        hsl(245 15% 10%) 25%,
-        hsl(250 15% 12%) 50%,
-        hsl(255 15% 10%) 75%,
-        hsl(240 15% 8%) 100%);
-  }
-
-  .bg-glass {
-    background: rgba(255, 255, 255, 0.9);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .dark .bg-glass {
-    background: rgba(255, 255, 255, 0.08);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .shadow-canva {
-    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.12);
-  }
-
-  .dark .shadow-canva {
-    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
-  }
-}
-
 /* Custom scrollbar styles */
 @layer utilities {
-  .scrollbar-thin {
+  .scrollbar-canva {
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--muted)) transparent;
+    scrollbar-color: hsl(210 85% 80%) transparent;
   }
 
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  .scrollbar-canva::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
 
-  .scrollbar-thin::-webkit-scrollbar-track {
+  .scrollbar-canva::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--muted));
-    border-radius: 4px;
+  .scrollbar-canva::-webkit-scrollbar-thumb {
+    background-color: hsl(210 85% 80%);
+    border-radius: 2px;
+  }
+
+  .scrollbar-canva::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(210 85% 70%);
   }
 }
 
 /* Focus styles */
 @layer base {
   :focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 }
 
@@ -230,43 +303,75 @@
 
 /* Tiptap Editor Text Selection Styles */
 .ProseMirror ::selection {
-  background-color: hsl(270 95% 60%) !important;
+  background-color: hsl(270 70% 80%) !important;
   color: white !important;
 }
 
 .ProseMirror::-moz-selection {
-  background-color: hsl(270 95% 60%) !important;
+  background-color: hsl(270 70% 80%) !important;
   color: white !important;
 }
 
 /* Light theme selection */
 .ProseMirror {
-  caret-color: hsl(270 95% 60%);
+  caret-color: hsl(210 85% 65%);
 }
 
 .ProseMirror ::selection {
-  background-color: hsla(270, 95%, 60%, 0.3) !important;
-  color: hsl(270 15% 15%) !important;
+  background-color: hsla(210, 85%, 65%, 0.3) !important;
+  color: hsl(220 15% 15%) !important;
 }
 
 /* Dark theme selection */
 .dark .ProseMirror ::selection {
-  background-color: hsla(270, 80%, 65%, 0.4) !important;
-  color: hsl(270 20% 95%) !important;
+  background-color: hsla(210, 80%, 70%, 0.4) !important;
+  color: hsl(220 20% 95%) !important;
 }
 
 .dark .ProseMirror::-moz-selection {
-  background-color: hsla(270, 80%, 65%, 0.4) !important;
-  color: hsl(270 20% 95%) !important;
+  background-color: hsla(210, 80%, 70%, 0.4) !important;
+  color: hsl(220 20% 95%) !important;
 }
 
 /* Global text selection styles */
 ::selection {
-  background-color: hsla(270, 95%, 60%, 0.3);
-  color: hsl(270 15% 15%);
+  background-color: hsla(210, 85%, 65%, 0.3);
+  color: hsl(220 15% 15%);
 }
 
 .dark ::selection {
-  background-color: hsla(270, 80%, 65%, 0.4);
-  color: hsl(270 20% 95%);
+  background-color: hsla(210, 80%, 70%, 0.4);
+  color: hsl(220 20% 95%);
+}
+
+/* Enhanced Canva-style animations */
+@layer utilities {
+  .hover-lift-canva {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift-canva:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(135, 180, 255, 0.15), 0 2px 10px rgba(255, 150, 220, 0.1);
+  }
+
+  .canva-button-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .canva-button-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .canva-button-shimmer:hover::before {
+    left: 100%;
+  }
 }

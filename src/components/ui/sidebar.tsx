@@ -42,7 +42,7 @@ export function SidebarProvider({ children, className, ...props }: SidebarProps)
 
   return (
     <SidebarContext.Provider value={{ isOpen, setIsOpen, isMobile }}>
-      <div className={cn("flex min-h-screen", className)} {...props}>
+      <div className={cn("flex min-h-screen bg-canva-gradient", className)} {...props}>
         {children}
       </div>
     </SidebarContext.Provider>
@@ -58,7 +58,11 @@ export function SidebarTrigger({ className, ...props }: React.ComponentProps<typ
     <Button
       variant="ghost"
       size="icon"
-      className={cn("md:hidden", className)}
+      className={cn(
+        "md:hidden rounded-canva hover:bg-canva-blue-100 transition-all duration-200",
+        "text-canva-gray-600 hover:text-canva-blue-600",
+        className
+      )}
       onClick={() => setIsOpen(true)}
       {...props}
     >
@@ -77,29 +81,32 @@ export function Sidebar({ children, className, ...props }: SidebarProps) {
         <SheetContent
           side="left"
           className={cn(
-            "w-72 p-0 border-r",
-            "bg-background/95 backdrop-blur-md",
-            "dark:bg-background/90 dark:border-border/30",
-            "shadow-lg"
+            "w-72 p-0 border-r rounded-canva-lg",
+            "bg-glass border-canva-blue-200/40",
+            "shadow-canva backdrop-blur-lg"
           )}
         >
           <div className="flex h-full flex-col">
             <div className={cn(
-              "flex items-center justify-between p-4 border-b",
-              "bg-gradient-to-r from-background to-muted/30",
-              "dark:from-background/80 dark:to-muted/10"
+              "flex items-center justify-between p-4 border-b border-canva-blue-200/30",
+              "bg-gradient-to-r from-white/80 to-canva-blue-25/50"
             )}>
-              <h2 className="text-lg font-semibold text-foreground">Menu</h2>
+              <h2 className="text-lg font-semibold text-canva-gray-800">Menu</h2>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-accent/50"
+                className={cn(
+                  "hover:bg-canva-pink-100 rounded-canva transition-all duration-200",
+                  "text-canva-gray-600 hover:text-canva-pink-600"
+                )}
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            {children}
+            <div className="flex-1 bg-gradient-to-b from-white/90 to-canva-purple-25/30">
+              {children}
+            </div>
           </div>
         </SheetContent>
       </Sheet>
@@ -110,22 +117,23 @@ export function Sidebar({ children, className, ...props }: SidebarProps) {
     <div
       className={cn(
         "hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0",
-        "bg-background/95 backdrop-blur-md border-r",
-        "dark:bg-background/90 dark:border-border/30",
+        "bg-glass border-r border-canva-blue-200/40",
         "transition-all duration-300 ease-in-out",
-        "shadow-sm dark:shadow-lg",
+        "shadow-canva backdrop-blur-lg",
         className
       )}
       {...props}
     >
-      {children}
+      <div className="flex h-full flex-col bg-gradient-to-b from-white/90 to-canva-purple-25/30">
+        {children}
+      </div>
     </div>
   );
 }
 
 export function SidebarContent({ children, className, ...props }: SidebarProps) {
   return (
-    <div className={cn("flex-1 overflow-y-auto", className)} {...props}>
+    <div className={cn("flex-1 overflow-y-auto scrollbar-canva", className)} {...props}>
       {children}
     </div>
   );
@@ -134,9 +142,8 @@ export function SidebarContent({ children, className, ...props }: SidebarProps) 
 export function SidebarHeader({ children, className, ...props }: SidebarProps) {
   return (
     <div className={cn(
-      "p-4 border-b",
-      "bg-gradient-to-r from-background to-muted/30",
-      "dark:from-background/80 dark:to-muted/10",
+      "p-4 border-b border-canva-blue-200/30 rounded-t-canva",
+      "bg-gradient-to-r from-white/80 to-canva-blue-25/50",
       className
     )} {...props}>
       {children}
@@ -146,7 +153,7 @@ export function SidebarHeader({ children, className, ...props }: SidebarProps) {
 
 export function SidebarNav({ children, className, ...props }: SidebarProps) {
   return (
-    <nav className={cn("p-4 space-y-2", className)} {...props}>
+    <nav className={cn("p-4 space-y-1", className)} {...props}>
       {children}
     </nav>
   );
@@ -171,17 +178,15 @@ export function SidebarNavItem({
         asChild
         variant={isActive ? "secondary" : "ghost"}
         className={cn(
-          "w-full justify-start gap-3 h-11 px-3 rounded-lg transition-all duration-200",
-          "hover:bg-accent hover:text-accent-foreground",
-          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "w-full justify-start gap-3 h-11 px-3 rounded-canva transition-all duration-200",
+          "hover:bg-canva-blue-100/80 hover:text-canva-blue-700",
+          "focus-visible:ring-2 focus-visible:ring-canva-blue-500 focus-visible:ring-offset-2",
+          "hover-lift-canva group",
           isActive && [
-            "bg-gradient-to-r from-primary/10 to-background",
-            "dark:from-primary/20 dark:to-background/80",
-            "text-primary font-medium",
-            "hover:from-primary/15 hover:to-background/90",
-            "dark:hover:from-primary/25 dark:hover:to-background/70",
-            "border-l-4 border-l-primary border-y-0 border-r-0",
-            "shadow-sm"
+            "bg-gradient-to-r from-canva-blue-100/90 to-canva-purple-50/80",
+            "text-canva-blue-700 font-medium border-l-3 border-l-canva-blue-500",
+            "shadow-canva hover:shadow-canva-hover",
+            "hover:from-canva-blue-200/80 hover:to-canva-purple-100/70"
           ],
           className
         )}
@@ -196,24 +201,32 @@ export function SidebarNavItem({
     <Button
       variant={isActive ? "secondary" : "ghost"}
       className={cn(
-        "w-full justify-start gap-3 h-11 px-3 rounded-lg transition-all duration-200",
-        "hover:bg-accent hover:text-accent-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "w-full justify-start gap-3 h-11 px-3 rounded-canva transition-all duration-200",
+        "hover:bg-canva-blue-100/80 hover:text-canva-blue-700",
+        "focus-visible:ring-2 focus-visible:ring-canva-blue-500 focus-visible:ring-offset-2",
+        "hover-lift-canva group canva-button-shimmer",
         isActive && [
-          "bg-gradient-to-r from-primary/10 to-background",
-          "dark:from-primary/20 dark:to-background/80",
-          "text-primary font-medium",
-          "hover:from-primary/15 hover:to-background/90",
-          "dark:hover:from-primary/25 dark:hover:to-background/70",
-          "border-l-4 border-l-primary border-y-0 border-r-0",
-          "shadow-sm"
+          "bg-gradient-to-r from-canva-blue-100/90 to-canva-purple-50/80",
+          "text-canva-blue-700 font-medium border-l-3 border-l-canva-blue-500",
+          "shadow-canva hover:shadow-canva-hover",
+          "hover:from-canva-blue-200/80 hover:to-canva-purple-100/70"
         ],
         className
       )}
       {...props}
     >
-      {icon}
-      {children}
+      {icon && (
+        <span className={cn(
+          "transition-transform duration-200",
+          isActive ? "text-canva-blue-600" : "text-canva-gray-500",
+          "group-hover:text-canva-blue-600 group-hover:scale-110"
+        )}>
+          {icon}
+        </span>
+      )}
+      <span className="transition-colors duration-200">
+        {children}
+      </span>
     </Button>
   );
 } 

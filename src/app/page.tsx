@@ -77,22 +77,22 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-canva-gradient">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600 text-lg">Loading amazing content...</p>
+          <div className="w-16 h-16 border-4 border-canva-blue-500 border-t-transparent rounded-canva animate-spin mx-auto mb-4"></div>
+          <p className="text-canva-gray-600 text-lg font-medium">Loading amazing content...</p>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-canva-gradient">
       {/* Enhanced Hero Section */}
       <HeroSection 
         user={user} 
