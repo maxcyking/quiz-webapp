@@ -29,6 +29,7 @@ import type { Category } from "@/types/category";
 import { collection, addDoc, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db, storage } from "@/lib/firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getSmartThumbnailUrl, shouldInheritThumbnail, getParentCategoryInfo } from "@/utils/categoryUtils";
 
 export default function AdminCategoriesPage() {
   const { categories, user } = useExam();
@@ -82,6 +83,16 @@ export default function AdminCategoriesPage() {
     setCategoriesList(mappedCategories);
     setLoading(false);
   }, [categories]);
+
+  // 🎯 Real-time thumbnail inheritance preview when parent changes
+  useEffect(() => {
+    if (formData.type === "sub" && formData.parentCategoryId && !formData.thumbnailUrl) {
+      const parentInfo = getParentCategoryInfo(formData.parentCategoryId, categoriesList);
+      if (parentInfo?.thumbnailUrl) {
+        console.log(`🔄 Parent changed: Will inherit thumbnail from "${parentInfo.name}"`);
+      }
+    }
+  }, [formData.parentCategoryId, formData.type, formData.thumbnailUrl, categoriesList]);
 
   const loadCategories = async () => {
     try {
@@ -168,6 +179,19 @@ export default function AdminCategoriesPage() {
       // Generate slug if not provided
       const slug = formData.slug || formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
+      // 🎯 Smart Thumbnail Inheritance Logic
+      const smartThumbnailUrl = getSmartThumbnailUrl(formData, categoriesList);
+      const isInheriting = shouldInheritThumbnail(formData, categoriesList);
+
+      if (isInheriting) {
+        const parentInfo = getParentCategoryInfo(formData.parentCategoryId!, categoriesList);
+        toast({
+          title: "Smart Inheritance",
+          description: `Using thumbnail from parent category "${parentInfo?.name}"`,
+          variant: "default"
+        });
+      }
+
       const categoryData = {
         name: formData.name,
         description: formData.description,
@@ -175,7 +199,7 @@ export default function AdminCategoriesPage() {
         color: formData.color,
         type: formData.type,
         slug: slug,
-        thumbnailUrl: formData.thumbnailUrl,
+        thumbnailUrl: smartThumbnailUrl, // 🎯 Use smart thumbnail URL
         isActive: formData.isActive,
         isPopular: formData.isPopular,
         isFeatured: formData.isFeatured,
@@ -187,7 +211,9 @@ export default function AdminCategoriesPage() {
 
       // Debug log to check if thumbnailUrl is being saved
       console.log("Saving category with data:", categoryData);
-      console.log("Thumbnail URL:", formData.thumbnailUrl);
+      console.log("Original Thumbnail URL:", formData.thumbnailUrl);
+      console.log("Smart Thumbnail URL:", smartThumbnailUrl);
+      console.log("Is Inheriting from Parent:", isInheriting);
 
       if (editingCategory) {
         // Update existing category
@@ -262,6 +288,22 @@ export default function AdminCategoriesPage() {
         description: "Failed to upload image",
         variant: "destructive"
       });
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, thumbnailUrl: "" }));
+    
+    // Show inheritance info if it's a subcategory
+    if (formData.type === "sub" && formData.parentCategoryId) {
+      const parentInfo = getParentCategoryInfo(formData.parentCategoryId, categoriesList);
+      if (parentInfo?.thumbnailUrl) {
+        toast({
+          title: "Image Removed",
+          description: `Will use parent category thumbnail from "${parentInfo.name}"`,
+          variant: "default"
+        });
+      }
     }
   };
 
@@ -526,16 +568,53 @@ export default function AdminCategoriesPage() {
                   onChange={handleImageUpload}
                   className="flex-1"
                 />
-                {formData.thumbnailUrl && (
-                  <div className="w-16 h-16 rounded-lg overflow-hidden border">
-                    <img 
-                      src={formData.thumbnailUrl} 
-                      alt="Thumbnail" 
-                      className="w-full h-full object-cover"
-                    />
+                {(formData.thumbnailUrl || shouldInheritThumbnail(formData, categoriesList)) && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-16 h-16 rounded-lg overflow-hidden border relative">
+                      <img 
+                        src={formData.thumbnailUrl || getSmartThumbnailUrl(formData, categoriesList)} 
+                        alt="Thumbnail" 
+                        className="w-full h-full object-cover"
+                      />
+                      {shouldInheritThumbnail(formData, categoriesList) && (
+                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
+                          <span className="text-xs bg-blue-500 text-white px-1 py-0.5 rounded font-medium">
+                            Inherited
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      {shouldInheritThumbnail(formData, categoriesList) && (
+                        <div className="text-sm text-blue-600">
+                          <p className="font-medium">Using parent thumbnail</p>
+                          <p className="text-xs text-gray-500">
+                            From: {getParentCategoryInfo(formData.parentCategoryId!, categoriesList)?.name}
+                          </p>
+                        </div>
+                      )}
+                      {formData.thumbnailUrl && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={handleRemoveImage}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="h-3 w-3 mr-1" />
+                          Remove
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
+              {shouldInheritThumbnail(formData, categoriesList) && (
+                <p className="text-sm text-blue-600 bg-blue-50 p-2 rounded-lg">
+                  💡 <strong>Smart Inheritance:</strong> No thumbnail uploaded for this subcategory. 
+                  Using parent category's thumbnail automatically.
+                </p>
+              )}
             </div>
 
             {/* Settings */}

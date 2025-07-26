@@ -115,7 +115,7 @@ function PreviousYearPapersContent() {
               and understand the exam pattern better.
             </p>
           </motion.div>
-          
+
           {/* Enhanced Search Bar */}
           <div className="max-w-2xl mx-auto relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-canva-gray-400" />
@@ -143,7 +143,7 @@ function PreviousYearPapersContent() {
                   <div>
                     <h2 className="text-2xl font-bold text-canva-gray-900">Popular Previous Year Papers</h2>
                     <p className="text-sm text-canva-gray-600">Most downloaded exam papers</p>
-                  </div>
+                </div>
                 </div>
                 <Badge variant="outline" className="px-3 py-1 bg-canva-pink-50 text-canva-pink-700 border-canva-pink-200 rounded-canva">
                   <Star className="h-3 w-3 mr-1" />
@@ -229,130 +229,130 @@ function PreviousYearPapersContent() {
                   {categoriesWithPYP.reduce((total, cat) => total + getCategoryPYPStats(cat.id).totalPapers, 0)} Papers
                 </Badge>
               </div>
-                         </div>
+          </div>
 
             {/* Enhanced Two Column Layout */}
             <div className="bg-card-gradient rounded-canva-lg shadow-canva border border-canva-blue-200/40 p-6">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                               {/* Enhanced Left Column - Categories List */}
-                <div className="lg:col-span-4">
+              <div className="lg:col-span-4">
                   <div className="space-y-2">
-                    {categoriesWithPYP.map((category: any, index: number) => {
-                      const stats = getCategoryPYPStats(category.id);
-                      const isActive = selectedCategory === category.id;
+                  {categoriesWithPYP.map((category: any, index: number) => {
+                    const stats = getCategoryPYPStats(category.id);
+                    const isActive = selectedCategory === category.id;
 
-                      return (
-                        <button
-                          key={category.id}
-                          onClick={() => setSelectedCategory(isActive ? null : category.id)}
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={() => setSelectedCategory(isActive ? null : category.id)}
                           className={`w-full text-left p-4 rounded-canva transition-all duration-200 hover-lift-canva ${isActive
                             ? 'bg-canva-blue-100 border-l-3 border-l-canva-blue-500 shadow-canva'
                             : 'bg-white/80 hover:bg-canva-blue-50 border border-canva-gray-200'
-                            }`}
-                        >
-                          <div className="flex items-center gap-4">
+                          }`}
+                      >
+                        <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-canva overflow-hidden bg-canva-button-pink flex items-center justify-center flex-shrink-0 shadow-canva-pink">
-                              {category.thumbnailUrl ? (
-                                <img
-                                  src={category.thumbnailUrl}
-                                  alt={`${category.name} Previous Year Paper`}
-                                  title={`${category.name} Previous Year Paper`}
-                                  className="w-full h-full object-cover"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <span className="text-white font-bold text-lg">
-                                  {category.name.charAt(0)}
-                                </span>
-                              )}
-                            </div>
-                            <div className="flex-1">
-                              <span className={`font-semibold text-sm block ${isActive ? 'text-canva-blue-700' : 'text-canva-gray-900'}`}>
-                                {category.name}
+                            {category.thumbnailUrl ? (
+                              <img
+                                src={category.thumbnailUrl}
+                                alt={`${category.name} Previous Year Paper`}
+                                title={`${category.name} Previous Year Paper`}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-white font-bold text-lg">
+                                {category.name.charAt(0)}
                               </span>
+                            )}
+                          </div>
+                          <div className="flex-1">
+                              <span className={`font-semibold text-sm block ${isActive ? 'text-canva-blue-700' : 'text-canva-gray-900'}`}>
+                              {category.name}
+                            </span>
                               <div className="text-xs text-canva-gray-600 mt-1 flex items-center gap-1">
                                 <FileText className="h-3 w-3" />
-                                {stats.totalPapers} Papers
-                              </div>
+                              {stats.totalPapers} Papers
                             </div>
-                            <ArrowRight className={`h-4 w-4 transition-transform ${isActive ? 'rotate-90 text-canva-blue-600' : 'text-canva-gray-400'
-                              }`} />
                           </div>
-                        </button>
-                      );
-                    })}
-                  </div>
+                            <ArrowRight className={`h-4 w-4 transition-transform ${isActive ? 'rotate-90 text-canva-blue-600' : 'text-canva-gray-400'
+                            }`} />
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
 
                               {/* Enhanced Right Column - Papers Content */}
-                <div className="lg:col-span-8">
+              <div className="lg:col-span-8">
                   <div className="bg-white/50 rounded-canva p-6">
-                    {selectedCategory ? (
+                  {selectedCategory ? (
                       <div>
-                        <motion.div
-                          variants={containerVariants}
-                          initial="hidden"
-                          animate="visible"
-                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-                        >
-                          {(() => {
-                            const categoryPapers = exams.filter((exam: any) =>
-                              exam.categoryId === selectedCategory &&
-                              exam.isActive &&
-                              exam.examType === 'pyp'
-                            );
+                      <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                      >
+                        {(() => {
+                          const categoryPapers = exams.filter((exam: any) =>
+                            exam.categoryId === selectedCategory &&
+                            exam.isActive &&
+                            exam.examType === 'pyp'
+                          );
 
-                            // Show individual papers for the selected category
-                            return categoryPapers.slice(0, 12).map((paper: any) => (
-                              <motion.div key={paper.id} variants={itemVariants}>
-                                <Link
-                                  href={`/exams/${paper.id}`}
+                          // Show individual papers for the selected category
+                          return categoryPapers.slice(0, 12).map((paper: any) => (
+                            <motion.div key={paper.id} variants={itemVariants}>
+                              <Link
+                                href={`/exams/${paper.id}`}
                                   className="group block"
-                                >
+                              >
                                   <Card className="hover-lift-canva transition-all duration-300 bg-card-gradient border border-canva-blue-200/40 shadow-canva h-full">
-                                    <CardContent className="p-4 text-center">
+                                  <CardContent className="p-4 text-center">
                                       <div className="w-12 h-12 mx-auto mb-3 rounded-canva overflow-hidden bg-canva-button-blue flex items-center justify-center shadow-canva">
-                                        <FileText className="h-6 w-6 text-white" />
-                                      </div>
+                                      <FileText className="h-6 w-6 text-white" />
+                                    </div>
                                       <h4 className="font-semibold text-sm mb-2 text-canva-gray-900 group-hover:text-canva-blue-600 transition-colors line-clamp-2" title={paper.title}>
-                                        {paper.title}
-                                      </h4>
+                                      {paper.title}
+                                    </h4>
                                       <div className="text-xs text-canva-gray-600 flex items-center justify-center gap-2">
                                         <Clock className="h-3 w-3" />
-                                        {paper.duration}m • {paper.totalQuestions} Questions
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-                                </Link>
-                              </motion.div>
-                            ));
-                          })()}
-                        </motion.div>
+                                      {paper.duration}m • {paper.totalQuestions} Questions
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              </Link>
+                            </motion.div>
+                          ));
+                        })()}
+                      </motion.div>
 
                         {/* Enhanced View All Link */}
-                        <div className="text-center mt-8">
+                      <div className="text-center mt-8">
                           <Button variant="outline" className="bg-canva-blue-50 text-canva-blue-600 border-canva-blue-200 hover:bg-canva-blue-100 rounded-canva" asChild>
-                            <Link href={`/previous-year-papers/${categories.find(cat => cat.id === selectedCategory)?.slug || selectedCategory
-                              }`}>
-                              View All Papers
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                          </Button>
-                        </div>
+                          <Link href={`/previous-year-papers/${categories.find(cat => cat.id === selectedCategory)?.slug || selectedCategory
+                            }`}>
+                            View All Papers
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
                       </div>
-                    ) : (
-                      <div className="text-center py-16">
+                    </div>
+                  ) : (
+                    <div className="text-center py-16">
                         <div className="w-16 h-16 mx-auto mb-4 bg-canva-purple-100 rounded-canva-lg flex items-center justify-center">
                           <Target className="h-8 w-8 text-canva-purple-600" />
                         </div>
                         <h3 className="text-xl font-semibold mb-2 text-canva-gray-900">Select a Category</h3>
                         <p className="text-canva-gray-600">
-                          Choose a category from the left to view available previous year papers
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                        Choose a category from the left to view available previous year papers
+                      </p>
+                    </div>
+                  )}
                 </div>
+              </div>
             </div>
 
             {/* Enhanced Mobile View - Show all categories in grid */}
@@ -401,8 +401,8 @@ function PreviousYearPapersContent() {
                       </Link>
                     </motion.div>
                   );
-                                  })}
-                </motion.div>
+                })}
+              </motion.div>
               </div>
             </div>
 

@@ -10,6 +10,7 @@ import ClientProviders from "@/components/client-providers"
 import DataPrefetcher from "@/components/data-prefetcher"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import ConditionalLayout from "@/components/conditional-layout"
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -68,17 +69,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ClientProviders>
           <ExamProvider>
-            <SidebarProvider>
-              <AppSidebar />
-              <div className="flex-1 md:ml-64">
-                <Header />
-                <main className="min-h-screen">
-                  {children}
-                </main>
-              </div>
-              <Toaster />
-              <DataPrefetcher />
-            </SidebarProvider>
+            <ConditionalLayout>
+              {children}
+            </ConditionalLayout>
+            <Toaster />
+            <DataPrefetcher />
           </ExamProvider>
         </ClientProviders>
       </body>

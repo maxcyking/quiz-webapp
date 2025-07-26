@@ -32,6 +32,11 @@ export function Header() {
     return publicPages.includes(pathname) || user;
   }, [pathname, user]);
 
+  // Check if we should show sidebar trigger (not on exam pages)
+  const shouldShowSidebarTrigger = useMemo(() => {
+    return !pathname?.startsWith("/exams/");
+  }, [pathname]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -49,7 +54,7 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between px-4">
         {/* Left side - Sidebar trigger and logo */}
         <div className="flex items-center gap-4">
-          <SidebarTrigger />
+          {shouldShowSidebarTrigger && <SidebarTrigger />}
           
           {/* Logo - visible on larger screens or when sidebar is closed */}
           <Link href="/" className="flex items-center space-x-2">

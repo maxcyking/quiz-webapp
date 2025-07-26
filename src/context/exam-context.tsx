@@ -75,6 +75,8 @@ type Exam = {
   category?: Category
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
   tags?: string[]
+  isAnytime?: boolean
+  examType?: string
 }
 
 type Question = {
@@ -581,32 +583,36 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       }
 
       const examData = examDoc.data();
-      const examStartDate = convertTimestamp(examData.startDate);
-      const examEndDate = convertTimestamp(examData.endDate);
+      
+      // For isAnytime exams, skip date validation
+      if (!examData.isAnytime) {
+        const examStartDate = convertTimestamp(examData.startDate);
+        const examEndDate = convertTimestamp(examData.endDate);
 
-      if (!examStartDate || !examEndDate) {
-        throw new Error("Invalid exam dates");
-      }
+        if (!examStartDate || !examEndDate) {
+          throw new Error("Invalid exam dates");
+        }
 
-      const now = new Date();
+        const now = new Date();
 
-      // Check if the exam has started
-      if (now < examStartDate) {
-        throw new Error("Exam has not started yet");
-      }
+        // Check if the exam has started
+        if (now < examStartDate) {
+          throw new Error("Exam has not started yet");
+        }
 
-      // Check if the exam has ended
-      if (now > examEndDate) {
-        throw new Error("Exam has already ended");
-      }
+        // Check if the exam has ended
+        if (now > examEndDate) {
+          throw new Error("Exam has already ended");
+        }
 
-      // Calculate grace period end time (3 minutes after exam starts)
-      const gracePeriodEnd = new Date(examStartDate);
-      gracePeriodEnd.setMinutes(gracePeriodEnd.getMinutes() + 3);
+        // Calculate grace period end time (3 minutes after exam starts)
+        const gracePeriodEnd = new Date(examStartDate);
+        gracePeriodEnd.setMinutes(gracePeriodEnd.getMinutes() + 3);
 
-      // Server-side validation: Check if we're past the grace period
-      if (now > gracePeriodEnd) {
-        throw new Error("The grace period for starting this exam has expired");
+        // Server-side validation: Check if we're past the grace period
+        if (now > gracePeriodEnd) {
+          throw new Error("The grace period for starting this exam has expired");
+        }
       }
 
       const cached = examCache.get(examId);
@@ -620,7 +626,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           id: `attempt-${nowTimestamp}`,
           examId,
           userId: user?.id || "",
-          startTime: now,
+          startTime: new Date(),
           isSubmitted: false,
           answers: []
         };
@@ -641,8 +647,8 @@ export function ExamProvider({ children }: { children: ReactNode }) {
         const examDataWithDates = {
           id: examDoc.id,
           ...examData,
-          startDate: examStartDate,
-          endDate: examEndDate
+          startDate: examData.isAnytime ? null : convertTimestamp(examData.startDate),
+          endDate: examData.isAnytime ? null : convertTimestamp(examData.endDate)
         } as Exam;
 
         const questionsData = questionsSnapshot.docs.map(doc => ({
@@ -663,7 +669,7 @@ export function ExamProvider({ children }: { children: ReactNode }) {
           id: `attempt-${nowTimestamp}`,
           examId,
           userId: user?.id || "",
-          startTime: now,
+          startTime: new Date(),
           isSubmitted: false,
           answers: []
         };
@@ -678,18 +684,19 @@ export function ExamProvider({ children }: { children: ReactNode }) {
       } else {
         throw new Error("Exam not found");
       }
-    } catch (error) {
-      console.error("Error starting exam:", error);
-      throw error;
-    } finally {
+
+      // Show success toast
       toast({
         title: "Exam Started",
         description: "The exam has started successfully.",
         variant: "default",
         duration: 5000,
       });
+    } catch (error) {
+      console.error("Error starting exam:", error);
+      throw error;
     }
-  }, [user, isExamCompletedByUser, router]);
+  }, [user, router, isExamCompletedByUser]);
 
   const submitAnswer = async (questionId: string, answer: number[]) => {
     if (!currentAttempt || !currentQuestions.length) return;
