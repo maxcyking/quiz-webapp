@@ -42,7 +42,7 @@ export function shouldInheritThumbnail(
 ): boolean {
   return (
     formData.type === "sub" && 
-    formData.parentCategoryId && 
+    !!formData.parentCategoryId && 
     !formData.thumbnailUrl &&
     categories.some(cat => cat.id === formData.parentCategoryId && cat.thumbnailUrl)
   );
