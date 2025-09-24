@@ -2,6 +2,214 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Optimized Mathematical Content for Testbook */
+.math-content {
+  line-height: 1.7;
+  font-size: 1.1em;
+  word-break: break-word;
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* MathJax 3.x containers */
+.math-content mjx-container {
+  display: inline-block !important;
+  margin: 0.3em 0.1em;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+.math-content mjx-container[display="true"] {
+  display: block !important;
+  text-align: center;
+  margin: 0.8em auto;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* MathJax 2.x compatibility */
+.math-content .MathJax {
+  display: inline-block !important;
+  font-size: inherit !important;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+}
+
+.math-content .MathJax_Display {
+  display: block !important;
+  text-align: center;
+  margin: 0.8em auto;
+  overflow-x: auto;
+}
+
+/* Enhanced inline vs block behavior */
+.inline-math {
+  display: inline;
+}
+
+.inline-math mjx-container,
+.inline-math .MathJax {
+  display: inline !important;
+  margin: 0 0.05em;
+  vertical-align: baseline;
+}
+
+.block-math {
+  display: block;
+  text-align: center;
+  margin: 1.2em 0;
+  padding: 0.5em;
+}
+
+.block-math mjx-container,
+.block-math .MathJax {
+  display: block !important;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Beautiful math fallback */
+.math-fallback {
+  font-family: 'Times New Roman', 'Cambria Math', serif;
+  font-style: italic;
+  font-size: 1.05em;
+  padding: 0.3em 0.6em;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 6px;
+  border-left: 4px solid #28a745;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+[data-theme="dark"] .math-fallback {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #e2e8f0;
+  border-left-color: #48bb78;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Processing state */
+.math-content.opacity-70 {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.block-math .MathJax {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Question specific styling */
+.question-math {
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.question-math .MathJax {
+  margin: 0 2px;
+}
+
+/* Option specific styling */
+.option-math {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+}
+
+.option-math .MathJax {
+  display: inline;
+  margin: 0 1px;
+}
+
+/* Solution specific styling */
+.solution-math {
+  line-height: 1.8;
+  margin: 12px 0;
+}
+
+.solution-math .MathJax {
+  margin: 0 2px;
+}
+
+/* Fallback text styling */
+.math-fallback {
+  font-family: 'Courier New', monospace;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 3px solid #e74c3c;
+  margin: 4px 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .math-fallback {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border-left-color: #fc8181;
+  }
+}
+
+/* Enhanced Mobile responsiveness */
+@media (max-width: 768px) {
+  .math-content {
+    font-size: 1em;
+  }
+  
+  .math-content mjx-container {
+    font-size: 0.95em;
+    margin: 0.2em 0.05em;
+  }
+  
+  .math-content .MathJax {
+    font-size: 95% !important;
+  }
+  
+  .block-math {
+    margin: 1em 0;
+    padding: 0.3em;
+  }
+
+  .question-math {
+    line-height: 1.6;
+  }
+  
+  .block-math .MathJax {
+    font-size: 0.9em;
+    margin: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .math-content mjx-container[display="true"],
+  .math-content .MathJax_Display {
+    font-size: 0.9em;
+    overflow-x: scroll;
+    padding-right: 1em;
+  }
+  
+  .math-fallback {
+    font-size: 0.95em;
+    padding: 0.25em 0.5em;
+  }
+}
+
+/* Loading state */
+.math-content.loading {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.math-content.loading::after {
+  content: "Loading math...";
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  display: block;
+  margin-top: 4px;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

@@ -1,0 +1,997 @@
+{
+  "examDetails": {
+    "title": "SSC_CGL_2023_Tier-I_Official_Paper_(Held_On_27_Jul_2023_Shift_2)",
+    "course": "SSC",
+    "examId": "6799a5776309f72f16ef82cf",
+    "totalQuestions": 100,
+    "totalSections": 4,
+    "extractionDate": "23/9/2025",
+    "extractionTime": "4:04:43 pm",
+    "sections": [
+      {
+        "sectionNo": 1,
+        "title": "General Intelligence and Reasoning",
+        "questionsCount": 25
+      },
+      {
+        "sectionNo": 2,
+        "title": "General Awareness",
+        "questionsCount": 25
+      },
+      {
+        "sectionNo": 3,
+        "title": "Quantitative Aptitude",
+        "questionsCount": 25
+      },
+      {
+        "sectionNo": 4,
+        "title": "English Comprehension",
+        "questionsCount": 25
+      }
+    ],
+    "extractionStats": {
+      "successfulExtractions": 100,
+      "failedExtractions": 0,
+      "correctAnswersFound": 100,
+      "solutionsFound": 200
+    }
+  },
+  "metadata": {
+    "extractedOn": "2025-09-23T10:34:43.217Z",
+    "extractor": "Ultimate HTML Testbook Extractor",
+    "format": "HTML Preserved",
+    "statistics": {
+      "totalQuestions": 100,
+      "successfulExtractions": 100,
+      "partialExtractions": 0,
+      "failedExtractions": 0,
+      "missingEnglish": 0,
+      "missingHindi": 0,
+      "missingOptions": 0,
+      "missingCorrectAnswers": 0,
+      "missingSolutions": 0,
+      "foundCorrectAnswers": 100,
+      "foundSolutions": 200,
+      "foundComprehensions": 10,
+      "missingComprehensions": 0,
+      "comprehensionQuestions": 5
+    }
+  },
+  "testInfo": {
+    "title": "SSC CGL 2023 Tier-I Official Paper (Held On: 27 Jul 2023 Shift 2)",
+    "id": "6799a5776309f72f16ef82cf",
+    "course": "SSC",
+    "totalQuestions": 100,
+    "sections": [
+      {
+        "title": "General Intelligence and Reasoning",
+        "questionCount": 25
+      },
+      {
+        "title": "General Awareness",
+        "questionCount": 25
+      },
+      {
+        "title": "Quantitative Aptitude",
+        "questionCount": 25
+      },
+      {
+        "title": "English Comprehension",
+        "questionCount": 25
+      }
+    ]
+  },
+  "questions": [
+    {
+      "questionNo": 1,
+      "sectionNo": 1,
+      "questionNoInSection": 1,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6bdba7de197a1571ac50",
+      "mergeKey": "0_0",
+      "originalQuestionId": "64cb6bdba7de197a1571ac50",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>यहाँ अनुसरण किया गया तर्क इस प्रकार&nbsp;है:</p>\n\n<p>चरण 1: आकृतियों&nbsp;में अक्षर एक अक्षर को छोड़कर दक्षिणावर्त दिशा में घूम रहे हैं।</p>\n\n<p>चरण 2: आकृति&nbsp;1 से <span style=\"color: rgb(33, 37, 41);\">आकृति</span> 5 तक '<img alt=\"\" src=\"//cdn.testbook.com/images/production/quesImages/qImage656649c692321f86e14647de.png\" style=\"color: rgb(33, 37, 41);\">' की संख्या घट रही है।</p>\n\n<p>चरण 3: <span style=\"color: rgb(33, 37, 41);\">आकृति</span> 1 से <span style=\"color: rgb(33, 37, 41);\">आकृति</span> 5 तक '<img alt=\"\" src=\"//cdn.testbook.com/images/production/quesImages/qImage656649c692321f86e14647e6.png\" style=\"color: rgb(33, 37, 41);\">' की संख्या बढ़ रही है।<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D6.png\" style=\"color: rgb(33, 37, 41); width: 396px; height: 81px;\"></p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D7.png\" style=\"color: rgb(33, 37, 41); width: 396px; height: 125px;\"></p>\n\n<p>इसलिए, <span style=\"color: rgb(33, 37, 41);\">आकृति</span> 5 दी गई शृंखला में प्रश्न चिह्न को प्रतिस्थापित करेगी।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 4'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Select the figure that will come in place of the question mark (?) in the following figure series.</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D1.png\" style=\"width: 397px; height: 82px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D2.png\" style=\"color: rgb(33, 37, 41); width: 81px; height: 82px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D3.png\" style=\"color: rgb(33, 37, 41); width: 81px; height: 82px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D4.png\" style=\"color: rgb(33, 37, 41); width: 81px; height: 81px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D5.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 81px;\" />"
+          }
+        ],
+        "solutionText": "यहाँ अनुसरण किया गया तर्क इस प्रकार है: चरण 1: आकृतियों में अक्षर एक अक्षर को छोड़कर दक्षिणावर्त दिशा में घूम रहे हैं। चरण 2: आकृति 1 से आकृति 5 तक '' की संख्या घट रही है। चरण 3: आकृति 1 से आकृति 5 तक '' की संख्या बढ़ रही है। इसलिए, आकृति 5 दी गई शृंखला में प्रश्न चिह्न को प्रतिस्थापित करेगी। अतः, सही उत्तर 'विकल्प 4' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The logic followed here is:</p>\n\n<p>Step 1: Letters in images are moving in clockwise direction skipping One letter.</p>\n\n<p>Step 2: Number of&nbsp; '<img alt=\"\" src=\"//cdn.testbook.com/images/production/quesImages/qImage656649c692321f86e14647de.png\">' are decreasing from image 1 to image 5.</p>\n\n<p>Step 3: Number of '<img alt=\"\" src=\"//cdn.testbook.com/images/production/quesImages/qImage656649c692321f86e14647e6.png\">' is increasing from image 1 to image 5.&nbsp; &nbsp;<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D6.png\" style=\"width: 396px; height: 81px;\"><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D7.png\" style=\"color: rgb(33, 37, 41); width: 396px; height: 125px;\"></p>\n\n<p>So, <strong>Image 5</strong> will replace the question mark in the given series.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 4'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>निम्नलिखित आकृति शृंखला में प्रश्न चिह्न (?) के स्थान पर आने वाली आकृति का चयन कीजिए।</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D1.png\" style=\"width: 397px; height: 82px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D2.png\" style=\"width: 81px; height: 82px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D3.png\" style=\"width: 81px; height: 82px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D4.png\" style=\"width: 81px; height: 81px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D5.png\" style=\"width: 82px; height: 81px;\" />"
+          }
+        ],
+        "solutionText": "The logic followed here is: Step 1: Letters in images are moving in clockwise direction skipping One letter. Step 2: Number of '' are decreasing from image 1 to image 5. Step 3: Number of '' is increasing from image 1 to image 5. So, Image 5 will replace the question mark in the given series. Hence, the correct answer is 'Option 4'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "D",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 2,
+      "sectionNo": 1,
+      "questionNoInSection": 2,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6c0b42cdd27e7bf2c97b",
+      "mergeKey": "0_1",
+      "originalQuestionId": "64cb6c0b42cdd27e7bf2c97b",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>यहाँ अनुसरण किया गया तर्क इस प्रकार&nbsp;है:</p>\n\n<p>तर्क: <strong>(पहली संख्या × दूसरी संख्या) × 3 = तीसरी संख्या।</strong></p>\n\n<p>(3, 6, 54)&nbsp;<span style=\"color: rgb(33, 37, 41);\">के लिए,&nbsp;</span></p>\n\n<p>→ <u><strong>(3&nbsp;× 6)</strong></u>&nbsp;× 3</p>\n\n<p><span style=\"color: rgb(33, 37, 41);\">→</span>&nbsp;<u><strong>18&nbsp;× 3</strong></u></p>\n\n<p>= 54</p>\n\n<p>(4, 2, 24)&nbsp;<span style=\"color: rgb(33, 37, 41);\">के लिए,</span></p>\n\n<p>→&nbsp;<u><strong>(4&nbsp;×2)</strong></u>&nbsp;× 3</p>\n\n<p>→&nbsp;<strong><u>8&nbsp;× 3</u></strong></p>\n\n<p>= 24</p>\n\n<p>इसी प्रकार, <strong>(3, 4, 36)</strong></p>\n\n<p>→&nbsp;<u><strong>(3&nbsp;×4)</strong></u>&nbsp;× 3</p>\n\n<p>→&nbsp;<u><strong>12&nbsp;× 3</strong></u></p>\n\n<p>=<strong> 36</strong></p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 3'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Select the set in which the numbers are related in the same way as are the numbers of the following sets.</p> <p>(NOTE: Operations should be performed on the whole numbers, without breaking down the numbers into its constituent digits. For e.g. 13 &ndash; Operations on 13 such as adding/subtracting/multiplying etc. to 13 can be performed. Breaking down 13 into 1 and 3 and then performing mathematical operations on 1 and 3 is not allowed.)</p> <p>(3, 6, 54)</p> <p>(4, 2, 24)</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "(9, 6, 60)"
+          },
+          {
+            "label": "B",
+            "text": "(5, 3, 30)"
+          },
+          {
+            "label": "C",
+            "text": "(3, 4, 36)"
+          },
+          {
+            "label": "D",
+            "text": "(2, 6, 48)"
+          }
+        ],
+        "solutionText": "यहाँ अनुसरण किया गया तर्क इस प्रकार है: तर्क: (पहली संख्या × दूसरी संख्या) × 3 = तीसरी संख्या। (3, 6, 54) के लिए, → (3 × 6) × 3 → 18 × 3 = 54 (4, 2, 24) के लिए, → (4 ×2) × 3 → 8 × 3 = 24 इसी प्रकार, (3, 4, 36) → (3 ×4) × 3 → 12 × 3 = 36 अतः, सही उत्तर 'विकल्प 3' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The logic followed here is:</p>\n\n<p>Logic: <strong>(First number&nbsp;× Second Number)&nbsp;× 3 = Third Number.</strong></p>\n\n<p>For, (3, 6, 54)</p>\n\n<p>→ <u><strong>(3&nbsp;× 6)</strong></u>&nbsp;× 3</p>\n\n<p><span style=\"color: rgb(33, 37, 41);\">→</span>&nbsp;<u><strong>18&nbsp;× 3</strong></u></p>\n\n<p>= 54.</p>\n\n<p>For, (4, 2, 24)</p>\n\n<p>→&nbsp;<u><strong>(4&nbsp;×2)</strong></u>&nbsp;× 3</p>\n\n<p>→&nbsp;<strong><u>8&nbsp;× 3</u></strong></p>\n\n<p>= 24.</p>\n\n<p>Similarly, <strong>(3, 4, 36)</strong></p>\n\n<p>→&nbsp;<u><strong>(3&nbsp;×4)</strong></u>&nbsp;× 3</p>\n\n<p>→&nbsp;<u><strong>12&nbsp;× 3</strong></u></p>\n\n<p>=<strong> 36.</strong></p>\n\n<p>Hence, the correct answer is <b><em>'Option 3'.</em></b></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>उस समुच्चय&nbsp;का चयन कीजिए&nbsp;जिसमें संख्याएँ उसी प्रकार संबंधित हैं जिस प्रकार&nbsp;निम्नलिखित समुच्चय की संख्याएँ हैं।</p> <p>(नोट: संक्रियाएँ,&nbsp;संख्याओं को उसके घटक अंकों में तोड़े बिना&nbsp;पूर्ण संख्याओं पर की जानी चाहिए। उदाहरण के लिए 13 - 13 पर संक्रियाएँ जैसे कि 13 में जोड़ना/घटाना/गुणा करना आदि किया जा सकता है। 13 को 1 में तोड़ना और 3 और फिर 1 और 3 पर गणितीय संक्रियाएँ करने की अनुमति नहीं है।)</p> <p>(3, 6, 54)</p> <p>(4, 2, 24)</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "(9, 6, 60)"
+          },
+          {
+            "label": "B",
+            "text": "(5, 3, 30)"
+          },
+          {
+            "label": "C",
+            "text": "(3, 4, 36)"
+          },
+          {
+            "label": "D",
+            "text": "(2, 6, 48)"
+          }
+        ],
+        "solutionText": "The logic followed here is: Logic: (First number × Second Number) × 3 = Third Number. For, (3, 6, 54) → (3 × 6) × 3 → 18 × 3 = 54. For, (4, 2, 24) → (4 ×2) × 3 → 8 × 3 = 24. Similarly, (3, 4, 36) → (3 ×4) × 3 → 12 × 3 = 36. Hence, the correct answer is 'Option 3'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "C",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 3,
+      "sectionNo": 1,
+      "questionNoInSection": 3,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6c22dee55663ecbbc092",
+      "mergeKey": "0_2",
+      "originalQuestionId": "64cb6c22dee55663ecbbc092",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>वंश आरेख:</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage13914.png\"></p>\n\n<p><strong>दिया गया है:</strong> एक व्यक्ति की ओर इशारा करते हुए, रॉकी (एक&nbsp;व्यक्ति) ने कहा, \"वह मेरी बहू की बेटी का पिता है।\"</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D8.png\" style=\"width: 275px; height: 216px;\"></p>\n\n<p>इसलिए, रॉकी उस व्यक्ति का <strong>पिता</strong> है।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 3'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "Pointing to a man, Rocky (a man) said, &ldquo;He is the father of the daughter of my daughter-in-law.&rdquo; How Rocky is related to that man?",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "Uncle"
+          },
+          {
+            "label": "B",
+            "text": "Son"
+          },
+          {
+            "label": "C",
+            "text": "Father"
+          },
+          {
+            "label": "D",
+            "text": "Brother-in-law"
+          }
+        ],
+        "solutionText": "वंश आरेख: दिया गया है: एक व्यक्ति की ओर इशारा करते हुए, रॉकी (एक व्यक्ति) ने कहा, \"वह मेरी बहू की बेटी का पिता है।\" इसलिए, रॉकी उस व्यक्ति का पिता है। अतः, सही उत्तर 'विकल्प 3' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>Family Chart:</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage13914.png\"></p>\n\n<p><strong>Given:&nbsp;</strong>Pointing to a man, Rocky (a man) said, “He is the father of the daughter of my daughter-in-law.”</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D8.png\" style=\"color: rgb(33, 37, 41); width: 275px; height: 216px;\"></p>\n\n<p>&nbsp;</p>\n\n<p>So, Rocky is the<strong> Father</strong> of that Man.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 3'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "एक व्यक्ति की ओर इशारा करते हुए, रॉकी (एक व्यक्ति) ने कहा, &quot;वह मेरी बहू की बेटी का पिता है।&quot; रॉकी का उस व्यक्ति से क्या संबंध है?",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "अंकल"
+          },
+          {
+            "label": "B",
+            "text": "पुत्र"
+          },
+          {
+            "label": "C",
+            "text": "पिता"
+          },
+          {
+            "label": "D",
+            "text": "देवर/साला"
+          }
+        ],
+        "solutionText": "Family Chart: Given: Pointing to a man, Rocky (a man) said, “He is the father of the daughter of my daughter-in-law.” So, Rocky is the Father of that Man. Hence, the correct answer is 'Option 3'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "C",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 4,
+      "sectionNo": 1,
+      "questionNoInSection": 4,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6c3f6d24b651725f2895",
+      "mergeKey": "0_3",
+      "originalQuestionId": "64cb6c3f6d24b651725f2895",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>यहाँ अनुसरण किया गया तर्क इस प्रकार&nbsp;है:</p>\n\n<p><strong>दी गई शृंखला</strong><strong>:&nbsp;&nbsp;</strong>_ T M _ P T _ R _ _ M R P _ _ R</p>\n\n<p>अब, विकल्प में दिए गए रिक्त स्थानों पर एक-एक करके अक्षर रखिए।</p>\n\n<p><span style=\"color: rgb(33, 37, 41);\">विकल्प</span> 1)&nbsp;M P T R M T T</p>\n\n<p><strong>M</strong> T M <strong>P /</strong>&nbsp;P T <strong>T</strong>&nbsp;R /&nbsp;<strong>R</strong>&nbsp;<strong>M</strong>&nbsp;M R / P <strong>T</strong>&nbsp;<strong>T</strong>&nbsp;R&nbsp;→ पैटर्न का अनुसरण नहीं करता है<span style=\"color: rgb(33, 37, 41);\">।</span></p>\n\n<p><strong>विकल्प&nbsp;2)&nbsp;P R M P T T M</strong><br>\n<br>\n<strong>P&nbsp;</strong>T M <strong>R /</strong>&nbsp;P T <strong>M</strong>&nbsp;R /&nbsp;<strong>P</strong>&nbsp;<strong>T</strong>&nbsp;M R / P <strong>T</strong>&nbsp;<strong>M</strong>&nbsp;R → <span style=\"font-weight: bolder;\">'PTMR'</span> के पैटर्न का अनुसरण करता है।</p>\n\n<p><span style=\"color: rgb(33, 37, 41);\">विकल्प</span> 3)&nbsp;P M T R R M T</p>\n\n<p><strong>P</strong> T M <strong>M</strong>&nbsp;/ P T <strong>T</strong>&nbsp;R /&nbsp;<strong>R</strong>&nbsp;<strong>R</strong>&nbsp;M R / P <strong>M</strong>&nbsp;<strong>T</strong>&nbsp;R&nbsp;→ <span style=\"color: rgb(33, 37, 41);\">पैटर्न का अनुसरण नहीं करता है</span><span style=\"color: rgb(33, 37, 41);\">।</span></p>\n\n<p><span style=\"color: rgb(33, 37, 41);\">विकल्प</span> 4)&nbsp;M T P R T M R</p>\n\n<p><strong>M</strong> T M <strong>T/</strong>&nbsp;P T <strong>P</strong>&nbsp;R/&nbsp;<strong>R</strong>&nbsp;<strong>T</strong>&nbsp;M R/ P <strong>M</strong>&nbsp;<strong>R</strong>&nbsp;R&nbsp;→ <span style=\"color: rgb(33, 37, 41);\">पैटर्न का अनुसरण नहीं करता है</span><span style=\"color: rgb(33, 37, 41);\">।</span></p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 2'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Select the option that represents the letters that, when placed from left to right in the blanks below, will complete the letter series.</p> <p>_ T M _ P T _ R _ _ M R P _ _ R</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "M P T R M T T"
+          },
+          {
+            "label": "B",
+            "text": "P R M P T T M"
+          },
+          {
+            "label": "C",
+            "text": "P M T R R M T"
+          },
+          {
+            "label": "D",
+            "text": "M T P R T M R"
+          }
+        ],
+        "solutionText": "यहाँ अनुसरण किया गया तर्क इस प्रकार है: दी गई शृंखला: _ T M _ P T _ R _ _ M R P _ _ R अब, विकल्प में दिए गए रिक्त स्थानों पर एक-एक करके अक्षर रखिए। विकल्प 1) M P T R M T T M T M P / P T T R / R M M R / P T T R → पैटर्न का अनुसरण नहीं करता है। विकल्प 2) P R M P T T M P T M R / P T M R / P T M R / P T M R → 'PTMR' के पैटर्न का अनुसरण करता है। विकल्प 3) P M T R R M T P T M M / P T T R / R R M R / P M T R → पैटर्न का अनुसरण नहीं करता है। विकल्प 4) M T P R T M R M T M T/ P T P R/ R T M R/ P M R R → पैटर्न का अनुसरण नहीं करता है। अतः, सही उत्तर 'विकल्प 2' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The logic followed here is:</p>\n\n<p><strong>Given Series:&nbsp;&nbsp;</strong>_ T M _ P T _ R _ _ M R P _ _ R</p>\n\n<p>Now, putting letter in blank spaces given in Options One by One.</p>\n\n<p>Option 1)&nbsp;M P T R M T T</p>\n\n<p><strong>M</strong> T M <strong>P /</strong>&nbsp;P T <strong>T</strong>&nbsp;R /&nbsp;<strong>R</strong>&nbsp;<strong>M</strong>&nbsp;M R / P <strong>T</strong>&nbsp;<strong>T</strong>&nbsp;R&nbsp;→ Does not follow pattern.&nbsp;</p>\n\n<p><strong>Option 2)&nbsp;P R M P T T M</strong><br>\n<br>\n<strong>P&nbsp;</strong>T M <strong>R /</strong>&nbsp;P T <strong>M</strong>&nbsp;R /&nbsp;<strong>P</strong>&nbsp;<strong>T</strong>&nbsp;M R / P <strong>T</strong>&nbsp;<strong>M</strong>&nbsp;R → Follows pattern of <strong>'PTMR'</strong>.</p>\n\n<p>Option 3)&nbsp;P M T R R M T</p>\n\n<p><strong>P</strong> T M <strong>M</strong>&nbsp;/ P T <strong>T</strong>&nbsp;R /&nbsp;<strong>R</strong>&nbsp;<strong>R</strong>&nbsp;M R / P <strong>M</strong>&nbsp;<strong>T</strong>&nbsp;R&nbsp;→ Does not follow pattern.</p>\n\n<p>Option 4)&nbsp;M T P R T M R</p>\n\n<p><strong>M</strong> T M <strong>T/</strong>&nbsp;P T <strong>P</strong>&nbsp;R/&nbsp;<strong>R</strong>&nbsp;<strong>T</strong>&nbsp;M R/ P <strong>M</strong>&nbsp;<strong>R</strong>&nbsp;R&nbsp;→ Does not follow pattern.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 2'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>उस विकल्प का चयन कीजिए&nbsp;जो उन अक्षरों को दर्शाता है, जिन्हें नीचे रिक्त स्थान में बाएँ&nbsp;से दाएँ&nbsp;रखने पर अक्षर शृंखला पूरी हो जाएगी।</p> <p>_ T M _ P T _ R _ _ M R P _ _ R</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "M P T R M T T"
+          },
+          {
+            "label": "B",
+            "text": "P R M P T T M"
+          },
+          {
+            "label": "C",
+            "text": "P M T R R M T"
+          },
+          {
+            "label": "D",
+            "text": "M T P R T M R"
+          }
+        ],
+        "solutionText": "The logic followed here is: Given Series: _ T M _ P T _ R _ _ M R P _ _ R Now, putting letter in blank spaces given in Options One by One. Option 1) M P T R M T T M T M P / P T T R / R M M R / P T T R → Does not follow pattern. Option 2) P R M P T T M P T M R / P T M R / P T M R / P T M R → Follows pattern of 'PTMR'. Option 3) P M T R R M T P T M M / P T T R / R R M R / P M T R → Does not follow pattern. Option 4) M T P R T M R M T M T/ P T P R/ R T M R/ P M R R → Does not follow pattern. Hence, the correct answer is 'Option 2'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "B",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 5,
+      "sectionNo": 1,
+      "questionNoInSection": 5,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6db2a7de197a15720370",
+      "mergeKey": "0_4",
+      "originalQuestionId": "64cb6db2a7de197a15720370",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p><span style=\"color: rgb(33, 37, 41);\">कागज को&nbsp;</span>खोले जाने पर यह नीचे दर्शाए गए अनुसार दिखाई देगा:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D14.png\" style=\"width: 353px; height: 83px;\"></p>\n\n<p>अतः&nbsp;सही उत्तर <strong>'विकल्प 3'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>The sequence of folding a piece of paper and the manner in which the folded paper has been cut is shown below. Choose the figure that would most closely resemble the unfolded form of the paper.</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D9.png\" style=\"width: 258px; height: 81px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D10.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D11.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D12.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D13.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 83px;\" />"
+          }
+        ],
+        "solutionText": "कागज को खोले जाने पर यह नीचे दर्शाए गए अनुसार दिखाई देगा: अतः सही उत्तर 'विकल्प 3' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The paper when unfolded will appear as shown below:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D14.png\" style=\"color: rgb(33, 37, 41); width: 353px; height: 83px;\"></p>\n\n<p>Hence, the correct answer is <em><strong>'Option 3'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>एक कागज को मोड़ने और मुड़े हुए कागज को काटने का क्रम नीचे दर्शाया गया है। उस&nbsp;आकृति का चयन कीजिए, जो कागज को खोले जाने पर&nbsp;रूप से सबसे अधिक&nbsp;मेल&nbsp;खाती हो।</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D9.png\" style=\"width: 258px; height: 81px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D10.png\" style=\"width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D11.png\" style=\"width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D12.png\" style=\"width: 82px; height: 83px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D13.png\" style=\"width: 82px; height: 83px;\" />"
+          }
+        ],
+        "solutionText": "The paper when unfolded will appear as shown below: Hence, the correct answer is 'Option 3'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "C",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 6,
+      "sectionNo": 1,
+      "questionNoInSection": 6,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6df1e103e4221f483d0f",
+      "mergeKey": "0_5",
+      "originalQuestionId": "64cb6df1e103e4221f483d0f",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p><strong>दिए गए कथन है:</strong></p>\n\n<p>कुछ शिक्षक, वैज्ञानिक हैं।</p>\n\n<p>सभी वैज्ञानिक, डॉक्टर हैं।</p>\n\n<p>सभी डॉक्टर, इंजीनियर <span style=\"color: rgb(33, 37, 41);\">हैं।</span></p>\n\n<p>कथन के लिए न्यूनतम संभव वेन आरेख इस प्रकार&nbsp;है:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D15.png\" style=\"width: 162px; height: 167px;\"></p>\n\n<p><strong>निष्कर्ष:</strong></p>\n\n<p>I. कुछ डॉक्टर, शिक्षक हैं<span style=\"color: rgb(33, 37, 41);\">।</span>&nbsp;→ <strong>सत्य</strong>&nbsp;(कुछ शिक्षक, वैज्ञानिक हैं और सभी वैज्ञानिक डॉक्टर हैं, तो वैज्ञानिक का&nbsp;जो भाग डॉक्टर है वह भी शिक्षक है।)</p>\n\n<p>II. कुछ इंजीनियर, शिक्षक हैं। → <strong>सत्य</strong>&nbsp;(कुछ इंजीनियर, वैज्ञानिक हैं और कुछ वैज्ञानिक शिक्षक हैं, तो इंजीनियरों का जो भाग वैज्ञानिक है वह शिक्षक भी है।)</p>\n\n<p>III. कुछ डॉक्टर, वैज्ञानिक हैं। → <strong>सत्य</strong>&nbsp;(सभी वैज्ञानिक, डॉक्टर हैं, इससे ज्ञात होता&nbsp;है कि कुछ डॉक्टर, वैज्ञानिक हैं।)</p>\n\n<p>इसलिए, सभी निष्कर्ष अनुसरण करते हैं।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 2'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Three statements are given followed by three conclusions numbered I, II and III. Assuming the statements to be true, even if they seem to be at variance with commonly known facts, decide which of the conclusions logically follow(s) from the statements.</p> <p><strong>Statements:</strong></p> <p>Some teachers are scientists.</p> <p>All scientists are doctors.</p> <p>All doctors are engineers.</p> <p><strong>Conclusions:</strong></p> <p>I. Some doctors are teachers.</p> <p>II. Some engineers are teachers.</p> <p>III. Some doctors are scientists.</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "Only conclusions I and II follow"
+          },
+          {
+            "label": "B",
+            "text": "All conclusions follow"
+          },
+          {
+            "label": "C",
+            "text": "Only conclusions I and III follow"
+          },
+          {
+            "label": "D",
+            "text": "Only conclusions II and III follow"
+          }
+        ],
+        "solutionText": "दिए गए कथन है: कुछ शिक्षक, वैज्ञानिक हैं। सभी वैज्ञानिक, डॉक्टर हैं। सभी डॉक्टर, इंजीनियर हैं। कथन के लिए न्यूनतम संभव वेन आरेख इस प्रकार है: निष्कर्ष: I. कुछ डॉक्टर, शिक्षक हैं। → सत्य (कुछ शिक्षक, वैज्ञानिक हैं और सभी वैज्ञानिक डॉक्टर हैं, तो वैज्ञानिक का जो भाग डॉक्टर है वह भी शिक्षक है।) II. कुछ इंजीनियर, शिक्षक हैं। → सत्य (कुछ इंजीनियर, वैज्ञानिक हैं और कुछ वैज्ञानिक शिक्षक हैं, तो इंजीनियरों का जो भाग वैज्ञानिक है वह शिक्षक भी है।) III. कुछ डॉक्टर, वैज्ञानिक हैं। → सत्य (सभी वैज्ञानिक, डॉक्टर हैं, इससे ज्ञात होता है कि कुछ डॉक्टर, वैज्ञानिक हैं।) इसलिए, सभी निष्कर्ष अनुसरण करते हैं। अतः, सही उत्तर 'विकल्प 2' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p><strong>Given Statements:&nbsp;</strong></p>\n\n<p>Some teachers are scientists.</p>\n\n<p>All scientists are doctors.</p>\n\n<p>All doctors are engineers.</p>\n\n<p>The least possible Venn diagram for the statement is:</p>\n\n<p>&nbsp;&nbsp;<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D15.png\" style=\"color: rgb(33, 37, 41); width: 162px; height: 167px;\"></p>\n\n<p>&nbsp;</p>\n\n<p><strong>Conclusions:</strong></p>\n\n<p>I. Some doctors are teachers.&nbsp;→ <strong>True. </strong>(Some teachers are Scientist and All Scientist are doctors, then the part of scientist who are doctors are also teachers.)</p>\n\n<p>II. Some engineers are teachers. → <strong>True. </strong>(Some engineers are scientist and some scientist are teachers, then the part of engineers which are scientist are also teachers.)</p>\n\n<p>III. Some doctors are scientists.&nbsp;→ <strong>True. </strong>(All Scientist are Doctors, it gives some doctors are scientist.)</p>\n\n<p>So, All Conclusions Follow.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 2'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>तीन कथन और उसके बाद I, II और III क्रमांकित तीन निष्कर्ष दिए गए हैं। कथनों को सत्य मानते हुए, भले ही वे सामान्यतः ज्ञात तथ्यों से भिन्न प्रतीत होते हों, निर्णय लीजिए&nbsp;कि कौन-सा निष्कर्ष तार्किक रूप से कथनों का अनुसरण करता है।</p> <p><strong>कथन:</strong></p> <p>कुछ शिक्षक, वैज्ञानिक हैं।</p> <p>सभी वैज्ञानिक, डॉक्टर हैं।</p> <p>सभी डॉक्टर, इंजीनियर हैं।</p> <p><strong>निष्कर्ष:</strong></p> <p>I. कुछ डॉक्टर, शिक्षक हैं।</p> <p>II. कुछ इंजीनियर शिक्षक हैं।</p> <p>III. कुछ डॉक्टर, वैज्ञानिक हैं।</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "केवल निष्कर्ष I और II अनुसरण करते हैं"
+          },
+          {
+            "label": "B",
+            "text": "सभी निष्कर्ष अनुसरण करते हैं"
+          },
+          {
+            "label": "C",
+            "text": "केवल निष्कर्ष I और III अनुसरण करते हैं"
+          },
+          {
+            "label": "D",
+            "text": "केवल निष्कर्ष II और III अनुसरण करते हैं"
+          }
+        ],
+        "solutionText": "Given Statements: Some teachers are scientists. All scientists are doctors. All doctors are engineers. The least possible Venn diagram for the statement is: Conclusions: I. Some doctors are teachers. → True. (Some teachers are Scientist and All Scientist are doctors, then the part of scientist who are doctors are also teachers.) II. Some engineers are teachers. → True. (Some engineers are scientist and some scientist are teachers, then the part of engineers which are scientist are also teachers.) III. Some doctors are scientists. → True. (All Scientist are Doctors, it gives some doctors are scientist.) So, All Conclusions Follow. Hence, the correct answer is 'Option 2'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "B",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 7,
+      "sectionNo": 1,
+      "questionNoInSection": 7,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6e5c3f62dd3f21198f6f",
+      "mergeKey": "0_6",
+      "originalQuestionId": "64cb6e5c3f62dd3f21198f6f",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>यहाँ&nbsp;तर्क इस प्रकार&nbsp;है: <strong>आकृतियों&nbsp;के सभी तीन अवयव&nbsp;वामावर्त दिशा में घूम रहे हैं।</strong><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D21.png\" style=\"width: 396px; height: 110px;\"></p>\n\n<p>यहाँ, <strong>आकृति&nbsp;5</strong> शृंखला जारी रखेगी।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 2'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Which of the given figures when placed in the 5<sup>th</sup>&nbsp;position would continue the series that is established by the first four figures?</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D16.png\" style=\"width: 318px; height: 103px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D17.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 82px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D18.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 82px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D19.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 81px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D20.png\" style=\"color: rgb(33, 37, 41); width: 82px; height: 81px;\" />"
+          }
+        ],
+        "solutionText": "यहाँ तर्क इस प्रकार है: आकृतियों के सभी तीन अवयव वामावर्त दिशा में घूम रहे हैं। यहाँ, आकृति 5 शृंखला जारी रखेगी। अतः, सही उत्तर 'विकल्प 2' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The logic followed here is: <strong>All the three Elements of images are moving in anticlockwise direction.</strong></p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D21.png\" style=\"color: rgb(33, 37, 41); width: 396px; height: 110px;\"></p>\n\n<p>Here, <strong>image 5</strong> will continue the series.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 2'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>दी गई आकृतियों में से कौन-सी&nbsp;जब 5वें स्थान पर रखी&nbsp;जाए तो वह पहली&nbsp;चार आकृतियों&nbsp;द्वारा स्थापित शृंखला को जारी रखेगी?</p> <p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D16.png\" style=\"width: 318px; height: 103px;\" /></p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D17.png\" style=\"width: 82px; height: 82px;\" />"
+          },
+          {
+            "label": "B",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D18.png\" style=\"width: 82px; height: 82px;\" />"
+          },
+          {
+            "label": "C",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D19.png\" style=\"width: 82px; height: 81px;\" />"
+          },
+          {
+            "label": "D",
+            "text": "<img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D20.png\" style=\"width: 82px; height: 81px;\" />"
+          }
+        ],
+        "solutionText": "The logic followed here is: All the three Elements of images are moving in anticlockwise direction. Here, image 5 will continue the series. Hence, the correct answer is 'Option 2'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "B",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 8,
+      "sectionNo": 1,
+      "questionNoInSection": 8,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb6e6fa7de197a15722b0f",
+      "mergeKey": "0_7",
+      "originalQuestionId": "64cb6e6fa7de197a15722b0f",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>यहाँ अनुसरण किया गया तर्क इस प्रकार&nbsp;है:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D22.png\" style=\"color: rgb(33, 37, 41); width: 278px; height: 73px;\"></p>\n\n<p>इसलिए, <strong>166</strong> दी गई शृंखला में प्रश्न चिह्न के&nbsp;स्थान पर आएगी।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 4'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>Which of the following numbers will replace the question mark (?) in the given series?</p> <p>232, 221, 199, ?, 122, 67</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "155"
+          },
+          {
+            "label": "B",
+            "text": "165"
+          },
+          {
+            "label": "C",
+            "text": "177"
+          },
+          {
+            "label": "D",
+            "text": "166"
+          }
+        ],
+        "solutionText": "यहाँ अनुसरण किया गया तर्क इस प्रकार है: इसलिए, 166 दी गई शृंखला में प्रश्न चिह्न के स्थान पर आएगी। अतः, सही उत्तर 'विकल्प 4' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The logic followed here is:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D22.png\" style=\"color: rgb(33, 37, 41); width: 278px; height: 73px;\"></p>\n\n<p>So, <strong>166 </strong>will replace the question mark in the given series.</p>\n\n<p>Hence, the correct answer is <em><strong>'Option 4'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>निम्नलिखित में से कौन-सी संख्या दी गई शृंखला में प्रश्न चिह्न (?) को प्रतिस्थापित करेगी?</p> <p>232, 221, 199, ?, 122, 67</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "155"
+          },
+          {
+            "label": "B",
+            "text": "165"
+          },
+          {
+            "label": "C",
+            "text": "177"
+          },
+          {
+            "label": "D",
+            "text": "166"
+          }
+        ],
+        "solutionText": "The logic followed here is: So, 166 will replace the question mark in the given series. Hence, the correct answer is 'Option 4'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "D",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 9,
+      "sectionNo": 1,
+      "questionNoInSection": 9,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb74a05caf1bed0fc7af4b",
+      "mergeKey": "0_8",
+      "originalQuestionId": "64cb74a05caf1bed0fc7af4b",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>BODMAS नियम:&nbsp;</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage640f4f357a490ed6e5ab8802.png\"></p>\n\n<p>प्रतीकों का विकूटन करने पर:</p>\n\n<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width: 200px;\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td style=\"text-align: center;\"><strong>प्रतीक</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>&lt;</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>&gt;</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>!</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>$</strong></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"text-align: center;\"><strong>अर्थ</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>-</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>+</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>×</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>÷</strong></td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p><br>\n<strong>दिया गया समीकरण:&nbsp;</strong>205 &gt; 210 $ 15 ! 2 &lt; 19</p>\n\n<p>प्रतीकों को प्रतिस्थापित करने के बाद समीकरण बनता है:</p>\n\n<p>→ 205 +&nbsp;<u><strong>210 ÷&nbsp;15</strong></u> ×&nbsp;2 -&nbsp;19</p>\n\n<p>→ 205 +&nbsp;<u><strong>14&nbsp;<span style=\"color: rgb(33, 37, 41);\">×</span>&nbsp;2</strong></u> - 19</p>\n\n<p>→&nbsp;<u><strong>205 + 28</strong></u> - 19</p>\n\n<p>→&nbsp;<u><strong>233 - 19</strong></u></p>\n\n<p>= <strong>214</strong></p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 3'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>If &lsquo;&lt;&rsquo; means &lsquo;&minus;&rsquo;, &lsquo;!&rsquo; means &lsquo;&times;&rsquo;, &lsquo;&gt;&rsquo; means &lsquo;+&rsquo; and &lsquo;$&rsquo; means &lsquo;&divide;&rsquo;, then what is the value of the following expression?</p> <p>205 &gt; 210 $ 15 ! 2 &lt; 19</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "242"
+          },
+          {
+            "label": "B",
+            "text": "238"
+          },
+          {
+            "label": "C",
+            "text": "214"
+          },
+          {
+            "label": "D",
+            "text": "226"
+          }
+        ],
+        "solutionText": "BODMAS नियम: प्रतीकों का विकूटन करने पर: प्रतीक < > ! $ अर्थ - + × ÷ दिया गया समीकरण: 205 > 210 $ 15 ! 2 < 19 प्रतीकों को प्रतिस्थापित करने के बाद समीकरण बनता है: → 205 + 210 ÷ 15 × 2 - 19 → 205 + 14 × 2 - 19 → 205 + 28 - 19 → 233 - 19 = 214 अतः, सही उत्तर 'विकल्प 3' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The BODMAS Rule:&nbsp;</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage640f4f357a490ed6e5ab8802.png\"></p>\n\n<p>Decoding the symbols:</p>\n\n<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width: 200px;\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td style=\"text-align: center;\"><strong>Symbols</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>&lt;</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>&gt;</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>!</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>$</strong></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"text-align: center;\"><strong>Meaning</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>-</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>+</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>×</strong></td>\n\t\t\t<td style=\"text-align: center;\"><strong>÷</strong></td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p><br>\n<strong>Given Equation:&nbsp;</strong>205 &gt; 210 $ 15 ! 2 &lt; 19</p>\n\n<p>After replacing the symbols equation becomes:</p>\n\n<p>→ 205 +&nbsp;<u><strong>210 ÷&nbsp;15</strong></u> ×&nbsp;2 -&nbsp;19</p>\n\n<p>→ 205 +&nbsp;<u><strong>14&nbsp;<span style=\"color: rgb(33, 37, 41);\">×</span>&nbsp;2</strong></u> - 19</p>\n\n<p>→&nbsp;<u><strong>205 + 28</strong></u> - 19</p>\n\n<p>→&nbsp;<u><strong>233 - 19</strong></u></p>\n\n<p>= <strong>214.</strong></p>\n\n<p>Hence, the correct answer is <strong><em>'Option 3'.</em></strong></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "<p>यदि &#39;&lt;&#39; का अर्थ &#39;-&#39;, &#39;!&#39; का अर्थ &#39;&times;&#39;, &#39;&gt;&#39; का अर्थ &#39;+&#39; और &#39;$&#39; का अर्थ &#39;&divide;&#39; है, तो निम्नलिखित व्यंजक&nbsp;का मान&nbsp;क्या है?</p> <p>205 &gt; 210 $ 15 ! 2 &lt; 19</p>",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "242"
+          },
+          {
+            "label": "B",
+            "text": "238"
+          },
+          {
+            "label": "C",
+            "text": "214"
+          },
+          {
+            "label": "D",
+            "text": "226"
+          }
+        ],
+        "solutionText": "The BODMAS Rule: Decoding the symbols: Symbols < > ! $ Meaning - + × ÷ Given Equation: 205 > 210 $ 15 ! 2 < 19 After replacing the symbols equation becomes: → 205 + 210 ÷ 15 × 2 - 19 → 205 + 14 × 2 - 19 → 205 + 28 - 19 → 233 - 19 = 214. Hence, the correct answer is 'Option 3'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "C",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 10,
+      "sectionNo": 1,
+      "questionNoInSection": 10,
+      "sectionTitle": "General Intelligence and Reasoning",
+      "questionId": "64cb74b38aef2a45c19fe86e",
+      "mergeKey": "0_9",
+      "originalQuestionId": "64cb74b38aef2a45c19fe86e",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": false,
+      "english": {
+        "solutionHTML": "<p>अंग्रेजी वर्णमाला की स्थिति और स्थितीय मान इस प्रकार&nbsp;हैं:</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage8602.png\" style=\"color: rgb(33, 37, 41);\"></p>\n\n<p>क्योंकि, 'PLIERS' को MMAFJO' लिखा&nbsp;गया है।</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D23.png\" style=\"color: rgb(33, 37, 41); width: 164px; height: 145px;\"></p>\n\n<p>क्योंकि, 'SHOVEL' को FZRLFR' <span style=\"color: rgb(33, 37, 41);\">लिखा</span><span style=\"color: rgb(33, 37, 41);\">&nbsp;गया है।</span></p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D24.png\" style=\"color: rgb(33, 37, 41); width: 162px; height: 146px;\"></p>\n\n<p>इसी प्रकार, <span style=\"font-weight: bolder;\">'WRENCH' </span><span style=\"color: rgb(33, 37, 41);\">को इस प्रकार लिखा जाएगा</span>:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D25.png\" style=\"color: rgb(33, 37, 41); width: 165px; height: 147px;\"></p>\n\n<p>इसलिए, <strong>'WRENCH'</strong> को <strong>'BXJBPV'</strong> लिखा जाएगा।</p>\n\n<p>अतः, सही उत्तर <strong>'विकल्प 2'</strong> है।</p>\n",
+        "comprehensionHTML": null,
+        "questionText": "In a certain code language, &#39;PLIERS&#39; is coded as MMAFJO and &#39;SHOVEL&#39; is coded as FZRLFR. How will &#39;WRENCH&#39; be coded in the same language?",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "CXJBQU"
+          },
+          {
+            "label": "B",
+            "text": "BXJBPV"
+          },
+          {
+            "label": "C",
+            "text": "BXJBQU"
+          },
+          {
+            "label": "D",
+            "text": "CXIBPV"
+          }
+        ],
+        "solutionText": "अंग्रेजी वर्णमाला की स्थिति और स्थितीय मान इस प्रकार हैं: क्योंकि, 'PLIERS' को MMAFJO' लिखा गया है। क्योंकि, 'SHOVEL' को FZRLFR' लिखा गया है। इसी प्रकार, 'WRENCH' को इस प्रकार लिखा जाएगा: इसलिए, 'WRENCH' को 'BXJBPV' लिखा जाएगा। अतः, सही उत्तर 'विकल्प 2' है।",
+        "comprehensionText": null
+      },
+      "hindi": {
+        "solutionHTML": "<p>The Position and Positional value of English Alphabets are:</p>\n\n<p><img src=\"https://cdn.testbook.com/images/production/quesImages/qImage8602.png\"></p>\n\n<p>For,&nbsp;'PLIERS' is coded as MMAFJO'</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D23.png\" style=\"color: rgb(33, 37, 41); width: 164px; height: 145px;\"></p>\n\n<p>For,&nbsp;'SHOVEL' is coded as FZRLFR'</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D24.png\" style=\"color: rgb(33, 37, 41); width: 162px; height: 146px;\"></p>\n\n<p>Similarly,<strong> 'WRENCH'</strong> will be:</p>\n\n<p><img alt=\"\" src=\"//storage.googleapis.com/tb-img/production/24/02/F4_Savita_SSC_15-2-24_D25.png\" style=\"color: rgb(33, 37, 41); width: 165px; height: 147px;\"></p>\n\n<p>So, <strong>'WRENCH'</strong> will be written as <strong>'BXJBPV'.</strong></p>\n\n<p>Hence, the correct answer is <em><strong>'Option 2'.</strong></em></p>\n",
+        "comprehensionHTML": null,
+        "questionText": "एक निश्चित कूट भाषा में, &#39;PLIERS&#39; को MMAFJO लिखा जाता है और &#39;SHOVEL&#39; को FZRLFR लिखा जाता है। &#39;WRENCH&#39; को उसी भाषा में कैसे लिखा जाएगा?",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "CXJBQU"
+          },
+          {
+            "label": "B",
+            "text": "BXJBPV"
+          },
+          {
+            "label": "C",
+            "text": "BXJBQU"
+          },
+          {
+            "label": "D",
+            "text": "CXIBPV"
+          }
+        ],
+        "solutionText": "The Position and Positional value of English Alphabets are: For, 'PLIERS' is coded as MMAFJO' For, 'SHOVEL' is coded as FZRLFR' Similarly, 'WRENCH' will be: So, 'WRENCH' will be written as 'BXJBPV'. Hence, the correct answer is 'Option 2'.",
+        "comprehensionText": null
+      },
+      "correctAnswer": "B",
+      "extractionStatus": "success"
+    },
+
+    {
+      "questionNo": 97,
+      "sectionNo": 4,
+      "questionNoInSection": 22,
+      "sectionTitle": "English Comprehension",
+      "questionId": "64cb82146d24b6517263b5dc",
+      "mergeKey": "3_21",
+      "originalQuestionId": "64cb82146d24b6517263b5dc",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": true,
+      "english": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is </span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"since.\"</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>The word<strong> \"since\"</strong> is used to indicate the starting point of a specified period of time.</li>\n\t<li>In the given sentence,<strong> \"since\"</strong> is used to convey that the 46 years have elapsed starting from the time of the 42nd Constitution Amendment Act.</li>\n\t<li>It helps establish a temporal relationship between the two events and denotes the duration of time that has passed since the mentioned constitutional amendment.</li>\n\t<li>Therefore, the correct answer is <span style=\"font-weight: 700;\">Option 4.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list <u><span style=\"font-weight: bolder;\">is</span></u> a futile exercise in turning back the clock. Forty-six years have passed <u><strong>since</strong></u> the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span></p>\n\n<ul>\n\t<li style=\"color: (33, 37, 41);\"><strong>From: </strong>to indicate the starting point of a period, range, or origin.</li>\n\t<li style=\"color: (33, 37, 41);\"><strong>For: </strong>to show purpose or reason.</li>\n\t<li style=\"color: (33, 37, 41);\"><strong>As: </strong>to show reason or cause.</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 2.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "from"
+          },
+          {
+            "label": "B",
+            "text": "for"
+          },
+          {
+            "label": "C",
+            "text": "as"
+          },
+          {
+            "label": "D",
+            "text": "since"
+          }
+        ],
+        "solutionText": "The correct answer is \"since.\" Key Points The word \"since\" is used to indicate the starting point of a specified period of time. In the given sentence, \"since\" is used to convey that the 46 years have elapsed starting from the time of the 42nd Constitution Amendment Act. It helps establish a temporal relationship between the two events and denotes the duration of time that has passed since the mentioned constitutional amendment. Therefore, the correct answer is Option 4. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus.......... Additional Information From: to indicate the starting point of a period, range, or origin. For: to show purpose or reason. As: to show reason or cause.",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "hindi": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is </span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"since.\"</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>The word<strong> \"since\"</strong> is used to indicate the starting point of a specified period of time.</li>\n\t<li>In the given sentence,<strong> \"since\"</strong> is used to convey that the 46 years have elapsed starting from the time of the 42nd Constitution Amendment Act.</li>\n\t<li>It helps establish a temporal relationship between the two events and denotes the duration of time that has passed since the mentioned constitutional amendment.</li>\n\t<li>Therefore, the correct answer is <span style=\"font-weight: 700;\">Option 4.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list <u><span style=\"font-weight: bolder;\">is</span></u> a futile exercise in turning back the clock. Forty-six years have passed <u><strong>since</strong></u> the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span></p>\n\n<ul>\n\t<li style=\"color: (33, 37, 41);\"><strong>From: </strong>to indicate the starting point of a period, range, or origin.</li>\n\t<li style=\"color: (33, 37, 41);\"><strong>For: </strong>to show purpose or reason.</li>\n\t<li style=\"color: (33, 37, 41);\"><strong>As: </strong>to show reason or cause.</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 2.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "from"
+          },
+          {
+            "label": "B",
+            "text": "for"
+          },
+          {
+            "label": "C",
+            "text": "as"
+          },
+          {
+            "label": "D",
+            "text": "since"
+          }
+        ],
+        "solutionText": "The correct answer is \"since.\" Key Points The word \"since\" is used to indicate the starting point of a specified period of time. In the given sentence, \"since\" is used to convey that the 46 years have elapsed starting from the time of the 42nd Constitution Amendment Act. It helps establish a temporal relationship between the two events and denotes the duration of time that has passed since the mentioned constitutional amendment. Therefore, the correct answer is Option 4. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus.......... Additional Information From: to indicate the starting point of a period, range, or origin. For: to show purpose or reason. As: to show reason or cause.",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "correctAnswer": "D",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 98,
+      "sectionNo": 4,
+      "questionNoInSection": 23,
+      "sectionTitle": "English Comprehension",
+      "questionId": "64cb82146d24b6517263b5dd",
+      "mergeKey": "3_22",
+      "originalQuestionId": "64cb82146d24b6517263b5dd",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": true,
+      "english": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is&nbsp;</span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"reversed.\"</span><br style=\"color: (33, 37, 41);\">\n<span style=\"color: (33, 37, 41);\">&nbsp;</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>The term<strong> \"reversed\"</strong> in this context suggests that the changes that have occurred in the education sector are difficult or impossible to undo.</li>\n\t<li><strong>\"Reversed\"</strong> means&nbsp;to change the direction, order, position, result, etc. of something to its opposite. (किसी चीज़ की दिशा, क्रम, स्थिति, परिणाम आदि को उसके विपरीत में बदलना)</li>\n\t<li>It implies that the transformations or developments are significant and have altered the state of the education sector in a way that cannot easily be turned back.</li>\n\t<li>Therefore, the correct answer is&nbsp;<span style=\"font-weight: 700;\">Option 4.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:&nbsp;</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list&nbsp;<u><span style=\"font-weight: bolder;\">is</span></u>&nbsp;a futile exercise in turning back the clock. Forty-six years have passed&nbsp;<u><span style=\"font-weight: bolder;\">since</span></u>&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be <u><strong>reversed</strong></u>. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span>&nbsp;</span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li><b>Turned:&nbsp;</b>move in a circular direction wholly or partly round an axis or point.&nbsp;(किसी अक्ष या बिंदु के चारों ओर पूर्णतः या आंशिक रूप से गोलाकार दिशा में घूमना)</li>\n\t<li><b>Backed:&nbsp;</b>give financial, material, or moral support to.&nbsp;(वित्तीय, भौतिक या नैतिक समर्थन देना)</li>\n\t<li><b>Returned:&nbsp;</b>come or go back to a place or person.&nbsp;(किसी स्थान या व्यक्ति के पास आना या वापस जाना)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 3.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "turned"
+          },
+          {
+            "label": "B",
+            "text": "backed"
+          },
+          {
+            "label": "C",
+            "text": "returned"
+          },
+          {
+            "label": "D",
+            "text": "reversed"
+          }
+        ],
+        "solutionText": "The correct answer is \"reversed.\" Key Points The term \"reversed\" in this context suggests that the changes that have occurred in the education sector are difficult or impossible to undo. \"Reversed\" means to change the direction, order, position, result, etc. of something to its opposite. (किसी चीज़ की दिशा, क्रम, स्थिति, परिणाम आदि को उसके विपरीत में बदलना) It implies that the transformations or developments are significant and have altered the state of the education sector in a way that cannot easily be turned back. Therefore, the correct answer is Option 4. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be reversed. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus.......... Additional Information Turned: move in a circular direction wholly or partly round an axis or point. (किसी अक्ष या बिंदु के चारों ओर पूर्णतः या आंशिक रूप से गोलाकार दिशा में घूमना) Backed: give financial, material, or moral support to. (वित्तीय, भौतिक या नैतिक समर्थन देना) Returned: come or go back to a place or person. (किसी स्थान या व्यक्ति के पास आना या वापस जाना)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "hindi": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is&nbsp;</span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"reversed.\"</span><br style=\"color: (33, 37, 41);\">\n<span style=\"color: (33, 37, 41);\">&nbsp;</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>The term<strong> \"reversed\"</strong> in this context suggests that the changes that have occurred in the education sector are difficult or impossible to undo.</li>\n\t<li><strong>\"Reversed\"</strong> means&nbsp;to change the direction, order, position, result, etc. of something to its opposite. (किसी चीज़ की दिशा, क्रम, स्थिति, परिणाम आदि को उसके विपरीत में बदलना)</li>\n\t<li>It implies that the transformations or developments are significant and have altered the state of the education sector in a way that cannot easily be turned back.</li>\n\t<li>Therefore, the correct answer is&nbsp;<span style=\"font-weight: 700;\">Option 4.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:&nbsp;</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list&nbsp;<u><span style=\"font-weight: bolder;\">is</span></u>&nbsp;a futile exercise in turning back the clock. Forty-six years have passed&nbsp;<u><span style=\"font-weight: bolder;\">since</span></u>&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be <u><strong>reversed</strong></u>. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span>&nbsp;</span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li><b>Turned:&nbsp;</b>move in a circular direction wholly or partly round an axis or point.&nbsp;(किसी अक्ष या बिंदु के चारों ओर पूर्णतः या आंशिक रूप से गोलाकार दिशा में घूमना)</li>\n\t<li><b>Backed:&nbsp;</b>give financial, material, or moral support to.&nbsp;(वित्तीय, भौतिक या नैतिक समर्थन देना)</li>\n\t<li><b>Returned:&nbsp;</b>come or go back to a place or person.&nbsp;(किसी स्थान या व्यक्ति के पास आना या वापस जाना)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 3.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "turned"
+          },
+          {
+            "label": "B",
+            "text": "backed"
+          },
+          {
+            "label": "C",
+            "text": "returned"
+          },
+          {
+            "label": "D",
+            "text": "reversed"
+          }
+        ],
+        "solutionText": "The correct answer is \"reversed.\" Key Points The term \"reversed\" in this context suggests that the changes that have occurred in the education sector are difficult or impossible to undo. \"Reversed\" means to change the direction, order, position, result, etc. of something to its opposite. (किसी चीज़ की दिशा, क्रम, स्थिति, परिणाम आदि को उसके विपरीत में बदलना) It implies that the transformations or developments are significant and have altered the state of the education sector in a way that cannot easily be turned back. Therefore, the correct answer is Option 4. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be reversed. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus.......... Additional Information Turned: move in a circular direction wholly or partly round an axis or point. (किसी अक्ष या बिंदु के चारों ओर पूर्णतः या आंशिक रूप से गोलाकार दिशा में घूमना) Backed: give financial, material, or moral support to. (वित्तीय, भौतिक या नैतिक समर्थन देना) Returned: come or go back to a place or person. (किसी स्थान या व्यक्ति के पास आना या वापस जाना)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "correctAnswer": "D",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 99,
+      "sectionNo": 4,
+      "questionNoInSection": 24,
+      "sectionTitle": "English Comprehension",
+      "questionId": "64cb82146d24b6517263b5de",
+      "mergeKey": "3_23",
+      "originalQuestionId": "64cb82146d24b6517263b5de",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": true,
+      "english": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is&nbsp;</span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"flexibility.\"</span><br style=\"color: (33, 37, 41);\">\n<span style=\"color: (33, 37, 41);\">&nbsp;</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>In this context, <strong>\"flexibility\"</strong> implies that states have the freedom or adaptability to make decisions and choices regarding the operation of their universities, schools, and education syllabus. (राज्यों को अपने विश्वविद्यालयों, स्कूलों और शिक्षा पाठ्यक्रम के संचालन के संबंध में निर्णय लेने और विकल्प चुनने की स्वतंत्रता या अनुकूलनशीलता है)</li>\n\t<li>It suggests that there is room for variation and adjustment in how each state manages its educational institutions and curriculum, allowing for a certain degree of autonomy.</li>\n\t<li>Therefore, the correct answer is&nbsp;<span style=\"font-weight: 700;\">Option 2.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:&nbsp;</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list&nbsp;<u><span style=\"font-weight: bolder;\">is</span></u>&nbsp;a futile exercise in turning back the clock. Forty-six years have passed&nbsp;<u><span style=\"font-weight: bolder;\">since</span></u>&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be&nbsp;<u><span style=\"font-weight: bolder;\">reversed</span></u>. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy <u><strong>flexibility</strong></u> to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span>&nbsp;</span>&nbsp;</span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li><b>Flexible:&nbsp;</b>able to bend or move easily without breaking. (लचीला, लचकदार)</li>\n\t<li><b>Suitable:&nbsp;</b>right or appropriate for somebody/something. ((किसी के लिए) सही या उचित या उपयुक्त)</li>\n\t<li><strong>Suitability:&nbsp;</strong>the state or quality of being satisfactory or in accord with what is desired or called for. (जो वांछित या अपेक्षित है उसके अनुरूप या संतोषजनक होने की अवस्था या गुण)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 4.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "flexible"
+          },
+          {
+            "label": "B",
+            "text": "flexibility"
+          },
+          {
+            "label": "C",
+            "text": "suitable"
+          },
+          {
+            "label": "D",
+            "text": "suitability"
+          }
+        ],
+        "solutionText": "The correct answer is \"flexibility.\" Key Points In this context, \"flexibility\" implies that states have the freedom or adaptability to make decisions and choices regarding the operation of their universities, schools, and education syllabus. (राज्यों को अपने विश्वविद्यालयों, स्कूलों और शिक्षा पाठ्यक्रम के संचालन के संबंध में निर्णय लेने और विकल्प चुनने की स्वतंत्रता या अनुकूलनशीलता है) It suggests that there is room for variation and adjustment in how each state manages its educational institutions and curriculum, allowing for a certain degree of autonomy. Therefore, the correct answer is Option 2. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be reversed. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy flexibility to operate their own universities, schools and education syllabus.......... Additional Information Flexible: able to bend or move easily without breaking. (लचीला, लचकदार) Suitable: right or appropriate for somebody/something. ((किसी के लिए) सही या उचित या उपयुक्त) Suitability: the state or quality of being satisfactory or in accord with what is desired or called for. (जो वांछित या अपेक्षित है उसके अनुरूप या संतोषजनक होने की अवस्था या गुण)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "hindi": {
+        "solutionHTML": "<span style=\"color: (33, 37, 41);\">The correct answer is&nbsp;</span><span style=\"color: (33, 37, 41); font-weight: bolder;\">\"flexibility.\"</span><br style=\"color: (33, 37, 41);\">\n<span style=\"color: (33, 37, 41);\">&nbsp;</span>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li>In this context, <strong>\"flexibility\"</strong> implies that states have the freedom or adaptability to make decisions and choices regarding the operation of their universities, schools, and education syllabus. (राज्यों को अपने विश्वविद्यालयों, स्कूलों और शिक्षा पाठ्यक्रम के संचालन के संबंध में निर्णय लेने और विकल्प चुनने की स्वतंत्रता या अनुकूलनशीलता है)</li>\n\t<li>It suggests that there is room for variation and adjustment in how each state manages its educational institutions and curriculum, allowing for a certain degree of autonomy.</li>\n\t<li>Therefore, the correct answer is&nbsp;<span style=\"font-weight: 700;\">Option 2.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:&nbsp;</p>\n\n<p style=\"color: (33, 37, 41);\">The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list&nbsp;<u><span style=\"font-weight: bolder;\">is</span></u>&nbsp;a futile exercise in turning back the clock. Forty-six years have passed&nbsp;<u><span style=\"font-weight: bolder;\">since</span></u>&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be&nbsp;<u><span style=\"font-weight: bolder;\">reversed</span></u>. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy <u><strong>flexibility</strong></u> to operate their own universities, schools and education syllabus..........</p>\n\n<p style=\"color: (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span>&nbsp;</span>&nbsp;</span></p>\n\n<ul style=\"color: (33, 37, 41);\">\n\t<li><b>Flexible:&nbsp;</b>able to bend or move easily without breaking. (लचीला, लचकदार)</li>\n\t<li><b>Suitable:&nbsp;</b>right or appropriate for somebody/something. ((किसी के लिए) सही या उचित या उपयुक्त)</li>\n\t<li><strong>Suitability:&nbsp;</strong>the state or quality of being satisfactory or in accord with what is desired or called for. (जो वांछित या अपेक्षित है उसके अनुरूप या संतोषजनक होने की अवस्था या गुण)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 4.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "flexible"
+          },
+          {
+            "label": "B",
+            "text": "flexibility"
+          },
+          {
+            "label": "C",
+            "text": "suitable"
+          },
+          {
+            "label": "D",
+            "text": "suitability"
+          }
+        ],
+        "solutionText": "The correct answer is \"flexibility.\" Key Points In this context, \"flexibility\" implies that states have the freedom or adaptability to make decisions and choices regarding the operation of their universities, schools, and education syllabus. (राज्यों को अपने विश्वविद्यालयों, स्कूलों और शिक्षा पाठ्यक्रम के संचालन के संबंध में निर्णय लेने और विकल्प चुनने की स्वतंत्रता या अनुकूलनशीलता है) It suggests that there is room for variation and adjustment in how each state manages its educational institutions and curriculum, allowing for a certain degree of autonomy. Therefore, the correct answer is Option 2. ​ Correct paragraph: The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list is a futile exercise in turning back the clock. Forty-six years have passed since the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be reversed. For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy flexibility to operate their own universities, schools and education syllabus.......... Additional Information Flexible: able to bend or move easily without breaking. (लचीला, लचकदार) Suitable: right or appropriate for somebody/something. ((किसी के लिए) सही या उचित या उपयुक्त) Suitability: the state or quality of being satisfactory or in accord with what is desired or called for. (जो वांछित या अपेक्षित है उसके अनुरूप या संतोषजनक होने की अवस्था या गुण)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "correctAnswer": "B",
+      "extractionStatus": "success"
+    },
+    {
+      "questionNo": 100,
+      "sectionNo": 4,
+      "questionNoInSection": 25,
+      "sectionTitle": "English Comprehension",
+      "questionId": "64cb82146d24b6517263b5df",
+      "mergeKey": "3_24",
+      "originalQuestionId": "64cb82146d24b6517263b5df",
+      "questionType": "mcq",
+      "marks": 2,
+      "negativeMarks": 0.5,
+      "isComprehension": true,
+      "english": {
+        "solutionHTML": "<span style=\"color:  (33, 37, 41);\">The correct answer is </span><strong><span style=\"color:  (33, 37, 41); font-weight: bolder;\">\"</span>irrevocably<span style=\"color:  (33, 37, 41); font-weight: bolder;\">.\"</span></strong>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color:  (33, 37, 41);\">\n\t<li>\n\t<p>In this context, <strong>\"irrevocably\"</strong> indicates that the direction society is taking, likely in favor of instruction in English, is permanent and cannot be reversed or changed.</p>\n\t</li>\n\t<li>\n\t<p><strong>\"Irrevocably\"</strong> means in a way that cannot be changed, reversed, or recovered. (अटल रूप से, अपरिवर्तनीय रूप से)</p>\n\t</li>\n\t<li>\n\t<p>It emphasizes the irreversibility of the societal shift despite the current trend at the Centre.</p>\n\t</li>\n\t<li>Therefore, the correct answer is <span style=\"font-weight: 700;\">Option 1.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:</p>\n\n<p style=\"color:  (33, 37, 41);\">...........States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is <u><strong>irrevocably</strong></u> headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span> </span> </span> </span></p>\n\n<ul style=\"color:  (33, 37, 41);\">\n\t<li><strong>Irrevocable: </strong>(used about a decision, action, etc.) that cannot be changed or reversed. ((कार्य, निर्णय आदि) जिसे बदला नहीं जा सकता; अटल; अपरिवर्तनीय)</li>\n\t<li><strong>Irrelevant: </strong>not connected with something or important to it. (किसी वस्‍तु से असंबद्घ या उसके लिए महत्वहीन, अप्रासंगिक, असंबद्घ)</li>\n\t<li><strong>Suddenly: </strong>quickly and unexpectedly. (एकाएक, अचानक)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 5.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "irrevocably"
+          },
+          {
+            "label": "B",
+            "text": "irrevocable"
+          },
+          {
+            "label": "C",
+            "text": "irrelevant"
+          },
+          {
+            "label": "D",
+            "text": "suddenly"
+          }
+        ],
+        "solutionText": "The correct answer is \"irrevocably.\" Key Points In this context, \"irrevocably\" indicates that the direction society is taking, likely in favor of instruction in English, is permanent and cannot be reversed or changed. \"Irrevocably\" means in a way that cannot be changed, reversed, or recovered. (अटल रूप से, अपरिवर्तनीय रूप से) It emphasizes the irreversibility of the societal shift despite the current trend at the Centre. Therefore, the correct answer is Option 1. ​ Correct paragraph: ...........States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is irrevocably headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake. Additional Information Irrevocable: (used about a decision, action, etc.) that cannot be changed or reversed. ((कार्य, निर्णय आदि) जिसे बदला नहीं जा सकता; अटल; अपरिवर्तनीय) Irrelevant: not connected with something or important to it. (किसी वस्‍तु से असंबद्घ या उसके लिए महत्वहीन, अप्रासंगिक, असंबद्घ) Suddenly: quickly and unexpectedly. (एकाएक, अचानक)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "hindi": {
+        "solutionHTML": "<span style=\"color:  (33, 37, 41);\">The correct answer is </span><strong><span style=\"color:  (33, 37, 41); font-weight: bolder;\">\"</span>irrevocably<span style=\"color:  (33, 37, 41); font-weight: bolder;\">.\"</span></strong>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/key-point-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Key Points</u></span></strong></span></span></span></span></span></span></span></span></span></span></span></span></p>\n\n<ul style=\"color:  (33, 37, 41);\">\n\t<li>\n\t<p>In this context, <strong>\"irrevocably\"</strong> indicates that the direction society is taking, likely in favor of instruction in English, is permanent and cannot be reversed or changed.</p>\n\t</li>\n\t<li>\n\t<p><strong>\"Irrevocably\"</strong> means in a way that cannot be changed, reversed, or recovered. (अटल रूप से, अपरिवर्तनीय रूप से)</p>\n\t</li>\n\t<li>\n\t<p>It emphasizes the irreversibility of the societal shift despite the current trend at the Centre.</p>\n\t</li>\n\t<li>Therefore, the correct answer is <span style=\"font-weight: 700;\">Option 1.</span><br>\n\t​</li>\n</ul>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"font-weight: 700;\">Correct paragraph</span>:</p>\n\n<p style=\"color:  (33, 37, 41);\">...........States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is <u><strong>irrevocably</strong></u> headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n\n<p style=\"color:  (33, 37, 41);\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex; gap: 6px; align-items: center;\"><span style=\"display: flex;gap: 6px;align-items: center;\"><img height=\"26px\" src=\"//cdn.testbook.com/resources/lms_creative_elements/additional-information-image.png\" width=\"26px\"><strong><span style=\"vertical-align: middle;font-size: 21px;\"><u>Additional Information</u></span></strong></span> </span> </span> </span></p>\n\n<ul style=\"color:  (33, 37, 41);\">\n\t<li><strong>Irrevocable: </strong>(used about a decision, action, etc.) that cannot be changed or reversed. ((कार्य, निर्णय आदि) जिसे बदला नहीं जा सकता; अटल; अपरिवर्तनीय)</li>\n\t<li><strong>Irrelevant: </strong>not connected with something or important to it. (किसी वस्‍तु से असंबद्घ या उसके लिए महत्वहीन, अप्रासंगिक, असंबद्घ)</li>\n\t<li><strong>Suddenly: </strong>quickly and unexpectedly. (एकाएक, अचानक)</li>\n</ul>\n",
+        "comprehensionHTML": "<p><strong>Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number.</strong></p>\n\n<p>The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______&nbsp;a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______&nbsp;the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______&nbsp;to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______&nbsp;headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake.</p>\n",
+        "questionText": "Select the most appropriate option to fill in blank no. 5.",
+        "optionsText": [
+          {
+            "label": "A",
+            "text": "irrevocably"
+          },
+          {
+            "label": "B",
+            "text": "irrevocable"
+          },
+          {
+            "label": "C",
+            "text": "irrelevant"
+          },
+          {
+            "label": "D",
+            "text": "suddenly"
+          }
+        ],
+        "solutionText": "The correct answer is \"irrevocably.\" Key Points In this context, \"irrevocably\" indicates that the direction society is taking, likely in favor of instruction in English, is permanent and cannot be reversed or changed. \"Irrevocably\" means in a way that cannot be changed, reversed, or recovered. (अटल रूप से, अपरिवर्तनीय रूप से) It emphasizes the irreversibility of the societal shift despite the current trend at the Centre. Therefore, the correct answer is Option 1. ​ Correct paragraph: ...........States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is irrevocably headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake. Additional Information Irrevocable: (used about a decision, action, etc.) that cannot be changed or reversed. ((कार्य, निर्णय आदि) जिसे बदला नहीं जा सकता; अटल; अपरिवर्तनीय) Irrelevant: not connected with something or important to it. (किसी वस्‍तु से असंबद्घ या उसके लिए महत्वहीन, अप्रासंगिक, असंबद्घ) Suddenly: quickly and unexpectedly. (एकाएक, अचानक)",
+        "comprehensionText": "Direction: In the following passage some words have been deleted. Fill in the blanks with the help of the alternatives given. Select the most appropriate option for each number. The challenge in Madras high court to the Emergency-era shifting of education from state list to concurrent list ______ (1) ______ a futile exercise in turning back the clock. Forty-six years have passed ______ (2) ______ the 42 Constitution Amendment Act. In this period, the education sector has seen far too many changes, and most can’t be ______ (3) ______ . For instance, a common national medical test now allows students the ease of appearing for just one examination instead of multiple ones conducted by each state. States still enjoy ______ (4) ______ to operate their own universities, schools and education syllabus. Private sector is also flourishing in education. And the policy tinkering at all levels goes on. UGC is restructuring UG, PG and doctoral programmes. States are trying out clustering of schools, closing down smaller schools. Instruction in English seems to have lost favour at the Centre, even though society is ______ (5) ______ headed in the opposite direction. But the moot point is no one entity can claim complete control. It is a diverse ecosystem. Far more important issues than locating education in the Constitution are at stake."
+      },
+      "correctAnswer": "A",
+      "extractionStatus": "success"
+    }
+  ]
+}

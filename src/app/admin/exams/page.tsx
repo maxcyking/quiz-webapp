@@ -10,7 +10,7 @@ import {
   Calendar, Clock, Edit, Plus, Trash, Eye, 
   CheckCircle, XCircle, Play, Pause, Award, 
   Search, Filter, ExternalLink, List, Table as TableIcon,
-  Trophy, Medal, DollarSign, Loader2, Check
+  Trophy, Medal, DollarSign, Loader2, Check, FileText, Upload, AlertCircle
 } from "lucide-react";
 import {
   Dialog,
@@ -60,6 +60,8 @@ import { useToast } from "@/hooks/use-toast";
 import { convertFirebaseTimestamp } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { QuestionMath } from "@/components/ui/math-content";
 import {
   ref,
   uploadBytes,
@@ -167,6 +169,20 @@ export default function AdminExamsPage() {
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [selectedSubjectForDeletion, setSelectedSubjectForDeletion] = useState<{id: string, name: string, index: number} | null>(null);
+  
+  // JSON to Exam functionality state
+  const [showJsonToExamDialog, setShowJsonToExamDialog] = useState(false);
+  const [jsonFile, setJsonFile] = useState<File | null>(null);
+  const [jsonData, setJsonData] = useState<any>(null);
+  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [uploadingJson, setUploadingJson] = useState(false);
+  const [jsonPreviewStep, setJsonPreviewStep] = useState<'upload' | 'preview' | 'edit' | 'topics'>('upload');
+  
+  // Topic mapping states
+  const [topicFile, setTopicFile] = useState<File | null>(null);
+  const [topicData, setTopicData] = useState<any>(null);
+  const [topicError, setTopicError] = useState<string | null>(null);
+  const [uploadingTopics, setUploadingTopics] = useState(false);
   
   // Load and filter exams when data changes
   useEffect(() => {
@@ -684,7 +700,6 @@ export default function AdminExamsPage() {
               rewardDocId = existingReward.docId;
             } else {
               // Log that we're skipping an already processed reward
-              console.log(`Skipping reward update for user ${userId} as it's already in ${existingReward.status} state`);
               results.errors.push(`Reward for rank ${userRank} is already in ${existingReward.status} state`);
               return;
             }
@@ -847,7 +862,6 @@ export default function AdminExamsPage() {
   // Function to prepare exam for editing
   const prepareExamForEdit = async (exam: any) => {
     setSelectedExam(exam);
-    console.log("Preparing to edit exam:", exam.id, exam.title);
     
     // Format dates for datetime-local input
     const formatDate = (timestamp: any): string => {
@@ -866,18 +880,7 @@ export default function AdminExamsPage() {
         where("examId", "==", exam.id)
       );
       
-      console.log("Querying subjects for exam:", exam.id);
       const subjectsSnapshot = await getDocs(subjectsQuery);
-      console.log(`Found ${subjectsSnapshot.size} total subjects`);
-      
-      // Log all subjects to see what's available
-      subjectsSnapshot.docs.forEach(doc => {
-        console.log("Subject:", { 
-          id: doc.id, 
-          ...doc.data(),
-          isDeleted: doc.data().isDeleted || false
-        });
-      });
       
       // Filter out deleted subjects in the client
       const subjectsData = subjectsSnapshot.docs
@@ -888,7 +891,6 @@ export default function AdminExamsPage() {
           language: (doc.data().language || "english") as "english" | "hindi" | "both"
         }));
       
-      console.log("Filtered non-deleted subjects:", subjectsData);
       
       // If no subjects were found, initialize with an empty one
       const subjects = subjectsData.length > 0 ? subjectsData : [{ name: "", language: "english" as "english" | "hindi" | "both" }];
@@ -924,7 +926,6 @@ export default function AdminExamsPage() {
           examType: exam.examType || "test-series"
         });
         
-        console.log("Form data updated with subjects:", subjects);
         
         // Open the edit dialog
         setShowEditDialog(true);
@@ -1575,13 +1576,523 @@ export default function AdminExamsPage() {
     setShowEditDialog(open);
   };
 
+  // JSON to Exam functionality
+  const handleJsonFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setJsonFile(file);
+    setJsonError(null);
+    setJsonData(null);
+    
+    if (!file) return;
+    
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      setJsonError("Please select a valid JSON file.");
+      return;
+    }
+    
+    setUploadingJson(true);
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      try {
+        const jsonContent = JSON.parse(event.target?.result as string);
+        
+        if (!jsonContent.questions || !Array.isArray(jsonContent.questions)) {
+          throw new Error("Invalid JSON format. Expected 'questions' array not found.");
+        }
+        
+        setJsonData(jsonContent);
+        setJsonPreviewStep('preview');
+        setJsonError(null);
+        
+        // Auto-fill exam details from JSON
+        const examDetails = jsonContent.examDetails || {};
+        const sectionsFromJson = extractSectionsFromJson(jsonContent);
+        
+        setFormData({
+          title: examDetails.title || "",
+          description: `Imported from ${examDetails.course || 'Testbook'} - ${examDetails.title || 'Exam'}`,
+          duration: examDetails.duration ? Math.floor(examDetails.duration / 60) : 60,
+          startDate: "",
+          endDate: "",
+          subjects: sectionsFromJson,
+          thumbnailUrl: "",
+          isAnytime: true,
+          categoryId: "",
+          subcategoryId: "",
+          examType: "pyp" // PYP for imported exams
+        });
+        
+      } catch (error: any) {
+        setJsonError(error.message || "Failed to parse JSON file");
+        setJsonData(null);
+      } finally {
+        setUploadingJson(false);
+      }
+    };
+    
+    reader.onerror = () => {
+      setJsonError("Error reading file");
+      setUploadingJson(false);
+    };
+    
+    reader.readAsText(file);
+  };
+
+  // Topic mapping functionality
+  const handleTopicFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setTopicFile(file);
+    setTopicError(null);
+    setTopicData(null);
+    
+    if (!file) return;
+    
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      setTopicError("Please select a valid JSON file.");
+      return;
+    }
+    
+    setUploadingTopics(true);
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      try {
+        const topicContent = JSON.parse(event.target?.result as string);
+        
+        if (!topicContent.questionsInOrder || !Array.isArray(topicContent.questionsInOrder)) {
+          throw new Error("Invalid JSON format. Expected 'questionsInOrder' array not found.");
+        }
+        
+        setTopicData(topicContent);
+        setTopicError(null);
+        
+        toast({
+          title: "Success", 
+          description: `Loaded topic mapping for ${topicContent.questionsInOrder.length} questions`
+        });
+        
+      } catch (error: any) {
+        setTopicError(error.message || "Failed to parse topic JSON file");
+        setTopicData(null);
+      } finally {
+        setUploadingTopics(false);
+      }
+    };
+    
+    reader.onerror = () => {
+      setTopicError("Error reading topic file");
+      setUploadingTopics(false);
+    };
+    
+    reader.readAsText(file);
+  };
+
+  // Handle JSON dialog close and reset all states
+  const handleJsonDialogClose = (open: boolean) => {
+    if (!open) {
+      // Reset all JSON-related states
+      setJsonData(null);
+      setJsonFile(null);
+      setJsonError(null);
+      setTopicData(null);
+      setTopicFile(null);
+      setTopicError(null);
+      setJsonPreviewStep('upload');
+      setUploadingJson(false);
+      setUploadingTopics(false);
+    }
+    setShowJsonToExamDialog(open);
+  };
+
+  // Update questions with topic information
+  const updateQuestionsWithTopics = async (examId: string) => {
+    if (!topicData || !topicData.questionsInOrder) {
+      throw new Error("No topic data available");
+    }
+
+    console.log(`🏷️ Updating questions with topic information...`);
+    
+    try {
+      // Get all questions for this exam
+      const questionsQuery = query(
+        collection(db, "questions"), 
+        where("examId", "==", examId)
+      );
+      const questionsSnapshot = await getDocs(questionsQuery);
+      
+      // Create mapping from questionId to topic info - only extract topic names
+      const topicMapping: {[questionId: string]: any} = {};
+      topicData.questionsInOrder.forEach((topicItem: any) => {
+        topicMapping[topicItem.questionId] = {
+          topicName: topicItem.topicName,
+          questionNo: topicItem.questionNo,
+          sectionNo: topicItem.sectionNo,
+          questionNoInSection: topicItem.questionNoInSection
+        };
+      });
+
+      // Update questions in batches
+      const batchSize = 25;
+      const questionsData = questionsSnapshot.docs;
+      let updatedCount = 0;
+      
+      for (let i = 0; i < questionsData.length; i += batchSize) {
+        const batch = questionsData.slice(i, i + batchSize);
+        
+        const updatePromises = batch.map(async (questionDoc) => {
+          const questionData = questionDoc.data();
+          const originalQuestionId = questionData.extractorMetadata?.originalQuestionId;
+          
+          if (originalQuestionId && topicMapping[originalQuestionId]) {
+            const topicInfo = topicMapping[originalQuestionId];
+            
+            await updateDoc(questionDoc.ref, {
+              topic: topicInfo.topicName,
+              chapter: topicInfo.topicName, // Also store as chapter for compatibility
+              topicMetadata: {
+                topicName: topicInfo.topicName,
+                questionNo: topicInfo.questionNo,
+                sectionNo: topicInfo.sectionNo,
+                questionNoInSection: topicInfo.questionNoInSection
+              }
+            });
+            
+            updatedCount++;
+          }
+        });
+        
+        await Promise.all(updatePromises);
+        
+        // Only log progress every 5 batches or final batch
+        const batchNumber = Math.floor(i / batchSize) + 1;
+        const totalBatches = Math.ceil(questionsData.length / batchSize);
+        if (batchNumber % 5 === 0 || batchNumber === totalBatches) {
+          console.log(`✅ Topic update progress: ${updatedCount} questions updated`);
+        }
+      }
+      
+      console.log(`🎉 Topic update completed: ${updatedCount} questions updated`);
+      return updatedCount;
+      
+    } catch (error) {
+      console.error("❌ Error updating questions with topics:", error);
+      throw error;
+    }
+  };
+
+  const extractSectionsFromJson = (jsonData: any): Subject[] => {
+    const sections = new Set<string>();
+    
+    // Extract unique section titles from questions
+    jsonData.questions.forEach((question: any) => {
+      if (question.sectionTitle) {
+        sections.add(question.sectionTitle);
+      }
+    });
+    
+    // Convert to subjects array with bilingual support
+    return Array.from(sections).map(sectionName => ({
+      name: sectionName,
+      language: "both" as const // Support both languages for imported exams
+    }));
+  };
+
+  const handleCreateExamFromJson = async () => {
+    if (!jsonData || !formData.title.trim()) {
+      toast({
+        title: "Error",
+        description: "Please provide exam title and ensure JSON data is loaded",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!formData.categoryId) {
+      toast({
+        title: "Error", 
+        description: "Please select a category for the exam",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setLoading(true);
+    
+    try {
+      // Create the exam first
+      const examData = {
+        title: formData.title,
+        description: formData.description,
+        duration: formData.duration,
+        isActive: true,
+        isResultReleased: false,
+        createdBy: user?.id,
+        createdAt: serverTimestamp(),
+        maxMarks: calculateMaxMarks(jsonData.questions),
+        totalQuestions: jsonData.questions.length,
+        thumbnailUrl: formData.thumbnailUrl,
+        isAnytime: formData.isAnytime,
+        startDate: formData.isAnytime ? null : new Date(formData.startDate),
+        endDate: formData.isAnytime ? null : new Date(formData.endDate),
+        categoryId: formData.categoryId,
+        subcategoryId: formData.subcategoryId || null,
+        examType: formData.examType,
+        // Additional metadata from JSON
+        importedFrom: "html-extractor",
+        originalExamId: jsonData.examDetails?.examId || null,
+        originalCourse: jsonData.examDetails?.course || null,
+        importDate: serverTimestamp()
+      };
+      
+      const examRef = await addDoc(collection(db, "exams"), examData);
+      const examId = examRef.id;
+      
+      // Create subjects from sections
+      const subjectIds: string[] = [];
+      for (const subject of formData.subjects) {
+        const subjectData = {
+          name: subject.name,
+          language: subject.language,
+          examId: examId,
+          createdAt: serverTimestamp(),
+          // Add section metadata
+          isImported: true,
+          questionCount: jsonData.questions.filter((q: any) => q.sectionTitle === subject.name).length
+        };
+        
+        const subjectRef = await addDoc(collection(db, "subjects"), subjectData);
+        subjectIds.push(subjectRef.id);
+      }
+      
+      // Process and upload questions
+      await uploadQuestionsFromJson(jsonData, examId, subjectIds);
+      
+      // Update questions with topic information if available
+      let topicUpdateCount = 0;
+      if (topicData) {
+        try {
+          topicUpdateCount = await updateQuestionsWithTopics(examId);
+        } catch (error) {
+          console.error("Error updating topics:", error);
+          // Don't fail the exam creation if topic update fails
+        }
+      }
+      
+      toast({
+        title: "Success",
+        description: topicData 
+          ? `Exam "${formData.title}" created successfully with ${jsonData.questions.length} questions and ${topicUpdateCount} topic assignments!`
+          : `Exam "${formData.title}" created successfully with ${jsonData.questions.length} questions!`
+      });
+      
+      // Reset states and close dialog
+      setShowJsonToExamDialog(false);
+      setJsonData(null);
+      setJsonFile(null);
+      setTopicData(null);
+      setTopicFile(null);
+      setTopicError(null);
+      setJsonPreviewStep('upload');
+      setFormData({
+        title: "",
+        description: "",
+        duration: 60,
+        startDate: "",
+        endDate: "",
+        subjects: [{ name: "", language: "english" }],
+        thumbnailUrl: "",
+        isAnytime: false,
+        categoryId: "",
+        subcategoryId: "",
+        examType: "test-series"
+      });
+      
+      // Refresh exams list
+      window.location.reload();
+      
+    } catch (error: any) {
+      console.error("Error creating exam from JSON:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create exam from JSON",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const calculateMaxMarks = (questions: any[]): number => {
+    return questions.reduce((total, question) => {
+      const marks = question.marks || 2;
+      return total + marks;
+    }, 0);
+  };
+
+  const uploadQuestionsFromJson = async (jsonData: any, examId: string, subjectIds: string[]) => {
+    // Create subject name to ID mapping
+    const subjectMapping: {[sectionName: string]: string} = {};
+    formData.subjects.forEach((subject, index) => {
+      subjectMapping[subject.name] = subjectIds[index];
+    });
+
+    console.log(`🔄 Processing ${jsonData.questions.length} questions for upload...`);
+    
+    // Process questions using the same logic as in questions page
+    const processedQuestions = jsonData.questions.map((item: any, index: number) => {
+      // Convert correct answer from letter to index
+      let correctAnswerIndex = 0;
+      if (item.correctAnswer) {
+        const answerLetter = item.correctAnswer.toUpperCase();
+        correctAnswerIndex = ['A', 'B', 'C', 'D'].indexOf(answerLetter);
+        if (correctAnswerIndex === -1) correctAnswerIndex = 0;
+      }
+
+      // Extract options from HTML format - preserve HTML for MathJax
+      const extractOptions = (optionsHTML: any[]) => {
+        if (!optionsHTML || !Array.isArray(optionsHTML)) return ['', '', '', ''];
+        
+        return optionsHTML.map(option => {
+          // Return the text directly without removing HTML - MathJax needs it
+          return option.text || option.html || '';
+        });
+      };
+
+      // NO PROCESSING - Return raw HTML for MathJax to handle directly
+      const cleanHtml = (html: string) => {
+        if (!html) return '';
+        // Return exactly as-is - let MathJax handle the math rendering
+        return html;
+      };
+
+      // Extract image URL from HTML content
+      const extractImageUrl = (html: string): string => {
+        if (!html) return '';
+        const imgRegex = /<img[^>]+src="([^"]+)"/i;
+        const match = html.match(imgRegex);
+        if (match && match[1]) {
+          let src = match[1];
+          if (src.startsWith('//storage.googleapis.com')) {
+            src = 'https:' + src;
+          }
+          return src;
+        }
+        return '';
+      };
+
+      // Build question object with Firestore-safe defaults
+      const questionData = {
+        examId: examId,
+        subjectId: subjectMapping[item.sectionTitle] || subjectIds[0], // Fallback to first subject
+        createdAt: new Date(),
+        
+        // Basic question data - with Firestore-safe defaults
+        question: cleanHtml(item.english?.questionText || '') || 'Question text not available',
+        type: 'single', // Always single for MCQ questions from Testbook
+        options: extractOptions(item.english?.optionsText || []).filter(opt => opt.trim() !== '').concat(['', '', '', '']).slice(0, 4),
+        correctAnswer: correctAnswerIndex,
+        correctAnswers: [], // Always empty array for single-choice questions
+        
+        // Scoring - ensure numbers not undefined
+        marks: Number(item.marks) || 2,
+        negativeMark: Math.abs(Number(item.negativeMarks) || 0.5),
+        
+        // Solutions and explanations - ensure strings not undefined
+        explanation: cleanHtml(item.english?.solutionHTML || item.english?.solutionText || '') || '',
+        solution: cleanHtml(item.english?.solutionHTML || item.english?.solutionText || '') || '',
+        
+        // Hindi content - ensure strings not undefined
+        questionHindi: cleanHtml(item.hindi?.questionText || '') || '',
+        optionsHindi: extractOptions(item.hindi?.optionsText || []).filter(opt => opt.trim() !== '').concat(['', '', '', '']).slice(0, 4),
+        explanationHindi: cleanHtml(item.hindi?.solutionHTML || item.hindi?.solutionText || '') || '',
+        solutionHindi: cleanHtml(item.hindi?.solutionHTML || item.hindi?.solutionText || '') || '',
+        
+        // Comprehension passages - ensure strings not undefined
+        comprehensionPassage: cleanHtml(item.english?.comprehensionHTML || '') || '',
+        comprehensionPassageHindi: cleanHtml(item.hindi?.comprehensionHTML || '') || '',
+        
+        // Image URLs - ensure strings not undefined
+        questionImageUrl: extractImageUrl(item.english?.questionText || '') || '',
+        questionImageUrlHindi: extractImageUrl(item.hindi?.questionText || '') || '',
+        
+        // Metadata - with proper null checks for Firestore
+        extractorMetadata: {
+          originalQuestionId: item.questionId || '',
+          sectionTitle: item.sectionTitle || '',
+          questionNo: item.questionNo || 0,
+          sectionNo: item.sectionNo || 0,
+          extractionStatus: item.extractionStatus || 'unknown',
+          // Only include features and properties if they contain actual data
+          ...(item.features && Object.keys(item.features).length > 0 && { features: item.features }),
+          ...(item.properties && Object.keys(item.properties).length > 0 && { properties: item.properties })
+        }
+      };
+
+      // Remove any undefined values recursively and validate data
+      const cleanedData = JSON.parse(JSON.stringify(questionData, (key, value) => {
+        if (value === undefined) return null;
+        if (value === null) return '';
+        return value;
+      }));
+
+      // Final validation - log any potential issues
+      if (!cleanedData.question || cleanedData.question.trim() === '') {
+        console.warn(`⚠️ Question ${item.questionNo}: Empty question text`);
+      }
+      
+      if (!cleanedData.options || (cleanedData.options as string[]).filter(opt => opt.trim() !== '').length < 2) {
+        console.warn(`⚠️ Question ${item.questionNo}: Insufficient options`);
+      }
+
+      return cleanedData;
+    });
+
+    // Upload questions in batches
+    const batchSize = 25;
+    console.log(`📤 Uploading ${processedQuestions.length} questions...`);
+    
+    for (let i = 0; i < processedQuestions.length; i += batchSize) {
+      const batch = processedQuestions.slice(i, i + batchSize);
+      const batchNumber = Math.floor(i / batchSize) + 1;
+      const totalBatches = Math.ceil(processedQuestions.length / batchSize);
+      
+      try {
+        // Upload batch without individual question logs
+        for (const question of batch) {
+          await addDoc(collection(db, "questions"), question);
+        }
+        
+        // Only log every 10th batch or final batch
+        if (batchNumber % 10 === 0 || batchNumber === totalBatches) {
+          console.log(`✅ Uploaded ${Math.min(i + batchSize, processedQuestions.length)}/${processedQuestions.length} questions`);
+        }
+        
+      } catch (error) {
+        console.error(`❌ Error in batch ${batchNumber}:`, error);
+        throw error;
+      }
+    }
+    
+    console.log(`🎉 Upload completed: ${processedQuestions.length} questions`);
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <h1 className="text-3xl font-bold mb-4 sm:mb-0">Manage Exams</h1>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            onClick={() => setShowJsonToExamDialog(true)}
+            className="gap-2"
+          >
+            <FileText className="h-4 w-4" /> JSON to Exam
+          </Button>
         <Button onClick={() => setShowCreateExamDialog(true)}>
           <Plus className="mr-2 h-4 w-4" /> Create New Exam
         </Button>
+        </div>
       </div>
       
       <div className="bg-muted rounded-lg p-4 mb-6">
@@ -2358,6 +2869,468 @@ export default function AdminExamsPage() {
               ) : "Create Exam"}
             </Button>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* JSON to Exam Dialog */}
+      <Dialog open={showJsonToExamDialog} onOpenChange={handleJsonDialogClose}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Create Exam from JSON</DialogTitle>
+            <DialogDescription>
+              Import exam data from HTML Extractor JSON files. Upload a JSON file to automatically create an exam with questions and subjects.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex-1 overflow-y-auto py-4">
+            {jsonPreviewStep === 'upload' && (
+              <div className="space-y-4">
+                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center">
+                  <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-medium">Upload JSON File</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Select a JSON file generated by the Ultimate HTML Testbook Extractor
+                    </p>
+                  </div>
+                  <Input
+                    type="file"
+                    accept=".json"
+                    onChange={handleJsonFileUpload}
+                    className="mt-4 max-w-sm mx-auto"
+                    disabled={uploadingJson}
+                  />
+                  {uploadingJson && (
+                    <div className="flex items-center justify-center mt-4">
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      <span className="text-sm">Processing JSON file...</span>
+                    </div>
+                  )}
+                </div>
+
+                {jsonError && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{jsonError}</AlertDescription>
+                  </Alert>
+                )}
+
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <h4 className="font-medium mb-2">Supported JSON Format</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Upload JSON files from the Ultimate HTML Testbook Extractor with the following features:
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>Complete exam metadata</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>Bilingual questions (EN/HI)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>HTML content preservation</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>Automatic subject creation</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>Solution explanations</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-3 w-3 mr-1 text-green-500" />
+                      <span>Comprehensive metadata</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {jsonPreviewStep === 'preview' && jsonData && (
+              <div className="space-y-6">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <h3 className="font-medium mb-3">JSON File Summary</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <span className="font-medium">Exam Title:</span>
+                      <div className="text-muted-foreground">{jsonData.examDetails?.title || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Course:</span>
+                      <div className="text-muted-foreground">{jsonData.examDetails?.course || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Total Questions:</span>
+                      <div className="text-muted-foreground">{jsonData.questions?.length || 0}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Sections:</span>
+                      <div className="text-muted-foreground">{jsonData.examDetails?.totalSections || 0}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-medium">Detected Sections (Will become Subjects)</h3>
+                  <div className="grid gap-2">
+                    {formData.subjects.map((subject, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-background border rounded-lg">
+                        <div>
+                          <span className="font-medium">{subject.name}</span>
+                          <span className="text-sm text-muted-foreground ml-2">
+                            ({jsonData.questions.filter((q: any) => q.sectionTitle === subject.name).length} questions)
+                          </span>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {subject.language === 'both' ? 'English + Hindi' : subject.language}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-medium">Question Preview (First 3 Questions)</h3>
+                  <div className="space-y-3">
+                    {jsonData.questions.slice(0, 3).map((question: any, index: number) => (
+                      <div key={index} className="border rounded-lg p-4 bg-background">
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="font-medium">Q{question.questionNo}: {question.sectionTitle}</div>
+                          <div className="text-sm text-muted-foreground">Answer: {question.correctAnswer}</div>
+                        </div>
+                        <div className="text-sm text-muted-foreground mb-2">
+                          <QuestionMath 
+                            content={question.english?.questionText?.substring(0, 150) + '...' || 'No preview available'} 
+                            className="text-sm"
+                          />
+                        </div>
+                        <div className="flex gap-3 text-xs">
+                          <span className={question.hindi?.questionText ? "text-green-600" : "text-muted-foreground"}>
+                            {question.hindi?.questionText ? "✓" : "✗"} Hindi
+                          </span>
+                          <span className={question.english?.comprehensionHTML ? "text-green-600" : "text-muted-foreground"}>
+                            {question.english?.comprehensionHTML ? "✓" : "✗"} Comprehension
+                          </span>
+                          <span className="text-muted-foreground">
+                            {question.properties?.scoring?.posMarks || 2} marks
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      setJsonPreviewStep('upload');
+                      setJsonData(null);
+                      setJsonFile(null);
+                    }}
+                  >
+                    Upload Different File
+                  </Button>
+                  <Button onClick={() => setJsonPreviewStep('edit')}>
+                    Continue to Edit Details
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {jsonPreviewStep === 'edit' && jsonData && (
+              <div className="space-y-4">
+                <h3 className="font-medium mb-4">Edit Exam Details</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="json-title">Exam Title</Label>
+                    <Input
+                      id="json-title"
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      placeholder="Enter exam title"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="json-duration">Duration (minutes)</Label>
+                    <Input
+                      id="json-duration"
+                      type="number"
+                      value={formData.duration}
+                      onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 60 })}
+                      placeholder="60"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="json-description">Description</Label>
+                  <Input
+                    id="json-description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Enter exam description"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="json-category">Category *</Label>
+                    <Select
+                      value={formData.categoryId}
+                      onValueChange={(value) => {
+                        setFormData({ 
+                          ...formData, 
+                          categoryId: value,
+                          subcategoryId: "" 
+                        });
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories
+                          .filter(cat => (cat as any).type === 'main')
+                          .map(category => (
+                            <SelectItem key={category.id} value={category.id}>
+                              {category.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {formData.categoryId && (
+                    <div className="space-y-2">
+                      <Label htmlFor="json-subcategory">Subcategory (Optional)</Label>
+                      <Select
+                        value={formData.subcategoryId}
+                        onValueChange={(value) => setFormData({ ...formData, subcategoryId: value })}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a subcategory" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories
+                            .filter(cat => (cat as any).type === 'sub' && (cat as any).parentCategoryId === formData.categoryId)
+                            .map(subcategory => (
+                              <SelectItem key={subcategory.id} value={subcategory.id}>
+                                {subcategory.name}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Exam Type</Label>
+                  <RadioGroup
+                    value={formData.examType}
+                    onValueChange={(value) => setFormData({ ...formData, examType: value })}
+                    className="flex flex-row space-x-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="test-series" id="json-test-series" />
+                      <Label htmlFor="json-test-series">Test Series</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="pyp" id="json-pyp" />
+                      <Label htmlFor="json-pyp">PYP (Previous Year Paper)</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Subjects (Auto-generated from JSON sections)</Label>
+                  <div className="space-y-2">
+                    {formData.subjects.map((subject, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                        <div>
+                          <span className="font-medium">{subject.name}</span>
+                          <span className="text-sm text-muted-foreground ml-2">
+                            ({jsonData.questions.filter((q: any) => q.sectionTitle === subject.name).length} questions)
+                          </span>
+                        </div>
+                        <div className="text-sm">
+                          Language: {subject.language === 'both' ? 'English + Hindi' : subject.language}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Alert>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    This will create an exam with {jsonData.questions.length} questions across {formData.subjects.length} subjects. 
+                    All questions will include both English and Hindi content where available.
+                  </AlertDescription>
+                </Alert>
+
+                <div className="flex justify-end gap-2">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setJsonPreviewStep('preview')}
+                  >
+                    Back to Preview
+                  </Button>
+                  <Button 
+                    onClick={() => setJsonPreviewStep('topics')} 
+                    disabled={!formData.title.trim() || !formData.categoryId}
+                  >
+                    Next: Upload Topics
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {jsonPreviewStep === 'topics' && jsonData && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <h3 className="font-medium text-lg mb-2">Upload Question Topics</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Upload a topic mapping JSON file to assign topics to all {jsonData.questions.length} questions
+                  </p>
+                </div>
+
+                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6">
+                  <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-3" />
+                  <div className="text-center space-y-2">
+                    <h4 className="font-medium">Upload Topic Mapping JSON</h4>
+                    <p className="text-xs text-muted-foreground">
+                      Select the questions_ordered_with_topics JSON file
+                    </p>
+                  </div>
+                  <Input
+                    type="file"
+                    accept=".json"
+                    onChange={handleTopicFileUpload}
+                    className="mt-3 max-w-sm mx-auto"
+                    disabled={uploadingTopics}
+                  />
+                  {uploadingTopics && (
+                    <div className="flex items-center justify-center mt-3">
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      <span className="text-sm">Processing topic file...</span>
+                    </div>
+                  )}
+                </div>
+
+                {topicError && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{topicError}</AlertDescription>
+                  </Alert>
+                )}
+
+                {topicData && (
+                  <div className="space-y-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <div className="flex items-center mb-2">
+                        <Check className="h-4 w-4 text-green-600 mr-2" />
+                        <h4 className="font-medium text-green-800">Topic Mapping Loaded Successfully</h4>
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-green-700">
+                        <div>
+                          <span className="font-medium">Total Questions:</span>
+                          <div>{topicData.questionsInOrder?.length || 0}</div>
+                        </div>
+                        <div>
+                          <span className="font-medium">Total Topics:</span>
+                          <div>{topicData.metadata?.totalTopics || 0}</div>
+                        </div>
+                        <div>
+                          <span className="font-medium">Sections:</span>
+                          <div>{new Set(topicData.questionsInOrder?.map((q: any) => q.sectionTitle)).size || 0}</div>
+                        </div>
+                        <div>
+                          <span className="font-medium">Format:</span>
+                          <div>{topicData.metadata?.format || 'N/A'}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Topic Preview (First 5 & Last 5 Questions)</h4>
+                      
+                      {/* First 5 Questions */}
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-medium text-blue-600">First 5 Questions:</h5>
+                        <div className="grid gap-2">
+                          {topicData.questionsInOrder?.slice(0, 5).map((q: any, index: number) => (
+                            <div key={index} className="flex items-center justify-between bg-muted/50 p-3 rounded text-sm">
+                              <div className="flex items-center gap-3">
+                                <Badge variant="outline">Q{q.questionNo}</Badge>
+                                <span className="font-medium">{q.topicName}</span>
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {q.sectionTitle} • Section {q.sectionNo}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Last 5 Questions */}
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-medium text-blue-600">Last 5 Questions:</h5>
+                        <div className="grid gap-2">
+                          {topicData.questionsInOrder?.slice(-5).map((q: any, index: number) => (
+                            <div key={index} className="flex items-center justify-between bg-muted/50 p-3 rounded text-sm">
+                              <div className="flex items-center gap-3">
+                                <Badge variant="outline">Q{q.questionNo}</Badge>
+                                <span className="font-medium">{q.topicName}</span>
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {q.sectionTitle} • Section {q.sectionNo}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex justify-between">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setJsonPreviewStep('edit')}
+                  >
+                    Back to Edit
+                  </Button>
+                  <Button 
+                    onClick={handleCreateExamFromJson} 
+                    disabled={loading || !topicData}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        Creating Exam...
+                      </>
+                    ) : (
+                      `Create Exam with Topics (${jsonData.questions.length} questions)`
+                    )}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter className="mt-4">
+            <Button variant="outline" onClick={() => handleJsonDialogClose(false)}>
+              Cancel
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

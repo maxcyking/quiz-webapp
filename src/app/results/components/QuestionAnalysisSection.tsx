@@ -3,8 +3,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Check, X, AlertCircle, MinusCircle, CheckCircle2, XCircle, BookmarkIcon, EyeOff } from "lucide-react";
+import { Check, X, AlertCircle, MinusCircle, CheckCircle2, XCircle, BookmarkIcon, EyeOff, BarChart3, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { QuestionMath, OptionMath, SolutionMath } from "@/components/ui/math-content";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface QuestionAnalysisSectionProps {
   subjects: any[];
@@ -14,6 +22,7 @@ interface QuestionAnalysisSectionProps {
 
 export default function QuestionAnalysisSection({ subjects, questions, result }: QuestionAnalysisSectionProps) {
   const [selectedSubject, setSelectedSubject] = useState<string>(subjects.length > 0 ? subjects[0].id : "");
+  const [showChapterAnalysis, setShowChapterAnalysis] = useState(false);
 
   const getQuestionStatus = (question: any, userAnswer: any) => {
     // Get status directly from the answer object or from questionStatus
@@ -199,9 +208,103 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
 
   const statusCounts = getQuestionStatusCounts();
 
+  // Chapter/Topic analysis function
+  const getChapterAnalysis = () => {
+    const chapterStats: {[topic: string]: {
+      totalQuestions: number;
+      totalMarks: number;
+      earnedMarks: number;
+      correctAnswers: number;
+      incorrectAnswers: number;
+      notAttempted: number;
+      questionNumbers: number[];
+      weakQuestionNumbers: number[];
+      goodQuestionNumbers: number[];
+      averageMarks: number;
+      performance: 'weak' | 'good' | 'average';
+    }} = {};
+
+    questions.forEach((question, globalIndex) => {
+      const topic = question.topic || question.chapter || 'Uncategorized';
+      const userAnswer = result.answers.find((a: any) => a.questionId === question.id);
+      const marksEarned = userAnswer?.marksEarned || 0;
+      
+      if (!chapterStats[topic]) {
+        chapterStats[topic] = {
+          totalQuestions: 0,
+          totalMarks: 0,
+          earnedMarks: 0,
+          correctAnswers: 0,
+          incorrectAnswers: 0,
+          notAttempted: 0,
+          questionNumbers: [],
+          weakQuestionNumbers: [],
+          goodQuestionNumbers: [],
+          averageMarks: 0,
+          performance: 'average'
+        };
+      }
+
+      chapterStats[topic].totalQuestions++;
+      chapterStats[topic].totalMarks += question.marks;
+      chapterStats[topic].earnedMarks += marksEarned;
+      chapterStats[topic].questionNumbers.push(globalIndex + 1);
+
+      // Categorize performance
+      if (marksEarned <= 0) {
+        chapterStats[topic].weakQuestionNumbers.push(globalIndex + 1);
+        if (marksEarned < 0) {
+          chapterStats[topic].incorrectAnswers++;
+        } else {
+          chapterStats[topic].notAttempted++;
+        }
+      } else {
+        chapterStats[topic].goodQuestionNumbers.push(globalIndex + 1);
+        chapterStats[topic].correctAnswers++;
+      }
+    });
+
+    // Calculate averages and determine overall performance
+    Object.keys(chapterStats).forEach(topic => {
+      const stats = chapterStats[topic];
+      stats.averageMarks = stats.totalMarks > 0 ? (stats.earnedMarks / stats.totalMarks) * 100 : 0;
+      
+      if (stats.averageMarks >= 70) {
+        stats.performance = 'good';
+      } else if (stats.averageMarks <= 30 || stats.earnedMarks <= 0) {
+        stats.performance = 'weak';
+      } else {
+        stats.performance = 'average';
+      }
+    });
+
+    // Separate weak and good chapters
+    const weakChapters = Object.entries(chapterStats).filter(([_, stats]) => stats.performance === 'weak');
+    const goodChapters = Object.entries(chapterStats).filter(([_, stats]) => stats.performance === 'good');
+    const averageChapters = Object.entries(chapterStats).filter(([_, stats]) => stats.performance === 'average');
+
+    return {
+      all: chapterStats,
+      weak: weakChapters,
+      good: goodChapters,
+      average: averageChapters
+    };
+  };
+
+  const chapterAnalysis = getChapterAnalysis();
+
   return (
     <div className="mb-8">
-      <h2 className="text-2xl font-bold mb-6">Detailed Question Analysis</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Detailed Question Analysis</h2>
+        <Button 
+          onClick={() => setShowChapterAnalysis(true)}
+          className="flex items-center gap-2"
+        >
+          <BarChart3 className="h-4 w-4" />
+          Chapter Analysis
+        </Button>
+      </div>
       
       {/* Summary section */}
       <Card className="mb-6">
@@ -311,7 +414,7 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div>
-                          <p className="text-lg mb-4">{question.question}</p>
+                          <QuestionMath content={question.question} className="text-lg mb-4" />
                           {question.imageUrl && (
                             <img
                               src={question.imageUrl}
@@ -335,7 +438,7 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
                                   key={i}
                                   className={`p-3 rounded-md border flex items-center justify-between ${style}`}
                                 >
-                                  <span>{option}</span>
+                                  <OptionMath content={option} />
                                   {isSelected && (
                                     isCorrect ? (
                                       <Check className="h-5 w-5 text-green-600" />
@@ -389,6 +492,261 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
           );
         })}
       </Tabs>
+
+      {/* Chapter Analysis Modal */}
+      <Dialog open={showChapterAnalysis} onOpenChange={setShowChapterAnalysis}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Chapter Analysis
+            </DialogTitle>
+            <DialogDescription>
+              Detailed analysis of your performance by topics/chapters. Review weak areas and strengths.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex-1 overflow-y-auto">
+            <Tabs defaultValue="weak" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="weak" className="flex items-center gap-2">
+                  <TrendingDown className="h-4 w-4" />
+                  Weak Areas ({chapterAnalysis.weak.length})
+                </TabsTrigger>
+                <TabsTrigger value="good" className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4" />
+                  Strong Areas ({chapterAnalysis.good.length})
+                </TabsTrigger>
+                <TabsTrigger value="average">
+                  Average ({chapterAnalysis.average.length})
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Weak Areas Tab */}
+              <TabsContent value="weak" className="space-y-4 mt-4">
+                <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                  <h3 className="font-medium text-red-800 dark:text-red-200 mb-2">
+                    Focus Areas - Need Improvement
+                  </h3>
+                  <p className="text-sm text-red-600 dark:text-red-300">
+                    These topics need more practice. Focus on understanding concepts and solving more problems.
+                  </p>
+                </div>
+
+                {chapterAnalysis.weak.length === 0 ? (
+                  <Card>
+                    <CardContent className="text-center py-8">
+                      <TrendingUp className="h-12 w-12 text-green-500 mx-auto mb-3" />
+                      <h3 className="font-medium text-green-600 mb-2">Great Performance!</h3>
+                      <p className="text-muted-foreground">
+                        You don't have any weak areas. Keep up the excellent work!
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid gap-4">
+                    {chapterAnalysis.weak.map(([topic, stats]) => (
+                      <Card key={topic} className="border-red-200 dark:border-red-800">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle className="text-red-600 dark:text-red-400">{topic}</CardTitle>
+                              <CardDescription>
+                                {stats.totalQuestions} questions • {stats.averageMarks.toFixed(1)}% score
+                              </CardDescription>
+                            </div>
+                            <Badge variant="destructive">
+                              {stats.earnedMarks}/{stats.totalMarks} marks
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <div className="text-center p-2 bg-red-100 dark:bg-red-900/20 rounded">
+                              <div className="font-medium text-red-600 dark:text-red-400">{stats.incorrectAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Incorrect</div>
+                            </div>
+                            <div className="text-center p-2 bg-gray-100 dark:bg-gray-900/20 rounded">
+                              <div className="font-medium text-gray-600 dark:text-gray-400">{stats.notAttempted}</div>
+                              <div className="text-xs text-muted-foreground">Not Attempted</div>
+                            </div>
+                            <div className="text-center p-2 bg-green-100 dark:bg-green-900/20 rounded">
+                              <div className="font-medium text-green-600 dark:text-green-400">{stats.correctAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Correct</div>
+                            </div>
+                            <div className="text-center p-2 bg-blue-100 dark:bg-blue-900/20 rounded">
+                              <div className="font-medium text-blue-600 dark:text-blue-400">{stats.totalQuestions}</div>
+                              <div className="text-xs text-muted-foreground">Total</div>
+                            </div>
+                          </div>
+                          
+                          {stats.weakQuestionNumbers.length > 0 && (
+                            <div>
+                              <h4 className="font-medium mb-2 text-red-600 dark:text-red-400">
+                                Questions needing attention:
+                              </h4>
+                              <div className="flex flex-wrap gap-1">
+                                {stats.weakQuestionNumbers.map(qNum => (
+                                  <Badge key={qNum} variant="destructive" className="text-xs">
+                                    Q{qNum}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+
+              {/* Strong Areas Tab */}
+              <TabsContent value="good" className="space-y-4 mt-4">
+                <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                  <h3 className="font-medium text-green-800 dark:text-green-200 mb-2">
+                    Strong Areas - Well Done!
+                  </h3>
+                  <p className="text-sm text-green-600 dark:text-green-300">
+                    Excellent performance in these topics. Maintain your understanding and help others.
+                  </p>
+                </div>
+
+                {chapterAnalysis.good.length === 0 ? (
+                  <Card>
+                    <CardContent className="text-center py-8">
+                      <TrendingDown className="h-12 w-12 text-orange-500 mx-auto mb-3" />
+                      <h3 className="font-medium text-orange-600 mb-2">Room for Improvement</h3>
+                      <p className="text-muted-foreground">
+                        Focus on understanding concepts better to achieve strong performance in topics.
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid gap-4">
+                    {chapterAnalysis.good.map(([topic, stats]) => (
+                      <Card key={topic} className="border-green-200 dark:border-green-800">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle className="text-green-600 dark:text-green-400">{topic}</CardTitle>
+                              <CardDescription>
+                                {stats.totalQuestions} questions • {stats.averageMarks.toFixed(1)}% score
+                              </CardDescription>
+                            </div>
+                            <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                              {stats.earnedMarks}/{stats.totalMarks} marks
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <div className="text-center p-2 bg-green-100 dark:bg-green-900/20 rounded">
+                              <div className="font-medium text-green-600 dark:text-green-400">{stats.correctAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Correct</div>
+                            </div>
+                            <div className="text-center p-2 bg-red-100 dark:bg-red-900/20 rounded">
+                              <div className="font-medium text-red-600 dark:text-red-400">{stats.incorrectAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Incorrect</div>
+                            </div>
+                            <div className="text-center p-2 bg-gray-100 dark:bg-gray-900/20 rounded">
+                              <div className="font-medium text-gray-600 dark:text-gray-400">{stats.notAttempted}</div>
+                              <div className="text-xs text-muted-foreground">Not Attempted</div>
+                            </div>
+                            <div className="text-center p-2 bg-blue-100 dark:bg-blue-900/20 rounded">
+                              <div className="font-medium text-blue-600 dark:text-blue-400">{stats.totalQuestions}</div>
+                              <div className="text-xs text-muted-foreground">Total</div>
+                            </div>
+                          </div>
+                          
+                          {stats.goodQuestionNumbers.length > 0 && (
+                            <div>
+                              <h4 className="font-medium mb-2 text-green-600 dark:text-green-400">
+                                Questions answered correctly:
+                              </h4>
+                              <div className="flex flex-wrap gap-1">
+                                {stats.goodQuestionNumbers.map(qNum => (
+                                  <Badge key={qNum} className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-xs">
+                                    Q{qNum}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+
+              {/* Average Areas Tab */}
+              <TabsContent value="average" className="space-y-4 mt-4">
+                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h3 className="font-medium text-blue-800 dark:text-blue-200 mb-2">
+                    Average Performance Areas
+                  </h3>
+                  <p className="text-sm text-blue-600 dark:text-blue-300">
+                    Good foundation but can be improved with more practice and focused study.
+                  </p>
+                </div>
+
+                {chapterAnalysis.average.length === 0 ? (
+                  <Card>
+                    <CardContent className="text-center py-8">
+                      <BarChart3 className="h-12 w-12 text-blue-500 mx-auto mb-3" />
+                      <h3 className="font-medium text-blue-600 mb-2">Clear Performance Pattern</h3>
+                      <p className="text-muted-foreground">
+                        Your performance is clearly divided between strong and weak areas.
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid gap-4">
+                    {chapterAnalysis.average.map(([topic, stats]) => (
+                      <Card key={topic} className="border-blue-200 dark:border-blue-800">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle className="text-blue-600 dark:text-blue-400">{topic}</CardTitle>
+                              <CardDescription>
+                                {stats.totalQuestions} questions • {stats.averageMarks.toFixed(1)}% score
+                              </CardDescription>
+                            </div>
+                            <Badge variant="secondary">
+                              {stats.earnedMarks}/{stats.totalMarks} marks
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="text-center p-2 bg-green-100 dark:bg-green-900/20 rounded">
+                              <div className="font-medium text-green-600 dark:text-green-400">{stats.correctAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Correct</div>
+                            </div>
+                            <div className="text-center p-2 bg-red-100 dark:bg-red-900/20 rounded">
+                              <div className="font-medium text-red-600 dark:text-red-400">{stats.incorrectAnswers}</div>
+                              <div className="text-xs text-muted-foreground">Incorrect</div>
+                            </div>
+                            <div className="text-center p-2 bg-gray-100 dark:bg-gray-900/20 rounded">
+                              <div className="font-medium text-gray-600 dark:text-gray-400">{stats.notAttempted}</div>
+                              <div className="text-xs text-muted-foreground">Not Attempted</div>
+                            </div>
+                            <div className="text-center p-2 bg-blue-100 dark:bg-blue-900/20 rounded">
+                              <div className="font-medium text-blue-600 dark:text-blue-400">{stats.totalQuestions}</div>
+                              <div className="text-xs text-muted-foreground">Total</div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

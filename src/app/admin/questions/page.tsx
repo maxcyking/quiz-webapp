@@ -30,6 +30,7 @@ import type { Subject } from "@/lib/exam-utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { WysiwygEditor } from "@/components/ui/wysiwyg-editor";
 import * as XLSX from 'xlsx';
+import { QuestionMath } from "@/components/ui/math-content";
 
 type QuestionFormData = {
   question: string;
@@ -98,8 +99,13 @@ export default function AdminQuestionsPage() {
   const [filePreview, setCsvPreview] = useState<any[]>([]);
   const [uploadingFile, setUploadingCsv] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadFormat, setUploadFormat] = useState<"csv" | "excel">("csv");
+  const [uploadFormat, setUploadFormat] = useState<"csv" | "excel" | "json">("csv");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Enhanced upload state for JSON format
+  const [jsonPreview, setJsonPreview] = useState<any>(null);
+  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [uploadingJson, setUploadingJson] = useState(false);
   
   // Image upload state
   const [questionImageFile, setQuestionImageFile] = useState<File | null>(null);
@@ -882,12 +888,14 @@ export default function AdminQuestionsPage() {
     document.body.removeChild(a);
   };
 
-  // Handle file selection (CSV or Excel)
+  // Handle file selection (CSV, Excel, or JSON)
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setUploadFile(file);
     setCsvError(null);
+    setJsonError(null);
     setCsvPreview([]);
+    setJsonPreview(null);
     
     if (!file) return;
     
@@ -899,8 +907,11 @@ export default function AdminQuestionsPage() {
     } else if (fileType === 'xlsx' || fileType === 'xls') {
       setUploadFormat('excel');
       previewExcelFile(file);
+    } else if (fileType === 'json') {
+      setUploadFormat('json');
+      previewJsonFile(file);
     } else {
-      setCsvError("Invalid file format. Please upload a .csv, .xlsx, or .xls file.");
+      setCsvError("Invalid file format. Please upload a .csv, .xlsx, .xls, or .json file.");
     }
   };
 
@@ -972,8 +983,10 @@ export default function AdminQuestionsPage() {
       // Process based on file type
       if (uploadFormat === 'csv') {
         await processAndUploadCsv(uploadFile);
-      } else {
+      } else if (uploadFormat === 'excel') {
         await processAndUploadExcel(uploadFile);
+      } else if (uploadFormat === 'json') {
+        await processAndUploadJson(uploadFile);
       }
       
     } catch (error: any) {
@@ -1086,6 +1099,90 @@ export default function AdminQuestionsPage() {
     });
   };
 
+  // Preview JSON file
+  const previewJsonFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const jsonData = JSON.parse(event.target?.result as string);
+        setJsonPreview(jsonData);
+        setJsonError(null);
+        
+        // Set preview for display (show first few questions)
+        if (jsonData.questions && Array.isArray(jsonData.questions)) {
+          const previewQuestions = jsonData.questions.slice(0, 3).map((q: any) => ({
+            questionNo: q.questionNo || 'N/A',
+            sectionTitle: q.sectionTitle || 'N/A',
+            questionText: q.english?.questionText?.substring(0, 100) + '...' || 'N/A',
+            correctAnswer: q.correctAnswer || 'N/A',
+            hasHindi: !!q.hindi?.questionText,
+            hasComprehension: !!q.english?.comprehensionHTML,
+            marks: q.properties?.scoring?.posMarks || 'N/A'
+          }));
+          setCsvPreview(previewQuestions);
+        } else {
+          setCsvPreview([]);
+          setJsonError("Invalid JSON format: Expected 'questions' array not found");
+        }
+      } catch (error) {
+        setJsonError("Failed to parse JSON file. Please check the format.");
+        setJsonPreview(null);
+        setCsvPreview([]);
+        console.error("JSON parsing error:", error);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Process JSON file and upload questions
+  const processAndUploadJson = async (file: File) => {
+    const reader = new FileReader();
+    
+    return new Promise<void>((resolve, reject) => {
+      reader.onload = async (event) => {
+        try {
+          const jsonData = JSON.parse(event.target?.result as string);
+          
+          // Validate JSON structure
+          if (!jsonData || !jsonData.questions || !Array.isArray(jsonData.questions)) {
+            throw new Error("Invalid JSON format. Expected structure with 'questions' array.");
+          }
+          
+          // Process questions using HTML extractor format
+          const questions = processHtmlExtractorJson(jsonData);
+          
+          if (questions.length === 0) {
+            throw new Error("No valid questions found in JSON file");
+          }
+          
+          console.log(`Processing ${questions.length} questions from JSON`);
+          
+          // Upload questions
+          await uploadQuestions(questions);
+          resolve();
+          
+        } catch (error: any) {
+          console.error("Error processing JSON:", error);
+          setJsonError(error.message || "Failed to process JSON file");
+          setCsvError(error.message || "Failed to process JSON file");
+          reject(error);
+        } finally {
+          setUploadingCsv(false);
+        }
+      };
+      
+      reader.onerror = () => {
+        const errorMsg = "Error reading JSON file";
+        setJsonError(errorMsg);
+        setCsvError(errorMsg);
+        setUploadingCsv(false);
+        reject(new Error(errorMsg));
+      };
+      
+      reader.readAsText(file);
+    });
+  };
+
   // Validate headers
   const validateHeaders = (headers: string[]) => {
     const requiredFields = ["question", "type", "subjectId"];
@@ -1180,6 +1277,181 @@ export default function AdminQuestionsPage() {
     return questionData;
   };
 
+  // Process HTML extractor JSON format
+  const processHtmlExtractorJson = (jsonData: any) => {
+    if (!jsonData || !jsonData.questions) {
+      throw new Error("Invalid JSON format. Expected structure with 'questions' array.");
+    }
+
+    const processedQuestions = jsonData.questions.map((item: any, index: number) => {
+      // Convert correct answer from letter to index
+      let correctAnswerIndex = 0;
+      if (item.correctAnswer) {
+        const answerLetter = item.correctAnswer.toUpperCase();
+        correctAnswerIndex = ['A', 'B', 'C', 'D'].indexOf(answerLetter);
+        if (correctAnswerIndex === -1) correctAnswerIndex = 0;
+      }
+
+      // Extract options from HTML format
+      const extractOptions = (optionsHTML: any[], language: 'english' | 'hindi') => {
+        if (!optionsHTML || !Array.isArray(optionsHTML)) return ['', '', '', ''];
+        
+        return optionsHTML.map(option => {
+          // Use text version if available, otherwise extract from HTML
+          if (option.text) return option.text;
+          if (option.html) {
+            // Simple HTML to text conversion
+            return option.html.replace(/<[^>]*>/g, '').trim();
+          }
+          return '';
+        });
+      };
+
+      // Enhanced HTML cleaning function that preserves LaTeX for MathJax
+      const cleanHtml = (html: string) => {
+        if (!html) return '';
+        
+        // First decode HTML entities
+        let cleaned = html
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&amp;/g, '&')
+          .replace(/&nbsp;/g, ' ');
+        
+        // Preserve LaTeX expressions by temporarily replacing them
+        const mathExpressions: string[] = [];
+        
+        // Handle inline math \(...\)
+        cleaned = cleaned.replace(/\\\((.*?)\\\)/g, (match, expr) => {
+          const placeholder = `__MATH_INLINE_${mathExpressions.length}__`;
+          mathExpressions.push(`\\(${expr.trim()}\\)`);
+          return placeholder;
+        });
+        
+        // Handle display math \[...\]
+        cleaned = cleaned.replace(/\\\[(.*?)\\\]/g, (match, expr) => {
+          const placeholder = `__MATH_DISPLAY_${mathExpressions.length}__`;
+          mathExpressions.push(`\\[${expr.trim()}\\]`);
+          return placeholder;
+        });
+        
+        // Handle span with math-tex class
+        cleaned = cleaned.replace(/<span[^>]*class="math-tex"[^>]*>(.*?)<\/span>/g, (match, content) => {
+          // Extract LaTeX from within the span
+          const latexMatch = content.match(/\\\((.*?)\\\)|\\\[(.*?)\\\]/);
+          if (latexMatch) {
+            const placeholder = `__MATH_INLINE_${mathExpressions.length}__`;
+            mathExpressions.push(latexMatch[0]);
+            return placeholder;
+          }
+          return content;
+        });
+        
+        // Remove HTML tags but preserve content
+        cleaned = cleaned
+          .replace(/<br\s*\/?>/gi, ' ')   // Convert <br> to space
+          .replace(/<\/p>/gi, '\n\n')     // Convert </p> to double line breaks
+          .replace(/<p[^>]*>/gi, '')      // Remove opening <p> tags
+          .replace(/<div[^>]*>/gi, ' ')   // Convert <div> to space
+          .replace(/<\/div>/gi, '')       // Remove closing </div> tags
+          .replace(/<[^>]*>/g, '');       // Remove all other HTML tags
+        
+        // Restore LaTeX expressions for MathJax
+        mathExpressions.forEach((expr, index) => {
+          cleaned = cleaned
+            .replace(`__MATH_INLINE_${index}__`, expr)
+            .replace(`__MATH_DISPLAY_${index}__`, expr);
+        });
+        
+        // Clean up extra whitespace but preserve line breaks for display math
+        cleaned = cleaned
+          .replace(/\n\s*\n/g, '\n\n')    // Multiple line breaks to double
+          .replace(/\n{3,}/g, '\n\n')     // More than 2 line breaks to 2
+          .replace(/^\s+|\s+$/g, '')      // Trim start and end
+          .replace(/([^\n])\s+([^\n])/g, '$1 $2'); // Multiple spaces to single (but preserve line breaks)
+        
+        return cleaned;
+      };
+
+      const questionData = {
+        examId: selectedExam,
+        subjectId: selectedSubject,
+        createdAt: new Date(),
+        
+        // Basic question data
+        question: cleanHtml(item.english?.questionHTML || item.english?.questionText || ''),
+        type: item.features?.type === 'multiple' ? 'multiple' : 'single',
+        options: extractOptions(item.english?.optionsHTML, 'english'),
+        correctAnswer: correctAnswerIndex,
+        correctAnswers: item.features?.type === 'multiple' ? [correctAnswerIndex] : [],
+        
+        // Scoring
+        marks: item.properties?.scoring?.posMarks || 2,
+        negativeMark: Math.abs(item.properties?.scoring?.negMarks || 0.5),
+        
+        // Solutions and explanations
+        explanation: cleanHtml(item.english?.solutionHTML || item.english?.solutionText || ''),
+        solution: cleanHtml(item.english?.solutionHTML || item.english?.solutionText || ''),
+        
+        // Hindi content
+        questionHindi: cleanHtml(item.hindi?.questionHTML || item.hindi?.questionText || ''),
+        optionsHindi: extractOptions(item.hindi?.optionsHTML, 'hindi'),
+        explanationHindi: cleanHtml(item.hindi?.solutionHTML || item.hindi?.solutionText || ''),
+        solutionHindi: cleanHtml(item.hindi?.solutionHTML || item.hindi?.solutionText || ''),
+        
+        // Comprehension passages
+        comprehensionPassage: cleanHtml(item.english?.comprehensionHTML || ''),
+        comprehensionPassageHindi: cleanHtml(item.hindi?.comprehensionHTML || ''),
+        
+        // Image URLs - extract from question HTML if present
+        questionImageUrl: extractImageUrl(item.english?.questionHTML || ''),
+        questionImageUrlHindi: extractImageUrl(item.hindi?.questionHTML || ''),
+        
+        // Additional metadata from extractor
+        extractorMetadata: {
+          originalQuestionId: item.questionId,
+          sectionTitle: item.sectionTitle,
+          questionNo: item.questionNo,
+          sectionNo: item.sectionNo,
+          extractionStatus: item.extractionStatus,
+          features: item.features,
+          properties: item.properties,
+          availableLanguages: item.features?.availableLanguages || [],
+          comprehensionType: item.features?.comprehensionType || 'none',
+          isNumerical: item.features?.isNumerical || false,
+          hasComprehension: item.features?.hasComprehension || false
+        }
+      };
+
+      return questionData;
+    });
+
+    return processedQuestions;
+  };
+
+  // Extract image URLs from HTML content
+  const extractImageUrl = (html: string): string => {
+    if (!html) return '';
+    
+    // Look for img tags and extract src
+    const imgRegex = /<img[^>]+src="([^"]+)"/i;
+    const match = html.match(imgRegex);
+    
+    if (match && match[1]) {
+      let src = match[1];
+      // Convert relative URLs to absolute URLs for Google Storage
+      if (src.startsWith('//storage.googleapis.com')) {
+        src = 'https:' + src;
+      } else if (src.startsWith('/storage.googleapis.com')) {
+        src = 'https:/' + src;
+      }
+      return src;
+    }
+    
+    return '';
+  };
+
   // Upload questions to database
   const uploadQuestions = async (questions: any[]) => {
     // Validate questions
@@ -1262,10 +1534,14 @@ export default function AdminQuestionsPage() {
     setShowFileUploadDialog(false);
     setUploadFile(null);
     
-    // Reset file input
+    // Reset file input and JSON state
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+    setJsonPreview(null);
+    setJsonError(null);
+    setCsvPreview([]);
+    setCsvError(null);
   };
 
   // Get specific validation error for a question
@@ -2218,7 +2494,7 @@ export default function AdminQuestionsPage() {
           <DialogHeader>
             <DialogTitle>Bulk Upload Questions</DialogTitle>
             <DialogDescription>
-              Upload questions in bulk using CSV or Excel files. Each question must include a subjectId (get subject IDs from your exam's subjects list). Download a template to see the required format including new fields like comprehension passages in both English and Hindi.
+              Upload questions in bulk using CSV, Excel, or JSON files. For CSV/Excel: Each question must include a subjectId (get subject IDs from your exam's subjects list). For JSON: Use the HTML Extractor format from Testbook with comprehensive question data including HTML content and multi-language support.
             </DialogDescription>
           </DialogHeader>
           
@@ -2242,9 +2518,10 @@ export default function AdminQuestionsPage() {
             )}
 
             <Tabs defaultValue="csv" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="csv">CSV Format</TabsTrigger>
                 <TabsTrigger value="excel">Excel Format</TabsTrigger>
+                <TabsTrigger value="json">JSON Format</TabsTrigger>
               </TabsList>
               
               <TabsContent value="csv" className="mt-4">
@@ -2286,6 +2563,52 @@ export default function AdminQuestionsPage() {
                   </Button>
                 </div>
               </TabsContent>
+              
+              <TabsContent value="json" className="mt-4">
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-medium">JSON Format (HTML Extractor)</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Upload JSON files from the Ultimate HTML Testbook Extractor script. This format preserves HTML content, supports multi-language questions, and includes comprehensive metadata.
+                    </p>
+                  </div>
+                  <div className="bg-muted/50 p-3 rounded-lg">
+                    <h4 className="text-xs font-medium mb-2">Features supported:</h4>
+                    <div className="grid grid-cols-2 gap-1 text-xs">
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>HTML content preservation</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>English + Hindi support</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>Image URLs extraction</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>Comprehension passages</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>Solution explanations</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Check className="h-3 w-3 mr-1 text-green-500" />
+                        <span>Comprehensive metadata</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription className="text-xs">
+                      Use the Ultimate HTML Testbook Extractor script on Testbook exam pages to generate compatible JSON files. The extractor preserves all question formatting and metadata.
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </TabsContent>
             </Tabs>
             
             <div className="grid gap-2 mt-4">
@@ -2294,12 +2617,12 @@ export default function AdminQuestionsPage() {
                 ref={fileInputRef}
                 id="question-file"
                 type="file"
-                accept=".csv,.xlsx,.xls"
+                accept=".csv,.xlsx,.xls,.json"
                 onChange={handleFileChange}
                 className="cursor-pointer"
               />
               <p className="text-xs text-muted-foreground">
-                Supported file types: CSV (.csv) and Excel (.xlsx, .xls)
+                Supported file types: CSV (.csv), Excel (.xlsx, .xls), and JSON (.json)
               </p>
               <div className="text-xs flex flex-wrap gap-x-3 gap-y-1 mt-1">
                 <div className="flex items-center">
@@ -2333,14 +2656,81 @@ export default function AdminQuestionsPage() {
               </div>
             </div>
             
-            {uploadError && (
+            {(uploadError || jsonError) && (
               <Alert variant="destructive" className="mt-2">
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{uploadError}</AlertDescription>
+                <AlertDescription>{uploadError || jsonError}</AlertDescription>
               </Alert>
             )}
             
+            {/* JSON Preview */}
+            {uploadFormat === 'json' && jsonPreview && (
+              <div className="mt-4 space-y-3">
+                <h3 className="text-sm font-medium">JSON File Summary:</h3>
+                <div className="bg-muted/50 p-3 rounded-lg">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="font-medium">Exam Title:</span>
+                      <div className="text-muted-foreground">{jsonPreview.examDetails?.title || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Total Questions:</span>
+                      <div className="text-muted-foreground">{jsonPreview.questions?.length || 0}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Course:</span>
+                      <div className="text-muted-foreground">{jsonPreview.examDetails?.course || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span className="font-medium">Sections:</span>
+                      <div className="text-muted-foreground">{jsonPreview.examDetails?.totalSections || 0}</div>
+                    </div>
+                  </div>
+                </div>
+            
             {filePreview.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium">Question Preview (first 3 questions):</h4>
+                    <div className="space-y-2">
+                      {filePreview.map((question: any, index: number) => (
+                        <div key={index} className="border rounded-md p-3 bg-background">
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                              <span className="font-medium">Q{question.questionNo}:</span>
+                              <div className="text-muted-foreground mt-1">{question.sectionTitle}</div>
+                            </div>
+                            <div>
+                              <span className="font-medium">Answer:</span>
+                              <div className="text-muted-foreground">{question.correctAnswer}</div>
+                            </div>
+                            <div className="col-span-2">
+                              <span className="font-medium">Question:</span>
+                              <div className="text-muted-foreground mt-1">
+                                <QuestionMath content={question.questionText} className="text-sm" />
+                              </div>
+                            </div>
+                            <div className="col-span-2 flex gap-3 text-xs">
+                              <span className={question.hasHindi ? "text-green-600" : "text-muted-foreground"}>
+                                {question.hasHindi ? "✓" : "✗"} Hindi
+                              </span>
+                              <span className={question.hasComprehension ? "text-green-600" : "text-muted-foreground"}>
+                                {question.hasComprehension ? "✓" : "✗"} Comprehension
+                              </span>
+                              <span className="text-muted-foreground">
+                                {question.marks} marks
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* CSV/Excel Preview */}
+            {uploadFormat !== 'json' && filePreview.length > 0 && (
               <div className="mt-4 space-y-2">
                 <h3 className="text-sm font-medium">Preview (first {filePreview.length} rows):</h3>
                 <div className="border rounded-md overflow-x-auto">

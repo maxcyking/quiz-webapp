@@ -28,6 +28,7 @@ import { db } from "@/lib/firebase/config";
 import type { Subject } from "@/lib/exam-utils";
 import { SuccessAnimation } from "@/components/ui/success-animation";
 import { useToast } from "@/hooks/use-toast";
+import { QuestionMath, OptionMath } from "@/components/ui/math-content";
 
 export default function ExamAttemptPage() {
     const params = useParams();
@@ -58,6 +59,7 @@ export default function ExamAttemptPage() {
     const [visitedQuestions, setVisitedQuestions] = useState<Set<string>>(new Set());
     const [reviewQuestions, setReviewQuestions] = useState<Set<string>>(new Set());
     const [selectedLanguage, setSelectedLanguage] = useState<"english" | "hindi">("english");
+    const shouldSubmitRef = useRef(false);
     const maximumNavigationAttempts = 3;
     const maximumTabSwitchAttempts = 3;
     const maximumEscapeAttempts = 3;
@@ -401,11 +403,19 @@ export default function ExamAttemptPage() {
 
     // Define submitExamOnLeavingAttempts as a separate function outside of the useEffect
     const submitExamOnMaxAttempts = useCallback(() => {
-        if (currentAttempt && !currentAttempt.isSubmitted) {
+        if (currentAttempt && !currentAttempt.isSubmitted && !shouldSubmitRef.current) {
+            shouldSubmitRef.current = true;
+        }
+    }, [currentAttempt]);
+
+    // Handle submission when shouldSubmitRef is set to true (outside render cycle)
+    useEffect(() => {
+        if (shouldSubmitRef.current && currentAttempt && !currentAttempt.isSubmitted) {
             setLoading(true);
             submitExam()
                 .then(() => {
                     setShowSuccess(true);
+                    shouldSubmitRef.current = false;
                     // Clear language preference for this exam
                     if (typeof window !== 'undefined') {
                         localStorage.removeItem(`exam-language-${id}`);
@@ -418,6 +428,7 @@ export default function ExamAttemptPage() {
                 })
                 .catch(error => {
                     console.error("Error submitting exam:", error);
+                    shouldSubmitRef.current = false;
                     toast({
                         title: "Error",
                         description: "Failed to submit exam. Please try again.",
@@ -429,7 +440,7 @@ export default function ExamAttemptPage() {
                     setShowSubmitDialog(false);
                 });
         }
-    }, [currentAttempt, submitExam, toast]);
+    }, [currentAttempt, submitExam, toast, id]);
 
     // Tab visibility change handling
     useEffect(() => {
@@ -1449,14 +1460,17 @@ export default function ExamAttemptPage() {
                                 </CardHeader>
                                 <CardContent className="space-y-6">
                                     <div>
-                                        <p className="text-lg mb-4">
-                                            {/* Show Hindi question if language is Hindi and subject supports both, otherwise show English */}
-                                            {selectedLanguage === "hindi" &&
+                                        <QuestionMath 
+                                            content={
+                                                /* Show Hindi question if language is Hindi and subject supports both, otherwise show English */
+                                                selectedLanguage === "hindi" &&
                                                 subjects.find(s => s.id === selectedSubject)?.language === "both" &&
                                                 currentQuestion.questionHindi
                                                 ? currentQuestion.questionHindi
-                                                : currentQuestion.question}
-                                        </p>
+                                                : currentQuestion.question
+                                            }
+                                            className="text-lg mb-4"
+                                        />
                                         {currentQuestion.imageUrl && (
                                             <img
                                                 src={currentQuestion.imageUrl}
@@ -1495,7 +1509,9 @@ export default function ExamAttemptPage() {
                                             ).map((option, index) => (
                                                 <div key={index} className="flex items-center space-x-2">
                                                     <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                                                    <Label htmlFor={`option-${index}`}>{option}</Label>
+                                                    <Label htmlFor={`option-${index}`} className="flex-1">
+                                                        <OptionMath content={option} />
+                                                    </Label>
                                                 </div>
                                             ))}
                                         </RadioGroup>
@@ -1523,7 +1539,9 @@ export default function ExamAttemptPage() {
                                                             handleAnswerChange(currentQuestion.id, newAnswer);
                                                         }}
                                                     />
-                                                    <Label htmlFor={`option-${index}`}>{option}</Label>
+                                                    <Label htmlFor={`option-${index}`} className="flex-1">
+                                                        <OptionMath content={option} />
+                                                    </Label>
                                                 </div>
                                             ))}
                                         </div>
