@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Check, X, AlertCircle, MinusCircle, CheckCircle2, XCircle, BookmarkIcon, EyeOff, BarChart3, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { QuestionMath, OptionMath, SolutionMath } from "@/components/ui/math-content";
+// Removed MathJax components - using simple text conversion instead
 import {
   Dialog,
   DialogContent,
@@ -414,7 +414,10 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div>
-                          <QuestionMath content={question.question} className="text-lg mb-4" />
+                          <div 
+                            className="text-lg mb-4 leading-relaxed"
+                            dangerouslySetInnerHTML={{ __html: question.question || '' }}
+                          />
                           {question.imageUrl && (
                             <img
                               src={question.imageUrl}
@@ -438,7 +441,10 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
                                   key={i}
                                   className={`p-3 rounded-md border flex items-center justify-between ${style}`}
                                 >
-                                  <OptionMath content={option} />
+                                  <div 
+                                    className="leading-relaxed flex-1"
+                                    dangerouslySetInnerHTML={{ __html: option || '' }}
+                                  />
                                   {isSelected && (
                                     isCorrect ? (
                                       <Check className="h-5 w-5 text-green-600" />
@@ -472,13 +478,16 @@ export default function QuestionAnalysisSection({ subjects, questions, result }:
                           </div>
                         )}
 
-                        {question.explanation && (
+                        {(question.explanation || question.solution) && (
                           <div className="mt-4 p-4 rounded-md border bg-muted/50">
                             <div className="flex items-start gap-2">
                               <AlertCircle className="h-5 w-5 text-muted-foreground mt-0.5" />
                               <div>
                                 <p className="font-medium mb-1">Explanation</p>
-                                <p className="text-muted-foreground">{question.explanation}</p>
+                                <div 
+                                  className="text-muted-foreground leading-relaxed"
+                                  dangerouslySetInnerHTML={{ __html: question.explanation || question.solution || '' }}
+                                />
                               </div>
                             </div>
                           </div>

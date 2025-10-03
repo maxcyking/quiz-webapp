@@ -78,6 +78,7 @@ export default function ExamResultPage() {
     const [confettiTriggered, setConfettiTriggered] = useState(false);
     const rewardCardRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
         if (!user) {
             router.push("/login");

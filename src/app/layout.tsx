@@ -169,6 +169,19 @@ export default function RootLayout({
                         console.log('🚀 Auto-processing existing math content...');
                         window.reprocessMath();
                       }, 1000);
+                      
+                      // Add debug function for troubleshooting
+                      window.debugMathJax = function() {
+                        console.log('🔍 MathJax Debug Info:');
+                        console.log('- MathJax available:', !!window.MathJax);
+                        console.log('- mathJaxReady flag:', window.mathJaxReady);
+                        console.log('- MathJax startup:', !!window.MathJax?.startup);
+                        console.log('- typesetPromise available:', !!window.MathJax?.typesetPromise);
+                        const mathElements = document.querySelectorAll('mjx-container, .MathJax, mjx-math');
+                        console.log('- Math elements found:', mathElements.length);
+                        const texElements = document.querySelectorAll('.tex2jax_process, .math-content');
+                        console.log('- Elements to process:', texElements.length);
+                      };
                     }
                   }
                 }

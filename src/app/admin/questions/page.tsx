@@ -30,7 +30,7 @@ import type { Subject } from "@/lib/exam-utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { WysiwygEditor } from "@/components/ui/wysiwyg-editor";
 import * as XLSX from 'xlsx';
-import { QuestionMath } from "@/components/ui/math-content";
+import { QuestionMath, OptionMath } from "@/components/ui/math-content";
 
 type QuestionFormData = {
   question: string;
@@ -1813,7 +1813,9 @@ export default function AdminQuestionsPage() {
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg">{question.question}</CardTitle>
+                    <CardTitle className="text-lg">
+                      <QuestionMath content={question.question || ''} />
+                    </CardTitle>
                     <CardDescription>
                       Type: {question.type} | Marks: {question.marks} | Negative Marks:{" "}
                       {question.negativeMark}
@@ -1881,7 +1883,7 @@ export default function AdminQuestionsPage() {
                             : "bg-muted"
                         }`}
                       >
-                        {option}
+                        <OptionMath content={option || ''} />
                       </div>
                     ))}
                   </div>

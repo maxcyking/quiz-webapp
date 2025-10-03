@@ -8,6 +8,7 @@ declare global {
   interface Window {
     reprocessMath?: (container?: HTMLElement) => Promise<void>;
     displayTestbookContent?: (html: string, containerId?: string) => void;
+    debugMathJax?: () => void;
   }
 }
 
@@ -76,17 +77,40 @@ export function MathContent({
   // Check if MathJax is ready
   useEffect(() => {
     const checkMathJax = () => {
-      if (typeof window !== 'undefined' && window.MathJax && window.MathJax.startup) {
+      if (typeof window !== 'undefined' && window.MathJax && (window.MathJax.startup || window.mathJaxReady)) {
         setMathReady(true);
-      } else {
-        // Listen for MathJax ready event
-        const handleMathJaxReady = () => setMathReady(true);
-        window.addEventListener('mathjax-ready', handleMathJaxReady);
-        return () => window.removeEventListener('mathjax-ready', handleMathJaxReady);
+        return true;
       }
+      return false;
     };
     
-    checkMathJax();
+    // Check immediately
+    if (checkMathJax()) return;
+    
+    // Set up periodic checking for MathJax
+    const interval = setInterval(() => {
+      if (checkMathJax()) {
+        clearInterval(interval);
+      }
+    }, 100);
+    
+    // Listen for MathJax ready event
+    const handleMathJaxReady = () => {
+      setMathReady(true);
+      clearInterval(interval);
+    };
+    
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mathjax-ready', handleMathJaxReady);
+    }
+    
+    // Cleanup
+    return () => {
+      clearInterval(interval);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('mathjax-ready', handleMathJaxReady);
+      }
+    };
   }, []);
 
   // Process content when it changes
@@ -121,11 +145,30 @@ export function MathContent({
         } else if (window.reprocessMath && containerRef.current) {
           await window.reprocessMath(containerRef.current);
         } else {
-          // Instead of throwing error, just log warning and show fallback if enabled
-          console.warn('⚠️ MathJax not available, content will display as plain HTML');
-          if (fallbackToText) {
-            setShowFallback(true);
-          }
+          // Try to wait a bit more for MathJax to load
+          console.warn('⚠️ MathJax not immediately available, waiting...');
+          
+          // Wait up to 2 seconds for MathJax to become available
+          let attempts = 0;
+          const maxAttempts = 20; // 2 seconds total
+          
+          const waitForMathJax = setInterval(() => {
+            attempts++;
+            if (window.MathJax && window.MathJax.typesetPromise && containerRef.current) {
+              clearInterval(waitForMathJax);
+              window.MathJax.typesetPromise([containerRef.current])
+                .then(() => console.log('✅ MathJax processing completed after wait'))
+                .catch(() => {
+                  if (fallbackToText) setShowFallback(true);
+                });
+            } else if (attempts >= maxAttempts) {
+              clearInterval(waitForMathJax);
+              console.warn('⚠️ MathJax not available after waiting, content will display as plain HTML');
+              if (fallbackToText) {
+                setShowFallback(true);
+              }
+            }
+          }, 100);
         }
       } catch (error) {
         console.error('❌ MathJax processing failed:', error);
@@ -157,7 +200,7 @@ export function MathContent({
           setShowFallback(true);
         }
       }
-    }, 3000); // 3 second timeout
+    }, 5000); // 5 second timeout - increased for better results page loading
 
     return () => clearTimeout(timer);
   }, [processedContent, fallbackToText, isProcessing, showFallback]);
